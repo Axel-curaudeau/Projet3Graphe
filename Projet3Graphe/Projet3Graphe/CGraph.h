@@ -11,6 +11,17 @@
 class CGraph
 {
     /* =-=-=-=-=-= La suite dans le prochain épisode =-=-=-=-=-= */
+
+    /* DOIT POUVOIR :
+        - Ajouter un sommet
+        - Modifier un sommet
+        - Supprimer un sommet
+        - Ajouter un arc
+        - Modifier un arc
+        - Supprimer un arc
+        - Afficher le graphe
+        - Inverser les arcs du graph (étape intermédiaire avec sommet peut-être ?)
+    */
 }
 
 #ifndef

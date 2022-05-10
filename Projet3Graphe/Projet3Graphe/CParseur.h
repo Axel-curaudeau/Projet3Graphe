@@ -1,18 +1,32 @@
 #define CPARSEUR_H
 #ifndef CPARSEUR_H
 
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+/* ===== ERROR CODES ===== */
+#define FICHIER_INTROUVABLE 1
+
+/*
+ * Classe CParseur
+ *
+ * Cette class est utilisée pour gérer les parseurs.
+ */
 class CParseur {
 	private :
 		ifstream IFSPRSFichier;
-		char* pcPRSLigne;
 	public :
 		CParseur();
-		CParseur(ifstream IFSFile);
-		ifstream PRSLireFichier();
-
+		CParseur(char* pcChemin);
+		void PRSModifierFichier(char* pcChemin);
+		char* PSRLireValeur(char *pcCle);
+	protected :
+		void suppChar(char pcChaine[], char cChar);
+		void enMinuscule(char pcChaine[]);
+		bool estEgal(const char pcChaine1[], const char pcChaine2[]);
+		void analyseLigne(ifstream & IFSFichier, char pcPrecedent[], char pcSuivant[]);
 };
-
-
-
 
 #endif //CPARSEUR_H
