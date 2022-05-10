@@ -5,9 +5,9 @@
 #define EXCEPTION_INCONNUE 0
 
 /*
- * Exception class
+ * Classe CException
  * 
- * This class is used to handle exceptions.
+ * Cette class est utilisée pour gérer les exceptions
  */
 class CException
 {
@@ -24,7 +24,7 @@ class CException
          * Nécessite: -                                            *
          * Sortie: -                                               *
          * Entraine: L'objet en cours est initialisé avec l'erreur *
-         *           EXCEPTION_INCONNUE (0) et le message :         *
+         *           EXCEPTION_INCONNUE (0) et le message :        *
          *           "Erreur initialisée par defaut".              *
          ********************************************************* */
         CException()
@@ -41,7 +41,7 @@ class CException
          * Sortie: -                                               *
          * Entraine: L'objet en cours est initialisé avec l'erreur *
          *           uiCode et le message :                        *
-         *           "*Message d'erreur manquant*".                    *
+         *           "*Message d'erreur manquant*".                *
          ********************************************************* */
         CException(unsigned int uiCode)
         {
@@ -53,7 +53,7 @@ class CException
          *               Constructeur par parametre                *
          ***********************************************************
          * Entrée: unsigned int uiCode                             *
-         *         char* pcMessage                                  * 
+         *         char* pcMessage                                 * 
          * Nécessite: -                                            *
          * Sortie: -                                               *
          * Entraine: L'objet en cours est initialisé avec l'erreur *
@@ -105,9 +105,9 @@ class CException
         }
 
         /* *********************************************************
-         *            Accesseur pcEXCMessage (écriture)             *
+         *            Accesseur pcEXCMessage (écriture)            *
          ***********************************************************
-         * Entrée: char* pcMessage                                  *
+         * Entrée: char* pcMessage                                 *
          * Nécessite: -                                            *
          * Sortie: -                                               *
          * Entraine: Modifie le message de l'objet en cours        *
@@ -118,4 +118,4 @@ class CException
         }
 };
 
-#endif
+#endif // CEXCEPTION_H
