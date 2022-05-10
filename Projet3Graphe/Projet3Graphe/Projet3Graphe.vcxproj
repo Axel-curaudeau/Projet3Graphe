@@ -141,6 +141,9 @@
   <ItemGroup>
     <ClCompile Include="Projet3Graphe.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CParseur.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
