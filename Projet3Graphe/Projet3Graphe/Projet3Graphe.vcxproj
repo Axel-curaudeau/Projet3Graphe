@@ -139,10 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CParseur.cpp" />
     <ClCompile Include="Projet3Graphe.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CArc.h" />
+    <ClInclude Include="CException.h" />
+    <ClInclude Include="CGraph.h" />
     <ClInclude Include="CParseur.h" />
+    <ClInclude Include="CSommet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

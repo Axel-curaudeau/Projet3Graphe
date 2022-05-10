@@ -1,8 +1,9 @@
-#define CPARSEUR_H
 #ifndef CPARSEUR_H
+#define CPARSEUR_H
 
 #include <iostream>
 #include <fstream>
+#include "CException.h"
 
 using namespace std;
 

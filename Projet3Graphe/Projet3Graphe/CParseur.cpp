@@ -6,25 +6,27 @@
 
 using namespace std;
 
-CParseur::CParseur(){
-	IFSFichier = nullptr;
-}
+CParseur::CParseur(){}
 
 CParseur::CParseur(char* pcChemin){
-	IFSFichier.open(pcChemin);
-	if (!ISFfichier.isopen()){
+	IFSPRSFichier.open(pcChemin);
+	if (!IFSPRSFichier.is_open()){
 		throw new CException(FICHIER_INTROUVABLE, (char *)"l'Ouverture du fichier à échoué");
 	}
 }
 
-CParseur::PRSModifierFichier(char* pcChemin){
-	if (IFSFichier.isopen()){
-		IFSFichier.close();
+void CParseur::PRSModifierFichier(char* pcChemin){
+	if (IFSPRSFichier.is_open()){
+		IFSPRSFichier.close();
 	}
-	IFSFichier.open(pcChemin);
-	if (!ISFfichier.isopen()){
+	IFSPRSFichier.open(pcChemin);
+	if (!IFSPRSFichier.is_open()){
 		throw new CException(FICHIER_INTROUVABLE, (char *)"l'Ouverture du fichier à échoué");
 	}
+}
+
+char* PRSLireValeur(char* pcCle) {
+
 }
 
 void suppChar(char pcChaine[], char cChar){
@@ -72,9 +74,9 @@ bool estEgal(const char pcChaine1[], const char pcChaine2[]){
     return true;
 }
 
-void analyseLigne(ifstream & IFSFichier, char pcPrecedent[], char pcSuivant[]){
+void analyseLigne(ifstream & IFSPRSFichier, char pcPrecedent[], char pcSuivant[]){
     char pcLigne[MAX_LINE_SIZE];
-    IFSFichier.getline(pcLigne, MAX_LINE_SIZE);
+    IFSPRSFichier.getline(pcLigne, MAX_LINE_SIZE);
 
     suppChar(pcLigne, ' ');
     suppChar(pcLigne, '\t');
