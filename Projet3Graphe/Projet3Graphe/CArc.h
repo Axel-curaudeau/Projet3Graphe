@@ -23,7 +23,7 @@ class CArc
          * Sortie: -                                               *
          * Entraine: L'objet en cours est initialisé               *
          ********************************************************* */
-        CArc();
+        CArc() = delete;
 
         CArc(unsigned int uiDestination);
 

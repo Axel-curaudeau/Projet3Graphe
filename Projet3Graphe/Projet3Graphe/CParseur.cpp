@@ -1,6 +1,6 @@
 #include "CParseur.h"
 
-#define MAX_LINE_SIZE 100
+#define MAX_LINE_SIZE 1000
 
 #pragma warning(disable : 4996)
 
