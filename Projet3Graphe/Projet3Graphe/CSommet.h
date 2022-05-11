@@ -17,7 +17,13 @@ class CSommet
         CArc** ppARCSOMEntrant;
         CArc** ppARCSOMSortant;
 
-    /* =-=-=-=-=-= La suite dans le prochain épisode =-=-=-=-=-= */
+    public :
+        CSommet() = delete;
+        CSommet(unsigned int uiSOMNumero);
+        CSommet(CSommet & SOMSommet);
+        ~CSommet();
+        
+
 };
 
 #endif // CSOMMET_H
