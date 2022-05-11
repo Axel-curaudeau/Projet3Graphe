@@ -1,6 +1,10 @@
 #include "CParseur.h"
 
+<<<<<<< HEAD
 #define TAILLE_MAX_LIGNE 100
+=======
+#define MAX_LINE_SIZE 1000
+>>>>>>> ec77e593ddbf85dee28653caa6bc2543b46de0c7
 
 #pragma warning(disable : 4996)
 

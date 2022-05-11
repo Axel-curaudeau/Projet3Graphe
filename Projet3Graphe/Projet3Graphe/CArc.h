@@ -16,19 +16,31 @@ class CArc
     public :
 
         /* *********************************************************
-         *                 Constructeur par defaut                 *
+         *            Constructeur par defaut SUPPRIMÉ             *
+         ********************************************************* */
+        CArc() = delete;
+
+        /* *********************************************************
+         *               Constructeur par paramètre                *
+         ***********************************************************
+         * Entrée: unsigned int uiDestination                      *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: L'objet en cours est initialisé la valeur de  *
+         *           uiDestination.                                *
+         ********************************************************* */
+        CArc(unsigned int uiDestination);
+
+        /* *********************************************************
+         *                 Getter uiARCDestination                 *
          ***********************************************************
          * Entrée: -                                               *
          * Nécessite: -                                            *
-         * Sortie: -                                               *
-         * Entraine: L'objet en cours est initialisé               *
+         * Sortie: unsigned int uiARCDestination                   *
+         * Entraine: La valeur de uiARCDestination est initialisée *
+         *           avec celle de uiDestination.                  *
          ********************************************************* */
-        CArc();
-
-        CArc(unsigned int uiDestination);
-
-
-    /* =-=-=-=-=-= La suite dans le prochain épisode =-=-=-=-=-= */
+        unsigned int ARCGetDest();
 };
 
 #endif // CARC_H
