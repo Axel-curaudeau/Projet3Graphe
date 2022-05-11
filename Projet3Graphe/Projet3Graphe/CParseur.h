@@ -22,12 +22,14 @@ class CParseur {
 		CParseur();
 		CParseur(char* pcChemin);
 		void PRSModifierFichier(char* pcChemin);
-		char* PSRLireValeur(char *pcCle);
+		char* PRSLireValeur(char* pcCle);
+		char* PRSLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator);
+
 	protected :
-		void suppChar(char pcChaine[], char cChar);
-		void enMinuscule(char pcChaine[]);
-		bool estEgal(const char pcChaine1[], const char pcChaine2[]);
-		void analyseLigne(ifstream & IFSFichier, char pcPrecedent[], char pcSuivant[]);
+		void PRSsuppChar(char pcChaine[], char cChar);
+		void PRSenMinuscule(char pcChaine[]);
+		bool PRSestEgal(const char pcChaine1[], const char pcChaine2[]);
+		//void PRSanalyseLigne(ifstream & IFSFichier, char pcPrecedent[], char pcSuivant[]);
 };
 
 #endif //CPARSEUR_H
