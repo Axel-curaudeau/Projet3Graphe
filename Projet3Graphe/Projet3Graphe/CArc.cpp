@@ -14,7 +14,7 @@ CArc::CArc(unsigned int uiDestination) {
 }
 
 /* *********************************************************
- *                 Getter uiARCDestination                 *
+ *          Accesseur uiARCDestination (lecture)           *
  ***********************************************************
  * Entrée: -                                               *
  * Nécessite: -                                            *
@@ -22,6 +22,6 @@ CArc::CArc(unsigned int uiDestination) {
  * Entraine: La valeur de uiARCDestination est initialisée *
  *           avec celle de uiDestination.                  *
  ********************************************************* */
-unsigned int CArc::ARCGetDest() {
+unsigned int CArc::ARCLireDest() {
     return uiARCDestination;
 }

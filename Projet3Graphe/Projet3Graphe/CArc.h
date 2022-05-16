@@ -40,7 +40,7 @@ class CArc
          * Entraine: La valeur de uiARCDestination est initialisée *
          *           avec celle de uiDestination.                  *
          ********************************************************* */
-        unsigned int ARCGetDest();
+        unsigned int ARCLireDest();
 };
 
 #endif // CARC_H
