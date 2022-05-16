@@ -7,8 +7,11 @@
 
 using namespace std;
 
+#define TAILLE_MAX_LIGNE 1000
+
 /* ===== ERROR CODES ===== */
 #define FICHIER_INTROUVABLE 1
+#define CLE_INTROUVABLE 2
 
 /*
  * Classe CParseur
@@ -21,9 +24,10 @@ class CParseur {
 	public :
 		CParseur();
 		CParseur(char* pcChemin);
+		~CParseur();
 		void PRSModifierFichier(char* pcChemin);
-		char* PRSLireValeur(char* pcCle);
-		char* PRSLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator);
+		void PRSLireValeur(char* pcCle, char pcValeur[]);
+		void PRSLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator);
 
 	protected :
 		void PRSsuppChar(char pcChaine[], char cChar);

@@ -1,11 +1,5 @@
 #include "CParseur.h"
 
-<<<<<<< HEAD
-#define TAILLE_MAX_LIGNE 100
-=======
-#define MAX_LINE_SIZE 1000
->>>>>>> ec77e593ddbf85dee28653caa6bc2543b46de0c7
-
 #pragma warning(disable : 4996)
 
 using namespace std;
@@ -15,8 +9,12 @@ CParseur::CParseur(){}
 CParseur::CParseur(char* pcChemin){
 	IFSPRSFichier.open(pcChemin);
 	if (!IFSPRSFichier.is_open()){
-		throw new CException(FICHIER_INTROUVABLE, (char *)"l'Ouverture du fichier à échoué");
+		throw CException(FICHIER_INTROUVABLE, (char *)"l'Ouverture du fichier a echoue");
 	}
+}
+
+CParseur::~CParseur() {
+    IFSPRSFichier.close();
 }
 
 void CParseur::PRSModifierFichier(char* pcChemin){
@@ -29,17 +27,27 @@ void CParseur::PRSModifierFichier(char* pcChemin){
 	}
 }
 
-char* CParseur::PRSLireValeur(char* pcCle) {
-    char pcPrecedent[TAILLE_MAX_LIGNE], pcSuivant[TAILLE_MAX_LIGNE];
+void CParseur::PRSLireValeur(char* pcCle, char pcValeur[]) {
+    char pcPrecedent[TAILLE_MAX_LIGNE];
+    char pcSuivant[TAILLE_MAX_LIGNE];
+    char pcCleCopie[TAILLE_MAX_LIGNE];
+    strcpy(pcCleCopie, pcCle);
+
+    PRSsuppChar(pcCleCopie, ' ');
+    PRSsuppChar(pcCleCopie, '\t');
+    PRSenMinuscule(pcCleCopie);
+
     while (!IFSPRSFichier.eof()) {
         PRSLigneSuivante(pcPrecedent, pcSuivant, (char*)"=");
-        if (PRSestEgal(pcPrecedent, pcCle)) {
-            return pcSuivant;
+        if (PRSestEgal(pcPrecedent, pcCleCopie)) {
+            strcpy(pcValeur, pcSuivant);
+            return;
         }
     }
+    throw CException(CLE_INTROUVABLE, (char*)"La cle specifie n'a pas ete trouve dans le fichier");
 }
 
-char* CParseur::PRSLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator) {
+void CParseur::PRSLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator) {
     char pcLigne[TAILLE_MAX_LIGNE];
     IFSPRSFichier.getline(pcLigne, TAILLE_MAX_LIGNE);
 
@@ -47,8 +55,15 @@ char* CParseur::PRSLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSe
     PRSsuppChar(pcLigne, '\t');
     PRSenMinuscule(pcLigne);
 
-    strcpy(pcPrecedent, strtok(pcLigne, cSeparator));
-    strcpy(pcSuivant, strtok(nullptr, cSeparator));
+    char* pcTemporaire = strtok(pcLigne, cSeparator);
+    if (pcTemporaire != nullptr) {
+        strcpy(pcPrecedent, pcTemporaire);
+    }
+
+    pcTemporaire = strtok(nullptr, cSeparator);
+    if (pcTemporaire != nullptr) {
+        strcpy(pcSuivant, pcTemporaire);
+    }
 }
 
 void CParseur::PRSsuppChar(char pcChaine[], char cChar){
