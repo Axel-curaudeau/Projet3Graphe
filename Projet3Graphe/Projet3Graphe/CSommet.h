@@ -23,7 +23,6 @@ class CSommet
         CSommet(CSommet & SOMSommet);
         ~CSommet();
         
-
 };
 
 #endif // CSOMMET_H

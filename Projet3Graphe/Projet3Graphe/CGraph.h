@@ -10,6 +10,7 @@
  */
 class CGraph
 {
+
     /* =-=-=-=-=-= La suite dans le prochain épisode =-=-=-=-=-= */
 
     /* DOIT POUVOIR :
@@ -22,6 +23,6 @@ class CGraph
         - Afficher le graphe
         - Inverser les arcs du graph (étape intermédiaire avec sommet peut-être ?)
     */
-}
+};
 
-#ifndef
+#endif // CGRAPH_H
