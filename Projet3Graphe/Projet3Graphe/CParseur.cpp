@@ -1,6 +1,10 @@
 #include "CParseur.h"
 
+<<<<<<< HEAD
+#define TAILLE_MAX_LIGNE 100
+=======
 #define MAX_LINE_SIZE 1000
+>>>>>>> ec77e593ddbf85dee28653caa6bc2543b46de0c7
 
 #pragma warning(disable : 4996)
 
@@ -25,11 +29,29 @@ void CParseur::PRSModifierFichier(char* pcChemin){
 	}
 }
 
-char* PRSLireValeur(char* pcCle) {
-
+char* CParseur::PRSLireValeur(char* pcCle) {
+    char pcPrecedent[TAILLE_MAX_LIGNE], pcSuivant[TAILLE_MAX_LIGNE];
+    while (!IFSPRSFichier.eof()) {
+        PRSLigneSuivante(pcPrecedent, pcSuivant, (char*)"=");
+        if (PRSestEgal(pcPrecedent, pcCle)) {
+            return pcSuivant;
+        }
+    }
 }
 
-void suppChar(char pcChaine[], char cChar){
+char* CParseur::PRSLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator) {
+    char pcLigne[TAILLE_MAX_LIGNE];
+    IFSPRSFichier.getline(pcLigne, TAILLE_MAX_LIGNE);
+
+    PRSsuppChar(pcLigne, ' ');
+    PRSsuppChar(pcLigne, '\t');
+    PRSenMinuscule(pcLigne);
+
+    strcpy(pcPrecedent, strtok(pcLigne, cSeparator));
+    strcpy(pcSuivant, strtok(nullptr, cSeparator));
+}
+
+void CParseur::PRSsuppChar(char pcChaine[], char cChar){
 	unsigned int uiBoucle = 0;
     unsigned int uiBoucle2 = 0;
     if (pcChaine == nullptr) {
@@ -45,7 +67,7 @@ void suppChar(char pcChaine[], char cChar){
     pcChaine[uiBoucle2] = '\0';
 }
 
-void enMinuscule(char pcChaine[]){
+void CParseur::PRSenMinuscule(char pcChaine[]){
 	unsigned int uiBoucle = 0;
     while (pcChaine[uiBoucle] != '\0') {
         pcChaine[uiBoucle] = tolower(pcChaine[uiBoucle]);
@@ -54,7 +76,7 @@ void enMinuscule(char pcChaine[]){
     return;
 }
 
-bool estEgal(const char pcChaine1[], const char pcChaine2[]){
+bool CParseur::PRSestEgal(const char pcChaine1[], const char pcChaine2[]){
     unsigned int uiBoucle = 0;
 
     // Si les 2 pointeurs sont null, alors ils sont égaux
@@ -74,14 +96,14 @@ bool estEgal(const char pcChaine1[], const char pcChaine2[]){
     return true;
 }
 
-void analyseLigne(ifstream & IFSPRSFichier, char pcPrecedent[], char pcSuivant[]){
-    char pcLigne[MAX_LINE_SIZE];
-    IFSPRSFichier.getline(pcLigne, MAX_LINE_SIZE);
+/*void CParseur::PRSanalyseLigne(ifstream& IFSPRSFichier, char pcPrecedent[], char pcSuivant[]) {
+    char pcLigne[TAILLE_MAX_LIGNE];
+    IFSPRSFichier.getline(pcLigne, TAILLE_MAX_LIGNE);
 
-    suppChar(pcLigne, ' ');
-    suppChar(pcLigne, '\t');
-    enMinuscule(pcLigne);
+    PRSsuppChar(pcLigne, ' ');
+    PRSsuppChar(pcLigne, '\t');
+    PRSenMinuscule(pcLigne);
     
     strcpy(pcPrecedent, strtok(pcLigne, "="));
     strcpy(pcSuivant, strtok(nullptr, "="));
-}
+}*/
