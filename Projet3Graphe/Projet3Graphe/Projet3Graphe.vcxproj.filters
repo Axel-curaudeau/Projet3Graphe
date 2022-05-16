@@ -39,4 +39,9 @@
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="graphes\graphetest.txt">
+      <Filter>Fichiers sources</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
