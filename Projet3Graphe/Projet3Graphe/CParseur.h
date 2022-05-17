@@ -28,12 +28,13 @@ class CParseur {
 		void PRSModifierFichier(char* pcChemin);
 		void PRSLireValeur(char* pcCle, char pcValeur[]);
 		void PRSLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator);
+		void PRSLireValeurSuivant(char* pcCle, char pcValeur[]);
+		void PRSLireLigne(char pcLigne[]);
 
-	protected :
-		void PRSsuppChar(char pcChaine[], char cChar);
-		void PRSenMinuscule(char pcChaine[]);
-		bool PRSestEgal(const char pcChaine1[], const char pcChaine2[]);
-		//void PRSanalyseLigne(ifstream & IFSFichier, char pcPrecedent[], char pcSuivant[]);
+		//fonction utilitaires :
+		static void PRSsuppChar(char pcChaine[], char cChar);
+		static void PRSenMinuscule(char pcChaine[]);
+		static bool PRSestEgal(const char pcChaine1[], const char pcChaine2[]);
 };
 
 #endif //CPARSEUR_H
