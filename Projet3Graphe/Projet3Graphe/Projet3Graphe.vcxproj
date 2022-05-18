@@ -139,10 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CAnalyseur.cpp" />
     <ClCompile Include="CParseur.cpp" />
     <ClCompile Include="Projet3Graphe.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CAnalyseur.h" />
     <ClInclude Include="CArc.h" />
     <ClInclude Include="CException.h" />
     <ClInclude Include="CGraph.h" />

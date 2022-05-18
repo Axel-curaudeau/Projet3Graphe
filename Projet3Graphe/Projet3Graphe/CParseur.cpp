@@ -66,6 +66,33 @@ void CParseur::PRSLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSep
     }
 }
 
+void CParseur::PRSLireValeurSuivant(char* pcCle, char pcValeur[])
+{
+    char pcPrecedent[TAILLE_MAX_LIGNE];
+    char pcSuivant[TAILLE_MAX_LIGNE];
+    char pcCleCopie[TAILLE_MAX_LIGNE];
+    strcpy(pcCleCopie, pcCle);
+
+    PRSsuppChar(pcCleCopie, ' ');
+    PRSsuppChar(pcCleCopie, '\t');
+    PRSenMinuscule(pcCleCopie);
+
+    PRSLigneSuivante(pcPrecedent, pcSuivant, (char*)"=");
+    if (PRSestEgal(pcPrecedent, pcCleCopie)) {
+        strcpy(pcValeur, pcSuivant);
+    }
+    else {
+        strcpy(pcValeur, pcPrecedent);
+        throw CException(CLE_INTROUVABLE, (char*)"La cle specifie n'a pas ete trouve dans le fichier");
+    }
+
+}
+
+void CParseur::PRSLireLigne(char pcLigne[])
+{
+    IFSPRSFichier.getline(pcLigne, TAILLE_MAX_LIGNE);
+}
+
 void CParseur::PRSsuppChar(char pcChaine[], char cChar){
 	unsigned int uiBoucle = 0;
     unsigned int uiBoucle2 = 0;
@@ -110,15 +137,3 @@ bool CParseur::PRSestEgal(const char pcChaine1[], const char pcChaine2[]){
         return false;
     return true;
 }
-
-/*void CParseur::PRSanalyseLigne(ifstream& IFSPRSFichier, char pcPrecedent[], char pcSuivant[]) {
-    char pcLigne[TAILLE_MAX_LIGNE];
-    IFSPRSFichier.getline(pcLigne, TAILLE_MAX_LIGNE);
-
-    PRSsuppChar(pcLigne, ' ');
-    PRSsuppChar(pcLigne, '\t');
-    PRSenMinuscule(pcLigne);
-    
-    strcpy(pcPrecedent, strtok(pcLigne, "="));
-    strcpy(pcSuivant, strtok(nullptr, "="));
-}*/
