@@ -148,7 +148,6 @@ void CSommet::SOMAfficher() {
         cout << "]" << endl;
     }
 
-
     cout << "   Nombre d'arcs sortants : " << uiSOMNbArcSortant << endl;
     cout << "   Liste des arcs sortants (destination) : [";
     if (uiSOMNbArcSortant > 0) {
