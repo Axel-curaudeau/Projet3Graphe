@@ -4,29 +4,69 @@
 
 using namespace std;
 
-CParseur::CParseur(){}
-
-CParseur::CParseur(char* pcChemin){
-	IFSPRSFichier.open(pcChemin);
-	if (!IFSPRSFichier.is_open()){
-		throw CException(FICHIER_INTROUVABLE, (char *)"l'Ouverture du fichier a echoue");
-	}
+/* *********************************************************
+*               Constructeur par paramètre                 *
+************************************************************
+* Entrée: unsigned int uiNumero                            *
+* Nécessite: -                                             *
+* Sortie: -                                                *
+* Entraine: L'objet en cours est initialisé en ouvrant     *
+*           le fichier avec le chemin specifié			   *
+*           Si le chemin est incorrect, une exception	   *
+* 			 (FICHIER_INTROUVABLE) est levée.              *
+************************************************************/
+CParseur::CParseur(char* pcChemin) {
+    IFSPRSFichier.open(pcChemin);
+    if (!IFSPRSFichier.is_open()) {
+        throw CException(FICHIER_INTROUVABLE, (char*)"l'Ouverture du fichier a echoue");
+    }
 }
 
+/* *********************************************************
+*                       Destructeur                        *
+************************************************************
+* Entrée: -                                                *
+* Nécessite: -                                             *
+* Sortie: -                                                *
+* Entraine: Ferme le fichier ouvert par l'objet en cours   *
+************************************************************/
 CParseur::~CParseur() {
     IFSPRSFichier.close();
 }
 
-void CParseur::PRSModifierFichier(char* pcChemin){
-	if (IFSPRSFichier.is_open()){
-		IFSPRSFichier.close();
-	}
-	IFSPRSFichier.open(pcChemin);
-	if (!IFSPRSFichier.is_open()){
-		throw new CException(FICHIER_INTROUVABLE, (char *)"l'Ouverture du fichier à échoué");
-	}
+/* *********************************************************
+*                  Modifier le fichier                     *
+************************************************************
+* Entrée: char* pcChemin                                   *
+* Nécessite: -                                             *
+* Sortie: -                                                *
+* Entraine: Ferme le fichier ouvert par l'objet en cours   *
+*           et ouvre le nouveau fichier                    *
+*           Si le chemin est incorrect, une exception	   *
+* 			 (FICHIER_INTROUVABLE) est levée.              *
+************************************************************/
+void CParseur::PRSModifierFichier(char* pcChemin) {
+    if (IFSPRSFichier.is_open()) {
+        IFSPRSFichier.close();
+    }
+    IFSPRSFichier.open(pcChemin);
+    if (!IFSPRSFichier.is_open()) {
+        throw new CException(FICHIER_INTROUVABLE, (char*)"l'Ouverture du fichier à échoué");
+    }
 }
 
+/* *********************************************************
+*               Lire une valeur                            *
+************************************************************
+* Entrée: char* pcCle                                      *
+*         char pcValeur[TAILLE_MAX_LIGNE]                  *
+* Nécessite: -                                             *
+* Sortie: -                                                *
+* Entraine: Cherche la cle specifie dans le fichier        *
+*           et la copie dans la variable pcValeur          *
+*           Si la cle est introuvable, une exception       *
+*           (CLE_INTROUVABLE) est levée.                   *
+************************************************************/
 void CParseur::PRSLireValeur(char* pcCle, char pcValeur[]) {
     char pcPrecedent[TAILLE_MAX_LIGNE];
     char pcSuivant[TAILLE_MAX_LIGNE];
@@ -38,7 +78,7 @@ void CParseur::PRSLireValeur(char* pcCle, char pcValeur[]) {
     PRSenMinuscule(pcCleCopie);
 
     while (!IFSPRSFichier.eof()) {
-        PRSLigneSuivante(pcPrecedent, pcSuivant, (char*)"=");
+        PRSCoupeLigneSuivante(pcPrecedent, pcSuivant, (char*)"=");
         if (PRSestEgal(pcPrecedent, pcCleCopie)) {
             strcpy(pcValeur, pcSuivant);
             return;
@@ -47,7 +87,21 @@ void CParseur::PRSLireValeur(char* pcCle, char pcValeur[]) {
     throw CException(CLE_INTROUVABLE, (char*)"La cle specifie n'a pas ete trouve dans le fichier");
 }
 
-void CParseur::PRSLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator) {
+/* *********************************************************
+*            Lire et separe la ligne suivante              *
+************************************************************
+* Entrée: char pcPrecedent[]                               *
+*         char pcSuivant[]                                 *
+*         char cSeparator  							       *
+* Nécessite: -                                             *
+* Sortie: -                                                *
+* Entraine: Lit la ligne suivant, et la sépare en deux.    *
+* 		 La première partie est copiée dans pcPrecedent    *
+* 		 La seconde partie est copiée dans pcSuivant       *
+* 		 Le caractère séparateur est spécifié dans         *
+* 		 cSeparator.                                       *
+************************************************************/
+void CParseur::PRSCoupeLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator) {
     char pcLigne[TAILLE_MAX_LIGNE];
     IFSPRSFichier.getline(pcLigne, TAILLE_MAX_LIGNE);
 
@@ -66,7 +120,17 @@ void CParseur::PRSLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSep
     }
 }
 
-void CParseur::PRSLireValeurSuivant(char* pcCle, char pcValeur[])
+/* *********************************************************
+*               Lire la valeur suivante                    *
+************************************************************
+* Entrée: char* pcCle									   *
+* 	       char pcValeur[]                                 *
+* Nécessite: -                                             *
+* Sortie: -                                                *
+* Entraine: Cherche la cle specifié dans la ligne 	       *
+* suivante, et copie la valeur associe dans pcValeur       *
+************************************************************/
+void CParseur::PRSLireValeurSuivante(char* pcCle, char pcValeur[])
 {
     char pcPrecedent[TAILLE_MAX_LIGNE];
     char pcSuivant[TAILLE_MAX_LIGNE];
@@ -77,7 +141,7 @@ void CParseur::PRSLireValeurSuivant(char* pcCle, char pcValeur[])
     PRSsuppChar(pcCleCopie, '\t');
     PRSenMinuscule(pcCleCopie);
 
-    PRSLigneSuivante(pcPrecedent, pcSuivant, (char*)"=");
+    PRSCoupeLigneSuivante(pcPrecedent, pcSuivant, (char*)"=");
     if (PRSestEgal(pcPrecedent, pcCleCopie)) {
         strcpy(pcValeur, pcSuivant);
     }
@@ -88,13 +152,32 @@ void CParseur::PRSLireValeurSuivant(char* pcCle, char pcValeur[])
 
 }
 
+/* *********************************************************
+*                Lire la ligne suivante                    *
+************************************************************
+* Entrée: char* pcCle									   *
+* 	       char pcValeur[]                                 *
+* Nécessite: -                                             *
+* Sortie: -                                                *
+* Entraine: retourne la ligne suivant dans pcLigne	       *
+************************************************************/
 void CParseur::PRSLireLigne(char pcLigne[])
 {
     IFSPRSFichier.getline(pcLigne, TAILLE_MAX_LIGNE);
 }
 
-void CParseur::PRSsuppChar(char pcChaine[], char cChar){
-	unsigned int uiBoucle = 0;
+/* *********************************************************
+*                Supprimer un caractère                    *
+************************************************************
+* Entrée: char pcChaine[]                                  *
+*         const char cChar                                 *
+* Nécessite: -                                             *
+* Sortie: -                                                *
+* Entraine: (Modifie pcChaine pour enlever toute les       *
+*           occurences de cChar).                          *
+************************************************************/
+void CParseur::PRSsuppChar(char pcChaine[], char cChar) {
+    unsigned int uiBoucle = 0;
     unsigned int uiBoucle2 = 0;
     if (pcChaine == nullptr) {
         return;
@@ -109,8 +192,8 @@ void CParseur::PRSsuppChar(char pcChaine[], char cChar){
     pcChaine[uiBoucle2] = '\0';
 }
 
-void CParseur::PRSenMinuscule(char pcChaine[]){
-	unsigned int uiBoucle = 0;
+void CParseur::PRSenMinuscule(char pcChaine[]) {
+    unsigned int uiBoucle = 0;
     while (pcChaine[uiBoucle] != '\0') {
         pcChaine[uiBoucle] = tolower(pcChaine[uiBoucle]);
         uiBoucle++;
@@ -118,7 +201,7 @@ void CParseur::PRSenMinuscule(char pcChaine[]){
     return;
 }
 
-bool CParseur::PRSestEgal(const char pcChaine1[], const char pcChaine2[]){
+bool CParseur::PRSestEgal(const char pcChaine1[], const char pcChaine2[]) {
     unsigned int uiBoucle = 0;
 
     // Si les 2 pointeurs sont null, alors ils sont égaux
@@ -126,8 +209,8 @@ bool CParseur::PRSestEgal(const char pcChaine1[], const char pcChaine2[]){
         return true;
     }
     if (pcChaine1 == nullptr || pcChaine2 == nullptr) {
-		return false;
-	}
+        return false;
+    }
     while (pcChaine1[uiBoucle] != '\0' && pcChaine2[uiBoucle] != '\0') {
         if (pcChaine1[uiBoucle] != pcChaine2[uiBoucle])
             return false;

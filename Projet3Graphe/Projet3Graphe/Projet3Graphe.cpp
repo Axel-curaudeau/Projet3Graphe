@@ -18,7 +18,6 @@ int main(int argc, char* argv[])
         char result[TAILLE_MAX_LIGNE];
         CAnalyseur analyse = CAnalyseur(fichier);
         analyse.ANLLireSommets();
-        
 
         //cout << result << endl;
     } catch (CException e) {
