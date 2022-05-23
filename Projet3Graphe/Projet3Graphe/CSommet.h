@@ -17,7 +17,7 @@ using namespace std;
 class CSommet
 {
     private :
-        unsigned int uiSOMNumero;
+        int iSOMNumero;
         unsigned int uiSOMNbArcEntrant;
         unsigned int uiSOMNbArcSortant;
         CArc** ppARCSOMEntrant;
@@ -141,11 +141,38 @@ class CSommet
          ********************************************************* */
         void SOMAfficher();
 
+        /* *********************************************************
+         *                 Accesseur ppARCSOMEntrant               *
+         ***********************************************************
+         * Entrée: -                                               *
+         * Nécessite: -                                            *
+         * Sortie: CArc* pARCArcsEntrant                           *
+         * Entraine: La liste des arcs entrant de l'objet en cours *
+         *          est retournée.                                 *
+         ********************************************************* */
+        const CArc* const* SOMLireListeArcEntrant();
+
+        /* *********************************************************
+         *                 Accesseur ppARCSOMSortant               *
+         ***********************************************************
+         * Entrée: -                                               *
+         * Nécessite: -                                            *
+         * Sortie: CArc** ppARCSOMSortant                          *
+         * Entraine: La liste des arcs sortant de l'objet en cours *
+         *           est retournée.                                *
+         ********************************************************* */
+        const CArc* const* SOMLireListeArcSortant();
+
         /***********************************************************/
         bool SOMArcEntrantExiste(unsigned int uiDestination);
 
         bool SOMArcSortantExiste(unsigned int uiDestination);
     
+        CArc SOMLireArcEntrant(unsigned int uiIndex);
+
+        CArc SOMLireArcSortant(unsigned int uiIndex);
+
+        CSommet& operator=(CSommet SOMSommet);
 };
 
 #endif // CSOMMET_H

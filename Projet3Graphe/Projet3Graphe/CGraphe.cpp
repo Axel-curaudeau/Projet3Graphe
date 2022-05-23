@@ -60,6 +60,7 @@ CGraphe::CGraphe(CGraphe & GRPGraph) {
  ********************************************************* */
 CGraphe::~CGraphe() {
     free(pSOMGRPTabSommet);
+    // Appel GRPSupprimerSommet ?
 }
 
 /* *********************************************************
@@ -83,7 +84,7 @@ void CGraphe::GRPAjouterSommet(unsigned int uiNumero) {
     // Ajout du sommet
     uiGRPNbSommet++;
     pSOMGRPTabSommet = (CSommet *) realloc(pSOMGRPTabSommet, uiGRPNbSommet * sizeof (CSommet));
-    pSOMGRPTabSommet[uiGRPNbSommet - 1] = CSommet(uiNumero);
+    pSOMGRPTabSommet[uiGRPNbSommet - 1] = *(new CSommet(uiNumero));
 }
 
 /* *********************************************************
@@ -159,4 +160,29 @@ bool CGraphe::GRPSommetExiste(unsigned int uiNumero) {
     }
 
     return false;
+}
+
+/* *********************************************************
+ *                      Generer graphviz                   *
+ ***********************************************************
+ * Entrée: -                                               *
+ * Nécessite: -                                            *
+ * Sortie: -                                               *
+ * Entraine: L'objet en cours est généré en .dot           *
+ * ******************************************************* */
+void CGraphe::GRPGenererGraphviz() {
+    unsigned int uiBoucle;
+    unsigned int uiBoucle1;
+
+    cout << "https://dreampuf.github.io/GraphvizOnline/#digraph{";
+    // Parcours de la liste de sommets
+    for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
+        // Recopie du sommet
+        CSommet SOMCourant = pSOMGRPTabSommet[uiBoucle];
+        // Parcours des arcs sortants
+        for (uiBoucle1 = 0; uiBoucle1 < SOMCourant.SOMLireNbArcSortant(); uiBoucle1++) {
+            cout << SOMCourant.SOMLireNumero() << "->" << SOMCourant.SOMLireArcSortant(uiBoucle1).ARCLireDest() << ";";
+        }
+    }
+    cout << "}";
 }
