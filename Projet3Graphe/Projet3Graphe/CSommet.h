@@ -140,6 +140,11 @@ class CSommet
          * Entraine: Affiche les informations de l'objet en cours. *
          ********************************************************* */
         void SOMAfficher();
+
+        /***********************************************************/
+        bool SOMArcEntrantExiste(unsigned int uiDestination);
+
+        bool SOMArcSortantExiste(unsigned int uiDestination);
     
 };
 

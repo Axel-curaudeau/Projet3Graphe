@@ -1,18 +1,20 @@
-#ifndef CGRAPH_H
-#define CGRAPH_H
+#ifndef CGraphe_H
+#define CGraphe_H
 
 #include "CException.h"
 #include "CSommet.h"
 
 /* ===== ERROR CODES ===== */
 #define NUMERO_SOMMMET_INDISPONIBLE 1
+#define NUMERO_SOMMMET_INEXISTANT 2
+#define ARC_DEJA_EXISTANT 3
 
 /*
- * Classe CGraph
+ * Classe CGraphe
  *
  * Cette class est utilisée pour gérer les graphes.
  */
-class CGraph
+class CGraphe
 {
     private :
         unsigned int uiGRPNbSommet;
@@ -28,7 +30,7 @@ class CGraph
          * Entraine: L'objet en cours est initialisé,              *
          *           pSOMGRPTabSommet est initialisé à NULL.       *
          * ******************************************************* */
-        CGraph();
+        CGraphe();
 
         /* *********************************************************
          *               Constructeur par paramètre                *
@@ -39,18 +41,18 @@ class CGraph
          * Entraine: L'objet en cours est initialisé avec un       *
          *           nombre de sommets égal à uiNbSommet.          *
          ********************************************************* */
-        CGraph(unsigned int uiNbSommet);
+        CGraphe(unsigned int uiNbSommet);
 
         /* *********************************************************
          *                 Constructeur de recopie                 *
          ***********************************************************
-         * Entrée: CGraph & GRPGraph                               *
+         * Entrée: CGraphe & GRPGraph                               *
          * Nécessite: -                                            *
          * Sortie: -                                               *
          * Entraine: L'objet en cours est initialisé avec une      *
          *           recopie de GRPGraph.                          *
          ********************************************************* */
-        CGraph(CGraph & GRPGraph);
+        CGraphe(CGraphe & GRPGraph);
 
         /* *********************************************************
          *                       Destructeur                       *
@@ -60,7 +62,7 @@ class CGraph
          * Sortie: -                                               *
          * Entraine: L'objet en cours supprimé.                    *
          ********************************************************* */
-        ~CGraph();
+        ~CGraphe();
 
         /* *********************************************************
          *                      AjouterSommet                      *
@@ -148,7 +150,7 @@ class CGraph
          * Entraine: Retourne true si le sommet avec le numéro     *
          *           uiNumero existe, false sinon.                 *
          * ******************************************************* */
-        CSommet & GRPObtenirSommet(unsigned int uiNumero);
+        CSommet & GRPObtenirSommet(unsigned int uiNumero); // Mettre privé
 
         /* *********************************************************
          *                        ArcExiste                        *
@@ -180,6 +182,8 @@ class CGraph
          * Entraine: Les arcs sont inversés.                       *
          * ******************************************************* */
         void GRPInverser();
+
+        bool GRPSommetExiste(unsigned int uiNumero);
 };
 
-#endif // CGRAPH_H
+#endif // CGraphe_H

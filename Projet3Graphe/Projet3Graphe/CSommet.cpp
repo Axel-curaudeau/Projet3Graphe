@@ -209,3 +209,26 @@ void CSommet::SOMAfficher() {
         cout << "]" << endl;
     }
 }
+
+/***********************************************************/
+bool CSommet::SOMArcEntrantExiste(unsigned int uiDestination) {
+    unsigned int uiBoucle;
+
+    for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
+        if (ppARCSOMEntrant[uiBoucle]->ARCLireDest() == uiDestination) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool CSommet::SOMArcSortantExiste(unsigned int uiDestination) {
+    unsigned int uiBoucle;
+
+    for (uiBoucle = 0; uiBoucle < uiSOMNbArcSortant; uiBoucle++) {
+        if (ppARCSOMSortant[uiBoucle]->ARCLireDest() == uiDestination) {
+            return true;
+        }
+    }
+    return false;
+}
