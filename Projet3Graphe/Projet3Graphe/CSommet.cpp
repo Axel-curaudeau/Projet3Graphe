@@ -3,6 +3,24 @@
 using namespace std;
 
 /* *********************************************************
+ *                 Constructeur par defaut                 *
+ ***********************************************************
+ * Entrée: -                                               *
+ * Nécessite: -                                            *
+ * Sortie: -                                               *
+ * Entraine: L'objet en cours est initialisé avec le       *
+ *           numéro -1 (valeur impossible).                *
+ ********************************************************* */
+CSommet::CSommet() {
+    // Initialisation des attributs
+    uiSOMNumero = -1;
+    uiSOMNbArcEntrant = 0;
+    uiSOMNbArcSortant = 0;
+    ppARCSOMEntrant = NULL;
+    ppARCSOMSortant = NULL;
+}
+
+/* *********************************************************
  *               Constructeur par paramètre                *
  ***********************************************************
  * Entrée: unsigned int uiNumero                           *
@@ -12,11 +30,12 @@ using namespace std;
  *           uiNumero.                                     *
  ********************************************************* */
 CSommet::CSommet(unsigned int uiNumero) {
+    // Initialisation des attributs
     uiSOMNumero = uiNumero;
     uiSOMNbArcEntrant = 0;
     uiSOMNbArcSortant = 0;
-    ppARCSOMEntrant = (CArc **) malloc(sizeof(CArc*));
-    ppARCSOMSortant = (CArc **) malloc(sizeof(CArc*));
+    ppARCSOMEntrant = NULL;
+    ppARCSOMSortant = NULL;
 }
 
 /* *********************************************************
@@ -29,7 +48,26 @@ CSommet::CSommet(unsigned int uiNumero) {
  *           recopie de SOMSommet.                         *
  ********************************************************* */
 CSommet::CSommet(CSommet & SOMSommet) {
-    // TODO
+    // Déclaration des variables
+    unsigned int uiBoucle;
+
+    // Initialisation des attributs
+    uiSOMNumero = SOMSommet.uiSOMNumero;
+    uiSOMNbArcEntrant = SOMSommet.uiSOMNbArcEntrant;
+    uiSOMNbArcSortant = SOMSommet.uiSOMNbArcSortant;
+
+    // Allocation de la mémoire
+    ppARCSOMEntrant = (CArc**) malloc(uiSOMNbArcEntrant * sizeof (CArc*));
+    ppARCSOMSortant = (CArc**) malloc(uiSOMNbArcSortant * sizeof (CArc*));
+
+    // Recopie des arcs
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-= A VERIFIER =-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
+        ppARCSOMEntrant[uiBoucle] = new CArc(*SOMSommet.ppARCSOMEntrant[uiBoucle]);
+    }
+    for (uiBoucle = 0; uiBoucle < uiSOMNbArcSortant; uiBoucle++) {
+        ppARCSOMSortant[uiBoucle] = new CArc(*SOMSommet.ppARCSOMSortant[uiBoucle]);
+    }
 }
 
 /* *********************************************************
@@ -41,7 +79,19 @@ CSommet::CSommet(CSommet & SOMSommet) {
  * Entraine: L'objet en cours supprimé.                    *
  ********************************************************* */
 CSommet::~CSommet() {
-    // TODO
+    // Déclaration des variables
+    unsigned int uiBoucle;
+
+    // Libération de la mémoire
+    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-= A VERIFIER =-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
+        delete ppARCSOMEntrant[uiBoucle];
+    }
+    for (uiBoucle = 0; uiBoucle < uiSOMNbArcSortant; uiBoucle++) {
+        delete ppARCSOMSortant[uiBoucle];
+    }
+    free(ppARCSOMEntrant);
+    free(ppARCSOMSortant);
 }
 
 /* *********************************************************
@@ -99,29 +149,29 @@ unsigned int CSommet::SOMLireNbArcSortant() {
 /* *********************************************************
  *                    AjouterArcEntrant                    *
  ***********************************************************
- * Entrée: CArc* pARCArcEntrant                            *
+ * Entrée: CArc & ARCArcEntrant                            *
  * Nécessite: -                                            *
  * Sortie: -                                               *
  * Entraine: Ajoute un arc entrant à l'objet en cours.     *
  ********************************************************* */
-void CSommet::SOMAjouterArcEntrant(CArc* pARCArcEntrant) {
+void CSommet::SOMAjouterArcEntrant(CArc ARCArcEntrant) {
     uiSOMNbArcEntrant++;
     ppARCSOMEntrant = (CArc **) realloc(ppARCSOMEntrant, uiSOMNbArcEntrant * sizeof(CArc*));
-    ppARCSOMEntrant[uiSOMNbArcEntrant - 1] = pARCArcEntrant;
+    ppARCSOMEntrant[uiSOMNbArcEntrant - 1] = new CArc(ARCArcEntrant);
 }
 
 /* *********************************************************
  *                    AjouterArcSortant                    *
  ***********************************************************
- * Entrée: CArc* pARCArcSortant                            *
+ * Entrée: CArc & ARCArcSortant                            *
  * Nécessite: -                                            *
  * Sortie: -                                               *
  * Entraine: Ajoute un arc sortant à l'objet en cours.     *
  ********************************************************* */
-void CSommet::SOMAjouterArcSortant(CArc* pARCArcEntrant) {
+void CSommet::SOMAjouterArcSortant(CArc ARCArcSortant) {
     uiSOMNbArcSortant++;
     ppARCSOMSortant = (CArc **) realloc(ppARCSOMSortant, uiSOMNbArcSortant * sizeof(CArc*));
-    ppARCSOMSortant[uiSOMNbArcSortant - 1] = pARCArcEntrant;
+    ppARCSOMSortant[uiSOMNbArcSortant - 1] = new CArc(ARCArcSortant);
 }
 
 /* *********************************************************

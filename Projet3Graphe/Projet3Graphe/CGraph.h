@@ -1,7 +1,11 @@
 #ifndef CGRAPH_H
 #define CGRAPH_H
 
+#include "CException.h"
+#include "CSommet.h"
+
 /* ===== ERROR CODES ===== */
+#define NUMERO_SOMMMET_INDISPONIBLE 1
 
 /*
  * Classe CGraph
@@ -10,19 +14,172 @@
  */
 class CGraph
 {
+    private :
+        unsigned int uiGRPNbSommet;
+        CSommet* pSOMGRPTabSommet;
 
-    /* =-=-=-=-=-= La suite dans le prochain épisode =-=-=-=-=-= */
+    public :
+        /* *********************************************************
+         *                 Constructeur par defaut                 *
+         ***********************************************************
+         * Entrée: -                                               *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: L'objet en cours est initialisé,              *
+         *           pSOMGRPTabSommet est initialisé à NULL.       *
+         * ******************************************************* */
+        CGraph();
 
-    /* DOIT POUVOIR :
-        - Ajouter un sommet
-        - Modifier un sommet
-        - Supprimer un sommet
-        - Ajouter un arc
-        - Modifier un arc
-        - Supprimer un arc
-        - Afficher le graphe
-        - Inverser les arcs du graph (étape intermédiaire avec sommet peut-être ?)
-    */
+        /* *********************************************************
+         *               Constructeur par paramètre                *
+         ***********************************************************
+         * Entrée: unsigned int uiNbSommet                         *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: L'objet en cours est initialisé avec un       *
+         *           nombre de sommets égal à uiNbSommet.          *
+         ********************************************************* */
+        CGraph(unsigned int uiNbSommet);
+
+        /* *********************************************************
+         *                 Constructeur de recopie                 *
+         ***********************************************************
+         * Entrée: CGraph & GRPGraph                               *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: L'objet en cours est initialisé avec une      *
+         *           recopie de GRPGraph.                          *
+         ********************************************************* */
+        CGraph(CGraph & GRPGraph);
+
+        /* *********************************************************
+         *                       Destructeur                       *
+         ***********************************************************
+         * Entrée: -                                               *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: L'objet en cours supprimé.                    *
+         ********************************************************* */
+        ~CGraph();
+
+        /* *********************************************************
+         *                      AjouterSommet                      *
+         ***********************************************************
+         * Entrée: unsigned int uiNumero                           *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: Un sommet est ajouté à la fin de la liste de  *
+         *           sommets.                                      *
+         *           Si le sommet existe déjà, une exception       *
+         *           (NUMERO_SOMMMET_INDISPONIBLE) est levée.      *
+         ********************************************************* */
+        void GRPAjouterSommet(unsigned int uiNumero);
+
+        /* *********************************************************
+         *                     ModifierSommet                      *
+         ***********************************************************
+         * Entrée: unsigned int uiAncienNumero                     *
+         *         unsigned int uiNouveauNumero                    *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: Le sommet avec le numéro uiAncienNumero est   *
+         *           modifié avec le numéro uiNouveauNumero.       *
+         *           Si "l'ancien" sommet n'existe pas, une        *
+         *           exception (NUMERO_SOMMMET_INEXISTANT) est     *
+         *           levée.                                        *
+         *           Si le "nouveau" sommet existe déjà, une       *
+         *           exception (NUMERO_SOMMMET_INDISPONIBLE) est   *
+         *           levée.                                        *
+         * ******************************************************* */
+        void GRPModifierSommet(unsigned int uiAncienNumero, unsigned int uiNouveauNumero);
+
+        /* *********************************************************
+         *                      SupprimerSommet                    *
+         ***********************************************************
+         * Entrée: unsigned int uiNumero                           *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: Un sommet est supprimé de la liste de sommets.*
+         *           Si le sommet n'existe pas, une exception      *
+         *           (NUMERO_SOMMMET_INEXISTANT) est levée.        *
+         ********************************************************* */
+        void GRPSupprimerSommet(unsigned int uiNumero);
+
+        /* *********************************************************
+         *                      AjouterArc                         *
+         ***********************************************************
+         * Entrée: unsigned int uiOrigine                          *
+         *         unsigned int uiDestination                      *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: Un arc est ajouté du sommet uiOrigine à       *
+         *           uiDestination                                 *
+         *           Si un des 2 sommet n'existe pas, une          *
+         *           exception (NUMERO_SOMMMET_INEXISTANT) est     *
+         *           levée.                                        *
+         *           Si l'arc existe déjà, une exception           *
+         *           (ARC_DEJA_EXISTANT) est levée.                *
+         ********************************************************* */
+        void GRPAjouterArc(unsigned int uiOrigine, unsigned int uiDestination);
+
+        /* *********************************************************
+         *                      SupprimerArc                       *
+         ***********************************************************
+         * Entrée: unsigned int uiOrigine                          *
+         *         unsigned int uiDestination                      *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: Un arc est supprimé du sommet uiOrigine à     *
+         *           uiDestination.                                *
+         *           Si un des 2 sommets n'existe pas, une         *
+         *           exception (NUMERO_SOMMMET_INEXISTANT) est     *
+         *           levée.                                        *
+         *           Si l'arc n'existe pas, une exception          *
+         *           (ARC_INEXISTANT) est levée.                   *
+         ********************************************************* */
+        void GRPSupprimerArc(unsigned int uiOrigine, unsigned int uiDestination);
+
+        /* *********************************************************
+         *                      SommetExiste                       *
+         ***********************************************************
+         * Entrée: unsigned int uiNumero                           *
+         * Nécessite: -                                            *
+         * Sortie: bool                                            *
+         * Entraine: Retourne true si le sommet avec le numéro     *
+         *           uiNumero existe, false sinon.                 *
+         * ******************************************************* */
+        CSommet & GRPObtenirSommet(unsigned int uiNumero);
+
+        /* *********************************************************
+         *                        ArcExiste                        *
+         ***********************************************************
+         * Entrée: unsigned int uiOrigine                          *
+         *         unsigned int uiDestination                      *
+         * Nécessite: -                                            *
+         * Sortie: bool                                            *
+         * Entraine: Retourne true si l'arc existe, false sinon.    *
+         * ******************************************************* */
+        bool GRPArcExiste(unsigned int uiOrigine, unsigned int uiDestination);
+
+        /* *********************************************************
+         *                      Affichage                          *
+         ***********************************************************
+         * Entrée: -                                               *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: L'objet en cours est affiché.                 *
+         * ******************************************************* */
+        void GRPAfficher();
+
+        /* *********************************************************
+         *                      Inverser                           *
+         ***********************************************************
+         * Entrée: -                                               *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: Les arcs sont inversés.                       *
+         * ******************************************************* */
+        void GRPInverser();
 };
 
 #endif // CGRAPH_H

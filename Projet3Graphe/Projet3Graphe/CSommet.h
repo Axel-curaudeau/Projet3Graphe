@@ -25,9 +25,15 @@ class CSommet
 
     public :
         /* *********************************************************
-         *            Constructeur par defaut SUPPRIMÉ             *
+         *                 Constructeur par defaut                 *
+         ***********************************************************
+         * Entrée: -                                               *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: L'objet en cours est initialisé avec le       *
+         *           numéro -1 (valeur impossible).                *
          ********************************************************* */
-        CSommet() = delete;
+        CSommet();
 
         /* *********************************************************
          *               Constructeur par paramètre                *
@@ -108,12 +114,12 @@ class CSommet
         /* *********************************************************
          *                    AjouterArcEntrant                    *
          ***********************************************************
-         * Entrée: CArc* pARCArcEntrant                            *
+         * Entrée: CArc & ARCArcEntrant                            *
          * Nécessite: -                                            *
          * Sortie: -                                               *
          * Entraine: Ajoute un arc entrant à l'objet en cours.     *
          ********************************************************* */
-        void SOMAjouterArcEntrant(CArc* pARCArc);
+        void SOMAjouterArcEntrant(CArc ARCArcEntrant);
 
         /* *********************************************************
          *                    AjouterArcSortant                    *
@@ -123,7 +129,7 @@ class CSommet
          * Sortie: -                                               *
          * Entraine: Ajoute un arc sortant à l'objet en cours.     *
          ********************************************************* */
-        void SOMAjouterArcSortant(CArc* pARCArc);
+        void SOMAjouterArcSortant(CArc ARCArcSortant);
 
         /* *********************************************************
          *                        Affichage                        *
