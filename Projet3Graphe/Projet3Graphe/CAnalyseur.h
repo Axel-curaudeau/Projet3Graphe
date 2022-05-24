@@ -2,7 +2,7 @@
 #define CANALYSEUR_H
 
 #include "CParseur.h"
-#include "CGraph.h"
+#include "CGraphe.h"
 
 #pragma warning(disable : 4996)
 
@@ -72,7 +72,7 @@ public:
 	 * Entraine: Lit les sommets indiqués dans le fichier du   *
 	 * 		     parseur, et les alloue.                       *
 	 ********************************************************* */
-	void ANLLireSommets(CGraph & GRPGraphe);
+	void ANLLireSommets(CGraphe & GRPGraphe);
 
 	/* *********************************************************
 	 *                  Lire les arcs                         *
@@ -83,7 +83,7 @@ public:
 	 * Entraine: Lit les arcs indiqués dans le fichier du      *
 	 * 		     parseur, et les alloue.                       *
 	 ********************************************************* */
-	void ANLLireArcs(CGraph GRPGraph);
+	void ANLLireArcs(CGraphe GRPGraph);
 };
 
 #endif

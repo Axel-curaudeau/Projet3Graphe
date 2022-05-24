@@ -141,7 +141,7 @@
   <ItemGroup>
     <ClCompile Include="CAnalyseur.cpp" />
     <ClCompile Include="CArc.cpp" />
-    <ClCompile Include="CGraph.cpp" />
+    <ClCompile Include="CGraphe.cpp" />
     <ClCompile Include="CParseur.cpp" />
     <ClCompile Include="CSommet.cpp" />
     <ClCompile Include="Projet3Graphe.cpp" />
@@ -150,7 +150,7 @@
     <ClInclude Include="CAnalyseur.h" />
     <ClInclude Include="CArc.h" />
     <ClInclude Include="CException.h" />
-    <ClInclude Include="CGraph.h" />
+    <ClInclude Include="CGraphe.h" />
     <ClInclude Include="CParseur.h" />
     <ClInclude Include="CSommet.h" />
   </ItemGroup>

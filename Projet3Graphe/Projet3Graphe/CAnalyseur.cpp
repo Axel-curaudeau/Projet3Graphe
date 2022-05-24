@@ -69,7 +69,7 @@ unsigned int CAnalyseur::ANLLireNbArc()
 * Entraine: Lit le nombre de sommets indiqué dans le       *
 * 		     fichier du parseur.                           *
 ************************************************************/
-void CAnalyseur::ANLLireSommets(CGraph & GRPGraphe)
+void CAnalyseur::ANLLireSommets(CGraphe & GRPGraphe)
 {
 	char pcResult[TAILLE_MAX_LIGNE];
 	pPRSANLParseur->PRSChercherValeur((char*)"Sommets", pcResult);
@@ -92,7 +92,7 @@ void CAnalyseur::ANLLireSommets(CGraph & GRPGraphe)
 	} while (!pPRSANLParseur->PRSestEgal(pcResult, "]"));
 }
 
-void CAnalyseur::ANLLireArcs(CGraph GRPGraphe)
+void CAnalyseur::ANLLireArcs(CGraphe GRPGraphe)
 {
 	char pcLigne[TAILLE_MAX_LIGNE];
 	char pcResult[TAILLE_MAX_LIGNE];
