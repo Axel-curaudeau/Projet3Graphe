@@ -65,8 +65,14 @@ CSommet::CSommet(CSommet & SOMSommet) {
 
     // Recopie des arcs
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-= A VERIFIER =-=-=-=-=-=-=-=-=-=-=-=-=-=-=
+    if (uiSOMNbArcEntrant == 0) {
+        ppARCSOMEntrant = NULL;
+    }
     for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
         ppARCSOMEntrant[uiBoucle] = new CArc(*SOMSommet.ppARCSOMEntrant[uiBoucle]);
+    }
+    if (uiSOMNbArcSortant == 0) {
+        ppARCSOMSortant = NULL;
     }
     for (uiBoucle = 0; uiBoucle < uiSOMNbArcSortant; uiBoucle++) {
         ppARCSOMSortant[uiBoucle] = new CArc(*SOMSommet.ppARCSOMSortant[uiBoucle]);
@@ -281,8 +287,14 @@ CSommet& CSommet::operator=(CSommet SOMSommet) {
         uiSOMNbArcSortant = SOMSommet.uiSOMNbArcSortant;
         
         // Libération de la mémoire
+        if (uiSOMNbArcEntrant == 0) {
+            ppARCSOMEntrant = NULL;
+        }
         for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
             delete ppARCSOMEntrant[uiBoucle];
+        }
+        if (uiSOMNbArcSortant == 0) {
+            ppARCSOMSortant = NULL;
         }
         for (uiBoucle = 0; uiBoucle < uiSOMNbArcSortant; uiBoucle++) {
             delete ppARCSOMSortant[uiBoucle];

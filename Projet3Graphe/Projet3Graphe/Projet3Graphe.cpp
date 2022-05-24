@@ -11,7 +11,20 @@ using namespace std;
 int main(int argc, char* argv[])
 {
     CGraphe graphe;
-    graphe.GRPAjouterSommet(1);
+    try {
+        CParseur* parseur = new CParseur((char*)"graphes/graphetest.txt");
+        CAnalyseur analyse(parseur);
+        analyse.ANLLireSommets(graphe);
+        graphe.GRPObtenirSommet(1).SOMAfficher();
+        analyse.ANLLireArcs(graphe);
+        graphe.GRPGenererGraphviz();
+    }
+    catch (CException EXCE) {
+        cout << EXCE.EXCLireMessage() << endl;
+    }
+    
+    
+    /*graphe.GRPAjouterSommet(1);
     graphe.GRPAjouterSommet(2);
     graphe.GRPAjouterSommet(3);
     graphe.GRPAjouterSommet(4);
@@ -31,6 +44,6 @@ int main(int argc, char* argv[])
     graphe.GRPAjouterArc(5, 7);
     graphe.GRPAjouterArc(6, 8);
     graphe.GRPAjouterArc(7, 8);
-    graphe.GRPGenererGraphviz();
+    graphe.GRPGenererGraphviz();*/
     return 0;
 }
