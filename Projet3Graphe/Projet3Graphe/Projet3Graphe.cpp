@@ -3,7 +3,8 @@
 #include "CArc.h"
 #include "CParseur.h"
 #include "CAnalyseur.h"
-#include "CGraph.h"
+#include "CSommet.h"
+#include "CGraphe.h"
 
 using namespace std;
 
@@ -32,5 +33,4 @@ int main(int argc, char* argv[])
     graphe.GRPAjouterArc(7, 8);
     graphe.GRPGenererGraphviz();
     return 0;
-   
 }
