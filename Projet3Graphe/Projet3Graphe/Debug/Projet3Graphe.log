@@ -1,2 +1,3 @@
-﻿  CParseur.cpp
-  Projet3Graphe.vcxproj -> C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Debug\Projet3Graphe.exe
+﻿  Projet3Graphe.cpp
+CAnalyseur.obj : error LNK2019: symbole externe non résolu "public: void __thiscall CGraph::GRPAjouterArc(unsigned int,unsigned int)" (?GRPAjouterArc@CGraph@@QAEXII@Z) référencé dans la fonction "public: void __thiscall CAnalyseur::ANLLireArcs(class CGraph)" (?ANLLireArcs@CAnalyseur@@QAEXVCGraph@@@Z)
+C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Debug\Projet3Graphe.exe : fatal error LNK1120: 1 externes non résolus

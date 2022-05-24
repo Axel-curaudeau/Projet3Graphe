@@ -140,7 +140,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CAnalyseur.cpp" />
+    <ClCompile Include="CArc.cpp" />
+    <ClCompile Include="CGraph.cpp" />
     <ClCompile Include="CParseur.cpp" />
+    <ClCompile Include="CSommet.cpp" />
     <ClCompile Include="Projet3Graphe.cpp" />
   </ItemGroup>
   <ItemGroup>

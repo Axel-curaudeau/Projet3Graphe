@@ -2,6 +2,9 @@
 #define CANALYSEUR_H
 
 #include "CParseur.h"
+#include "CGraph.h"
+
+#pragma warning(disable : 4996)
 
 //Codes d'erreur
 #define ERREUR_SYNTAXE 10
@@ -69,7 +72,7 @@ public:
 	 * Entraine: Lit les sommets indiqués dans le fichier du   *
 	 * 		     parseur, et les alloue.                       *
 	 ********************************************************* */
-	void ANLLireSommets();
+	void ANLLireSommets(CGraph & GRPGraphe);
 
 	/* *********************************************************
 	 *                  Lire les arcs                         *
@@ -80,7 +83,7 @@ public:
 	 * Entraine: Lit les arcs indiqués dans le fichier du      *
 	 * 		     parseur, et les alloue.                       *
 	 ********************************************************* */
-	void ANLLireArcs();
+	void ANLLireArcs(CGraph GRPGraph);
 };
 
 #endif
