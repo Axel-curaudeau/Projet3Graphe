@@ -2,7 +2,7 @@
 
 ## A faire
 - Remplacer tous les NULL par nullptr
-- On garde le SOMLireArcEntrant/Sortant(unsigned int uiIndex) ? (l'index a pas beaucoup de sens en dehors du code)
+- On garde le SOMLireArcEntrant/Sortant(unsigned int uiIndex) ? (l'index a pas beaucoup de sens en dehors du code). Maybe protected ?
 
 ## Codes Exception
 
