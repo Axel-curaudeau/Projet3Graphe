@@ -43,7 +43,7 @@ CSommet::CSommet(CSommet & SOMSommet) {
     if (SOMLireNbArcEntrant() > 0) {
         ppARCSOMEntrant = (CArc**) malloc(uiSOMNbArcEntrant * sizeof (CArc*));
         if (ppARCSOMEntrant == NULL) {
-            throw CException(MALLOC_ECHOUE, "Allocation de la mémoire a échoué !");
+            throw CException(MALLOC_ECHOUE, (char *) "Allocation de la mémoire a échoué !");
         }
     } else {
         ppARCSOMEntrant = NULL;
@@ -52,7 +52,7 @@ CSommet::CSommet(CSommet & SOMSommet) {
     if (SOMLireNbArcSortant() > 0) {
         ppARCSOMSortant = (CArc**) malloc(uiSOMNbArcSortant * sizeof (CArc*));
         if (ppARCSOMSortant == NULL) {
-            throw CException(MALLOC_ECHOUE, "Allocation de la mémoire a échoué !");
+            throw CException(MALLOC_ECHOUE, (char *) "Allocation de la mémoire a échoué !");
         }
     } else {
         ppARCSOMSortant = NULL;
@@ -155,19 +155,20 @@ unsigned int CSommet::SOMLireNbArcSortant() {
  * Nécessite: -                                            *
  * Sortie: -                                               *
  * Entraine: Ajoute un arc entrant à l'objet en cours.     *
+ *           Une copie de ARCArcEntrant est allouée.       *
  ********************************************************* */
 void CSommet::SOMAjouterArcEntrant(CArc ARCArcEntrant) {
 
     // Si l'arc existe déjà, on lève une exception
     if (SOMArcEntrantExiste(ARCArcEntrant.ARCLireDest())) {
-        throw CException(ARC_DEJA_EXISTANT, "Cet arc existe déjà");
+        throw CException(ARC_DEJA_EXISTANT, (char *) "Cet arc existe déjà");
     }
 
     // Sinon, on l'ajoute
     uiSOMNbArcEntrant++;
     ppARCSOMEntrant = (CArc **) realloc(ppARCSOMEntrant, uiSOMNbArcEntrant * sizeof(CArc*));
     if (ppARCSOMEntrant == NULL) {
-        throw CException(MALLOC_ECHOUE, "Allocation de la mémoire a échoué !");
+        throw CException(MALLOC_ECHOUE, (char *) "Allocation de la mémoire a échoué !");
     }
     ppARCSOMEntrant[uiSOMNbArcEntrant - 1] = new CArc(ARCArcEntrant);
 }
@@ -175,25 +176,80 @@ void CSommet::SOMAjouterArcEntrant(CArc ARCArcEntrant) {
 /* *********************************************************
  *                    AjouterArcSortant                    *
  ***********************************************************
- * Entrée: CArc & ARCArcSortant                            *
+ * Entrée: CArc ARCArcSortant                              *
  * Nécessite: -                                            *
  * Sortie: -                                               *
  * Entraine: Ajoute un arc sortant à l'objet en cours.     *
+ *           Une copie de ARCArcSortant est allouée.       *
  ********************************************************* */
 void CSommet::SOMAjouterArcSortant(CArc ARCArcSortant) {
 
     // Si l'arc existe déjà, on lève une exception
     if (SOMArcSortantExiste(ARCArcSortant.ARCLireDest())) {
-        throw CException(ARC_DEJA_EXISTANT, "Cet arc existe déjà");
+        throw CException(ARC_DEJA_EXISTANT, (char *) "Cet arc existe déjà");
     }
 
     //Sinon, on l'ajoute
     uiSOMNbArcSortant++;
     ppARCSOMSortant = (CArc **) realloc(ppARCSOMSortant, uiSOMNbArcSortant * sizeof(CArc*));
     if (ppARCSOMSortant == NULL) {
-        throw CException(MALLOC_ECHOUE, "Allocation de la mémoire a échoué !");
+        throw CException(MALLOC_ECHOUE, (char *) "Allocation de la mémoire a échoué !");
     }
     ppARCSOMSortant[uiSOMNbArcSortant - 1] = new CArc(ARCArcSortant);
+}
+
+/* *********************************************************
+ *                   SupprimerArcEntrant                   *
+ ***********************************************************
+ * Entrée: unsigned int uiNumero                           *
+ * Nécessite: -                                            *
+ * Sortie: -                                               *
+ * Entraine: Supprime un arc entrant à l'objet en cours.   *
+ ********************************************************* */
+void CSommet::SOMSupprimerArcEntrant(unsigned int uiDestination) {
+    unsigned int uiBoucle;
+
+    for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
+        if (ppARCSOMEntrant[uiBoucle]->ARCLireDest() == uiDestination) {
+            delete ppARCSOMEntrant[uiBoucle];
+            ppARCSOMEntrant[uiBoucle] = NULL;
+            for (; uiBoucle < uiSOMNbArcEntrant - 1 ; uiBoucle++) {
+                ppARCSOMEntrant[uiBoucle] = ppARCSOMEntrant[uiBoucle + 1];
+            }
+            ppARCSOMEntrant[uiBoucle] = NULL;
+            uiSOMNbArcEntrant--;
+            return;
+        }
+    }
+    // Si on arrive ici, c'est que l'arc n'existe pas
+    throw CException(ARC_INEXISTANT, (char *) "Cet arc n'existe pas");
+}
+
+/* *********************************************************
+ *                   SupprimerArcSortant                   *
+ ***********************************************************
+ * Entrée: unsigned int uiNumero                           *
+ * Nécessite: -                                            *
+ * Sortie: -                                               *
+ * Entraine: Supprime un arc sortant à l'objet en cours.   *
+ ********************************************************* */
+void CSommet::SOMSupprimerArcSortant(unsigned int uiDestination) {
+    unsigned int uiBoucle;
+
+    for (uiBoucle = 0; uiBoucle < uiSOMNbArcSortant; uiBoucle++) {
+        if (ppARCSOMSortant[uiBoucle]->ARCLireDest() == uiDestination) {
+            delete ppARCSOMSortant[uiBoucle];
+            ppARCSOMSortant[uiBoucle] = NULL;
+            for (; uiBoucle < uiSOMNbArcSortant - 1 ; uiBoucle++) {
+                ppARCSOMSortant[uiBoucle] = ppARCSOMSortant[uiBoucle + 1];
+            }
+            ppARCSOMSortant[uiBoucle] = NULL;
+            uiSOMNbArcSortant--;
+            return;
+        }
+    }
+    // Si on arrive ici, c'est que l'arc n'existe pas
+    throw CException(ARC_INEXISTANT, (char *) "Cet arc n'existe pas");
 }
 
 /* *********************************************************
@@ -338,14 +394,14 @@ CSommet& CSommet::operator=(CSommet SOMSommet) {
         if (SOMLireNbArcEntrant() > 0) {
             ppARCSOMEntrant = (CArc**) malloc(SOMLireNbArcEntrant() * sizeof (CArc*));
             if (ppARCSOMEntrant == NULL) {
-                throw CException(MALLOC_ECHOUE, "Allocation de la mémoire a échoué !");
+                throw CException(MALLOC_ECHOUE, (char *) "Allocation de la mémoire a échoué !");
             }
         }
 
         if (SOMLireNbArcSortant() > 0) {
             ppARCSOMSortant = (CArc**) malloc(SOMLireNbArcSortant() * sizeof (CArc*));
             if (ppARCSOMSortant == NULL) {
-                throw CException(MALLOC_ECHOUE, "Allocation de la mémoire a échoué !");
+                throw CException(MALLOC_ECHOUE, (char *) "Allocation de la mémoire a échoué !");
             }
         }
 

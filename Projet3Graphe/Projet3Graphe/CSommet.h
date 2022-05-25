@@ -9,6 +9,7 @@ using namespace std;
 
 /* ===== ERROR CODES ===== */
 #define ARC_DEJA_EXISTANT 10
+#define ARC_INEXISTANT 11
 
 /* 
  * Classe CSommet
@@ -123,6 +124,26 @@ class CSommet
          *           Une copie de pARCArcSortant est allouée.      *
          ********************************************************* */
         void SOMAjouterArcSortant(CArc ARCArcSortant);
+
+        /* *********************************************************
+         *                   SupprimerArcEntrant                   *
+         ***********************************************************
+         * Entrée: unsigned int uiNumero                           *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: Supprime un arc entrant à l'objet en cours.   *
+         ********************************************************* */
+        void SOMSupprimerArcEntrant(unsigned int uiDestination);
+
+        /* *********************************************************
+         *                   SupprimerArcSortant                   *
+         ***********************************************************
+         * Entrée: unsigned int uiNumero                           *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: Supprime un arc sortant à l'objet en cours.   *
+         ********************************************************* */
+        void SOMSupprimerArcSortant(unsigned int uiDestination);
 
         /* *********************************************************
          *                     LireArcEntrant                      *
