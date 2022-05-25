@@ -101,7 +101,7 @@ CSommet::~CSommet() {
  ***********************************************************
  * Entrée: -                                               *
  * Nécessite: -                                            *
- * Sortie: unsigned int uiSOMNumero                        *
+ * Sortie: unsigned int                                    *
  * Entraine: La valeur de uiSOMNumero est retournée.       *
  ********************************************************* */
 unsigned int CSommet::SOMLireNumero() {
@@ -125,7 +125,7 @@ void CSommet::SOMModifierNumero(unsigned int uiNumero) {
  ***********************************************************
  * Entrée: -                                               *
  * Nécessite: -                                            *
- * Sortie: unsigned int uiSOMNbArcEntrant                  *
+ * Sortie: unsigned int                                    *
  * Entraine: La valeur de uiSOMNbArcEntrant est retournée. *
  *           Si uiSOMNbArcEntrant est égal à 0, la liste   *
  *           est vide.                                     *
@@ -139,7 +139,7 @@ unsigned int CSommet::SOMLireNbArcEntrant() {
  ***********************************************************
  * Entrée: -                                               *
  * Nécessite: -                                            *
- * Sortie: unsigned int uiSOMNbArcSortant                  *
+ * Sortie: unsigned int                                    *
  * Entraine: La valeur de uiSOMNbArcSortant est retournée. *
  *          Si uiSOMNbArcSortant est égal à 0, la liste    *
  *         est vide.                                       *
@@ -213,7 +213,7 @@ CArc CSommet::SOMLireArcSortant(unsigned int uiIndex) {
  ***********************************************************
  * Entrée: unsigned int uiDestination                      *
  * Nécessite: -                                            *
- * Sortie: bool bExiste                                    *
+ * Sortie: bool                                            *
  * Entraine: Retourne vrai si un arc entrant de            *
  *           destination uiDestination existe dans l'objet *
  *           en cours, faux sinon.                         *
@@ -234,7 +234,7 @@ bool CSommet::SOMArcEntrantExiste(unsigned int uiDestination) {
  ***********************************************************
  * Entrée: unsigned int uiDestination                      *
  * Nécessite: -                                            *
- * Sortie: bool bExiste                                    *
+ * Sortie: bool                                            *
  * Entraine: Retourne vrai si un arc sortant de            *
  *           destination uiDestination existe dans l'objet *
  *           en cours, faux sinon.                         *
