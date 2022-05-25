@@ -183,6 +183,75 @@ void CSommet::SOMAjouterArcSortant(CArc ARCArcSortant) {
 }
 
 /* *********************************************************
+ *                     LireArcEntrant                      *
+ ***********************************************************
+ * Entrée: unsigned int uiIndex                            *
+ * Nécessite: -                                            *
+ * Sortie: CArc                                            *
+ * Entraine: L'arc d'index uiIndex dans la liste des arcs  *
+ *           entrants est retourné.                        *
+ ********************************************************* */
+CArc CSommet::SOMLireArcEntrant(unsigned int uiIndex) {
+    return *ppARCSOMEntrant[uiIndex];
+}
+
+/* *********************************************************
+ *                     LireArcSortant                      *
+ ***********************************************************
+ * Entrée: unsigned int uiIndex                            *
+ * Nécessite: -                                            *
+ * Sortie: CArc                                            *
+ * Entraine: L'arc d'index uiIndex dans la liste des arcs  *
+ *           sortants est retourné.                        *
+ ********************************************************* */
+CArc CSommet::SOMLireArcSortant(unsigned int uiIndex) {
+    return *ppARCSOMSortant[uiIndex];
+}
+
+/* *********************************************************
+ *                    ArcEntrantExiste                     *
+ ***********************************************************
+ * Entrée: unsigned int uiDestination                      *
+ * Nécessite: -                                            *
+ * Sortie: bool bExiste                                    *
+ * Entraine: Retourne vrai si un arc entrant de            *
+ *           destination uiDestination existe dans l'objet *
+ *           en cours, faux sinon.                         *
+ ********************************************************* */
+bool CSommet::SOMArcEntrantExiste(unsigned int uiDestination) {
+    unsigned int uiBoucle;
+
+    for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
+        if (ppARCSOMEntrant[uiBoucle]->ARCLireDest() == uiDestination) {
+            return true;
+        }
+    }
+    return false;
+}
+
+/* *********************************************************
+ *                    ArcSortantExiste                     *
+ ***********************************************************
+ * Entrée: unsigned int uiDestination                      *
+ * Nécessite: -                                            *
+ * Sortie: bool bExiste                                    *
+ * Entraine: Retourne vrai si un arc sortant de            *
+ *           destination uiDestination existe dans l'objet *
+ *           en cours, faux sinon.                         *
+ ********************************************************* */
+bool CSommet::SOMArcSortantExiste(unsigned int uiDestination) {
+    unsigned int uiBoucle;
+
+    for (uiBoucle = 0; uiBoucle < uiSOMNbArcSortant; uiBoucle++) {
+        if (ppARCSOMSortant[uiBoucle]->ARCLireDest() == uiDestination) {
+            return true;
+        }
+    }
+    return false;
+}
+
+
+/* *********************************************************
  *                        Affichage                        *
  ***********************************************************
  * Entrée: -                                               *
@@ -218,37 +287,15 @@ void CSommet::SOMAfficher() {
     }
 }
 
-/***********************************************************/
-bool CSommet::SOMArcEntrantExiste(unsigned int uiDestination) {
-    unsigned int uiBoucle;
-
-    for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
-        if (ppARCSOMEntrant[uiBoucle]->ARCLireDest() == uiDestination) {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool CSommet::SOMArcSortantExiste(unsigned int uiDestination) {
-    unsigned int uiBoucle;
-
-    for (uiBoucle = 0; uiBoucle < uiSOMNbArcSortant; uiBoucle++) {
-        if (ppARCSOMSortant[uiBoucle]->ARCLireDest() == uiDestination) {
-            return true;
-        }
-    }
-    return false;
-}
-
-CArc CSommet::SOMLireArcEntrant(unsigned int uiIndex) {
-    return *ppARCSOMEntrant[uiIndex];
-}
-
-CArc CSommet::SOMLireArcSortant(unsigned int uiIndex) {
-    return *ppARCSOMSortant[uiIndex];
-}
-
+/* *********************************************************
+ *                  Surcharge opérateur =                  *
+ ***********************************************************
+ * Entrée: CSommet SOMSommet                               *
+ * Nécessite: -                                            *
+ * Sortie: CSommet                                         *
+ * Entraine: L'objet en cours est initialisé avec une      *
+ *           copie de SOMSommet.                           *
+ ********************************************************* */
 CSommet& CSommet::operator=(CSommet SOMSommet) {
     if (this != &SOMSommet) {
         //Déclaration des variables

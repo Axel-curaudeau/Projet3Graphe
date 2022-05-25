@@ -47,7 +47,7 @@ class CSommet
          * Nécessite: -                                            *
          * Sortie: -                                               *
          * Entraine: L'objet en cours est initialisé avec une      *
-         *           recopie de SOMSommet.                         *
+         *           copie de SOMSommet.                           *
          ********************************************************* */
         CSommet(CSommet & SOMSommet);
 
@@ -66,8 +66,8 @@ class CSommet
          ***********************************************************
          * Entrée: -                                               *
          * Nécessite: -                                            *
-         * Sortie: unsigned int uiSOMNumero                        *
-         * Entraine: La valeur de uiSOMNumero est retournée.       *
+         * Sortie: unsigned int                                    *
+         * Entraine: La numero du sommet est retourné.             *
          ********************************************************* */
         unsigned int SOMLireNumero();
         
@@ -77,7 +77,7 @@ class CSommet
          * Entrée: unsigned int uiNumero                           *
          * Nécessite: -                                            *
          * Sortie: -                                               *
-         * Entraine: La valeur de uiSOMNumero est modifiée.        *
+         * Entraine: Le numero du sommet est modifié.              *
          ********************************************************* */
         void SOMModifierNumero(unsigned int uiNumero);
 
@@ -86,10 +86,8 @@ class CSommet
          ***********************************************************
          * Entrée: -                                               *
          * Nécessite: -                                            *
-         * Sortie: unsigned int uiSOMNbArcEntrant                  *
-         * Entraine: La valeur de uiSOMNbArcEntrant est retournée. *
-         *           Si uiSOMNbArcEntrant est égal à 0, la liste   *
-         *           est vide.                                     *
+         * Sortie: unsigned int                                    *
+         * Entraine: Retourne le nombre d'arcs entrant du sommet.  *
          ********************************************************* */
         unsigned int SOMLireNbArcEntrant();
 
@@ -98,10 +96,8 @@ class CSommet
          ***********************************************************
          * Entrée: -                                               *
          * Nécessite: -                                            *
-         * Sortie: unsigned int uiSOMNbArcSortant                  *
-         * Entraine: La valeur de uiSOMNbArcSortant est retournée. *
-         *          Si uiSOMNbArcSortant est égal à 0, la liste    *
-         *         est vide.                                       *
+         * Sortie: unsigned int                                    *
+         * Entraine: Retourne le nombre d'arcs sortant du sommet.  *
          ********************************************************* */
         unsigned int SOMLireNbArcSortant();
 
@@ -112,6 +108,7 @@ class CSommet
          * Nécessite: -                                            *
          * Sortie: -                                               *
          * Entraine: Ajoute un arc entrant à l'objet en cours.     *
+         *           Une copie de ARCArcEntrant est allouée.       *
          ********************************************************* */
         void SOMAjouterArcEntrant(CArc ARCArcEntrant);
 
@@ -122,8 +119,55 @@ class CSommet
          * Nécessite: -                                            *
          * Sortie: -                                               *
          * Entraine: Ajoute un arc sortant à l'objet en cours.     *
+         *           Une copie de pARCArcSortant est allouée.      *
          ********************************************************* */
         void SOMAjouterArcSortant(CArc ARCArcSortant);
+
+        /* *********************************************************
+         *                     LireArcEntrant                      *
+         ***********************************************************
+         * Entrée: unsigned int uiIndex                            *
+         * Nécessite: -                                            *
+         * Sortie: CArc                                            *
+         * Entraine: L'arc d'index uiIndex dans la liste des arcs  *
+         *           entrants est retourné.                        *
+         ********************************************************* */
+        CArc SOMLireArcEntrant(unsigned int uiIndex);
+
+        /* *********************************************************
+         *                     LireArcSortant                      *
+         ***********************************************************
+         * Entrée: unsigned int uiIndex                            *
+         * Nécessite: -                                            *
+         * Sortie: CArc                                            *
+         * Entraine: L'arc d'index uiIndex dans la liste des arcs  *
+         *           sortants est retourné.                        *
+         ********************************************************* */
+        CArc SOMLireArcSortant(unsigned int uiIndex);
+
+        /* *********************************************************
+         *                    ArcEntrantExiste                     *
+         ***********************************************************
+         * Entrée: unsigned int uiDestination                      *
+         * Nécessite: -                                            *
+         * Sortie: bool                                            *
+         * Entraine: Retourne vrai si un arc entrant de            *
+         *           destination uiDestination existe dans l'objet *
+         *           en cours, faux sinon.                         *
+         ********************************************************* */
+        bool SOMArcEntrantExiste(unsigned int uiDestination);
+
+        /* *********************************************************
+         *                    ArcSortantExiste                     *
+         ***********************************************************
+         * Entrée: unsigned int uiDestination                      *
+         * Nécessite: -                                            *
+         * Sortie: bool                                            *
+         * Entraine: Retourne vrai si un arc sortant de            *
+         *           destination uiDestination existe dans l'objet *
+         *           en cours, faux sinon.                         *
+         ********************************************************* */
+        bool SOMArcSortantExiste(unsigned int uiDestination);
 
         /* *********************************************************
          *                        Affichage                        *
@@ -135,15 +179,15 @@ class CSommet
          ********************************************************* */
         void SOMAfficher();
 
-        /***********************************************************/
-        bool SOMArcEntrantExiste(unsigned int uiDestination);
-
-        bool SOMArcSortantExiste(unsigned int uiDestination);
-    
-        CArc SOMLireArcEntrant(unsigned int uiIndex);
-
-        CArc SOMLireArcSortant(unsigned int uiIndex);
-
+        /* *********************************************************
+         *                  Surcharge opérateur =                  *
+         ***********************************************************
+         * Entrée: CSommet SOMSommet                               *
+         * Nécessite: -                                            *
+         * Sortie: CSommet                                         *
+         * Entraine: L'objet en cours est initialisé avec une      *
+         *           copie de SOMSommet.                           *
+         ********************************************************* */
         CSommet& operator=(CSommet SOMSommet);
 };
 
