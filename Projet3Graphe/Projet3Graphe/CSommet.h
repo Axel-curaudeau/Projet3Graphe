@@ -17,7 +17,7 @@ using namespace std;
 class CSommet
 {
     private :
-        int iSOMNumero;
+        unsigned int uiSOMNumero;
         unsigned int uiSOMNbArcEntrant;
         unsigned int uiSOMNbArcSortant;
         CArc** ppARCSOMEntrant;
@@ -27,13 +27,9 @@ class CSommet
         /* *********************************************************
          *                 Constructeur par defaut                 *
          ***********************************************************
-         * Entrée: -                                               *
-         * Nécessite: -                                            *
-         * Sortie: -                                               *
-         * Entraine: L'objet en cours est initialisé avec le       *
-         *           numéro -1 (valeur impossible).                *
+         * DELETE                                                  *
          ********************************************************* */
-        CSommet();
+        CSommet() = delete;
 
         /* *********************************************************
          *               Constructeur par paramètre                *
@@ -140,28 +136,6 @@ class CSommet
          * Entraine: Affiche les informations de l'objet en cours. *
          ********************************************************* */
         void SOMAfficher();
-
-        /* *********************************************************
-         *                 Accesseur ppARCSOMEntrant               *
-         ***********************************************************
-         * Entrée: -                                               *
-         * Nécessite: -                                            *
-         * Sortie: CArc* pARCArcsEntrant                           *
-         * Entraine: La liste des arcs entrant de l'objet en cours *
-         *          est retournée.                                 *
-         ********************************************************* */
-        const CArc* const* SOMLireListeArcEntrant();
-
-        /* *********************************************************
-         *                 Accesseur ppARCSOMSortant               *
-         ***********************************************************
-         * Entrée: -                                               *
-         * Nécessite: -                                            *
-         * Sortie: CArc** ppARCSOMSortant                          *
-         * Entraine: La liste des arcs sortant de l'objet en cours *
-         *           est retournée.                                *
-         ********************************************************* */
-        const CArc* const* SOMLireListeArcSortant();
 
         /***********************************************************/
         bool SOMArcEntrantExiste(unsigned int uiDestination);

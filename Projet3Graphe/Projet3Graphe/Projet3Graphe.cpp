@@ -11,24 +11,8 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    CGraphe* graphe = new CGraphe();
-    try {
-        CParseur* parseur = new CParseur((char*)"graphes/graphetest.txt");
-        CAnalyseur analyse(parseur);
-        analyse.ANLLireSommets(*graphe);
-        graphe->GRPObtenirSommet(1).SOMAfficher();
-        analyse.ANLLireArcs(*graphe);
-        graphe->GRPGenererGraphviz();
-
-        delete parseur;
-	    delete graphe;
-    }
-    catch (CException EXCE) {
-        cout << EXCE.EXCLireMessage() << endl;
-    }
-    
-    
-    /*graphe.GRPAjouterSommet(1);
+    CGraphe graphe;
+    graphe.GRPAjouterSommet(1);
     graphe.GRPAjouterSommet(2);
     graphe.GRPAjouterSommet(3);
     graphe.GRPAjouterSommet(4);
@@ -39,15 +23,18 @@ int main(int argc, char* argv[])
     graphe.GRPAjouterArc(1, 2);
     graphe.GRPAjouterArc(1, 3);
     graphe.GRPAjouterArc(1, 4);
-    graphe.GRPAjouterArc(1, 5);
+    graphe.GRPAjouterArc(2, 5);
     graphe.GRPAjouterArc(2, 6);
-    graphe.GRPAjouterArc(3, 6);
-    graphe.GRPAjouterArc(4, 6);
     graphe.GRPAjouterArc(3, 7);
-    graphe.GRPAjouterArc(4, 7);
-    graphe.GRPAjouterArc(5, 7);
+    graphe.GRPAjouterArc(3, 8);
+    graphe.GRPAjouterArc(4, 8);
+    graphe.GRPAjouterArc(5, 8);
     graphe.GRPAjouterArc(6, 8);
-    graphe.GRPAjouterArc(7, 8);
-    graphe.GRPGenererGraphviz();*/
+    graphe.GRPAjouterSommet(9);
+    graphe.GRPAjouterSommet(10);
+    graphe.GRPAjouterSommet(11);
+    graphe.GRPAjouterArc(10, 11);
+
+    graphe.GRPGenererGraphviz();
     return 0;
 }

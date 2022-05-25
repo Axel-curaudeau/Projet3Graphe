@@ -3,24 +3,6 @@
 using namespace std;
 
 /* *********************************************************
- *                 Constructeur par defaut                 *
- ***********************************************************
- * Entrée: -                                               *
- * Nécessite: -                                            *
- * Sortie: -                                               *
- * Entraine: L'objet en cours est initialisé avec le       *
- *           numéro -1 (valeur impossible).                *
- ********************************************************* */
-CSommet::CSommet() {
-    // Initialisation des attributs
-    iSOMNumero = -1;
-    uiSOMNbArcEntrant = 0;
-    uiSOMNbArcSortant = 0;
-    ppARCSOMEntrant = NULL;
-    ppARCSOMSortant = NULL;
-}
-
-/* *********************************************************
  *               Constructeur par paramètre                *
  ***********************************************************
  * Entrée: unsigned int uiNumero                           *
@@ -31,10 +13,7 @@ CSommet::CSommet() {
  ********************************************************* */
 CSommet::CSommet(unsigned int uiNumero) {
     // Initialisation des attributs
-    iSOMNumero = uiNumero;
-    if (iSOMNumero < -1) { // Dépassement unsigned int (LEVER UNE EXCEPTION ?)
-        iSOMNumero = -1;
-    }
+    uiSOMNumero = uiNumero;
     uiSOMNbArcEntrant = 0;
     uiSOMNbArcSortant = 0;
     ppARCSOMEntrant = NULL;
@@ -55,27 +34,30 @@ CSommet::CSommet(CSommet & SOMSommet) {
     unsigned int uiBoucle;
 
     // Initialisation des attributs
-    iSOMNumero = SOMSommet.iSOMNumero;
-    uiSOMNbArcEntrant = SOMSommet.uiSOMNbArcEntrant;
-    uiSOMNbArcSortant = SOMSommet.uiSOMNbArcSortant;
+    SOMModifierNumero(SOMSommet.SOMLireNumero());
+    uiSOMNbArcEntrant = SOMSommet.SOMLireNbArcEntrant();
+    uiSOMNbArcSortant = SOMSommet.SOMLireNbArcSortant();
 
     // Allocation de la mémoire
-    ppARCSOMEntrant = (CArc**) malloc(uiSOMNbArcEntrant * sizeof (CArc*));
-    ppARCSOMSortant = (CArc**) malloc(uiSOMNbArcSortant * sizeof (CArc*));
-
-    // Recopie des arcs
-    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-= A VERIFIER =-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    if (uiSOMNbArcEntrant == 0) {
+    if (SOMLireNbArcEntrant() > 0) {
+        ppARCSOMEntrant = (CArc**) malloc(uiSOMNbArcEntrant * sizeof (CArc*));
+    } else {
         ppARCSOMEntrant = NULL;
     }
-    for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
-        ppARCSOMEntrant[uiBoucle] = new CArc(*SOMSommet.ppARCSOMEntrant[uiBoucle]);
-    }
-    if (uiSOMNbArcSortant == 0) {
+
+    if (SOMLireNbArcSortant() > 0) {
+        ppARCSOMSortant = (CArc**) malloc(uiSOMNbArcSortant * sizeof (CArc*));
+    } else {
         ppARCSOMSortant = NULL;
     }
+
+    // Recopie des arcs
+    for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
+        ppARCSOMEntrant[uiBoucle] = new CArc(SOMSommet.SOMLireArcEntrant(uiBoucle));
+    }
+
     for (uiBoucle = 0; uiBoucle < uiSOMNbArcSortant; uiBoucle++) {
-        ppARCSOMSortant[uiBoucle] = new CArc(*SOMSommet.ppARCSOMSortant[uiBoucle]);
+        ppARCSOMSortant[uiBoucle] = new CArc(SOMSommet.SOMLireArcSortant(uiBoucle));
     }
 }
 
@@ -93,38 +75,42 @@ CSommet::~CSommet() {
 
     // Libération de la mémoire
     // =-=-=-=-=-=-=-=-=-=-=-=-=-=-= A VERIFIER =-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-    for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
+    for (uiBoucle = 0; uiBoucle < SOMLireNbArcEntrant() ; uiBoucle++) {
         delete ppARCSOMEntrant[uiBoucle];
+        ppARCSOMEntrant[uiBoucle] = NULL;
     }
-    for (uiBoucle = 0; uiBoucle < uiSOMNbArcSortant; uiBoucle++) {
+    for (uiBoucle = 0; uiBoucle < SOMLireNbArcSortant() ; uiBoucle++) {
         delete ppARCSOMSortant[uiBoucle];
+        ppARCSOMSortant[uiBoucle] = NULL;
     }
     free(ppARCSOMEntrant);
+    ppARCSOMEntrant = NULL;
     free(ppARCSOMSortant);
+    ppARCSOMSortant = NULL;
 }
 
 /* *********************************************************
- *             Accesseur iSOMNumero (lecture)             *
+ *             Accesseur uiSOMNumero (lecture)             *
  ***********************************************************
  * Entrée: -                                               *
  * Nécessite: -                                            *
- * Sortie: unsigned int iSOMNumero                        *
- * Entraine: La valeur de iSOMNumero est retournée.       *
+ * Sortie: unsigned int uiSOMNumero                        *
+ * Entraine: La valeur de uiSOMNumero est retournée.       *
  ********************************************************* */
 unsigned int CSommet::SOMLireNumero() {
-    return iSOMNumero;
+    return uiSOMNumero;
 }
 
 /* *********************************************************
- *            Accesseur iSOMNumero (ecriture)             *
+ *            Accesseur uiSOMNumero (ecriture)             *
  ***********************************************************
- * Entrée: unsigned int iNumero                           *
+ * Entrée: unsigned int iNumero                            *
  * Nécessite: -                                            *
  * Sortie: -                                               *
- * Entraine: La valeur de iSOMNumero est modifiée.        *
+ * Entraine: La valeur de uiSOMNumero est modifiée.        *
  ********************************************************* */
 void CSommet::SOMModifierNumero(unsigned int uiNumero) {
-    iSOMNumero = uiNumero;
+    uiSOMNumero = uiNumero;
 }
 
 /* *********************************************************
@@ -194,7 +180,7 @@ void CSommet::SOMAjouterArcSortant(CArc ARCArcSortant) {
 void CSommet::SOMAfficher() {
     unsigned int uiBoucle;
 
-    cout << "Sommet " << iSOMNumero << " : " << endl;
+    cout << "Sommet " << uiSOMNumero << " : " << endl;
 
     cout << "   Nombre d'arcs entrants : " << uiSOMNbArcEntrant << endl;
     cout << "   Liste des arcs entrants (destination) : [";
@@ -217,32 +203,6 @@ void CSommet::SOMAfficher() {
     } else {
         cout << "]" << endl;
     }
-}
-
-/* *********************************************************
- *                 Accesseur ppARCSOMEntrant               *
- ***********************************************************
- * Entrée: -                                               *
- * Nécessite: -                                            *
- * Sortie: CArc** ppARCSOMEntrant                          *
- * Entraine: La liste des arcs entrant de l'objet en cours *
- *           est retournée.                                *
- ********************************************************* */
-const CArc* const* CSommet::SOMLireListeArcEntrant() {
-    return ppARCSOMEntrant;
-}
-
-/* *********************************************************
- *                 Accesseur ppARCSOMSortant               *
- ***********************************************************
- * Entrée: -                                               *
- * Nécessite: -                                            *
- * Sortie: CArc** ppARCSOMSortant                          *
- * Entraine: La liste des arcs sortant de l'objet en cours *
- *           est retournée.                                *
- ********************************************************* */
-const CArc* const* CSommet::SOMLireListeArcSortant() {
-    return ppARCSOMSortant;
 }
 
 /***********************************************************/
@@ -281,42 +241,41 @@ CSommet& CSommet::operator=(CSommet SOMSommet) {
         //Déclaration des variables
         unsigned int uiBoucle;
 
-        // Recopie des attributs
-        iSOMNumero = SOMSommet.iSOMNumero;
-        uiSOMNbArcEntrant = SOMSommet.uiSOMNbArcEntrant;
-        uiSOMNbArcSortant = SOMSommet.uiSOMNbArcSortant;
-        
         // Libération de la mémoire
-        if (uiSOMNbArcEntrant == 0) {
-            ppARCSOMEntrant = NULL;
-        }
-        for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
+        for (uiBoucle = 0; uiBoucle < SOMLireNbArcEntrant() ; uiBoucle++) {
             delete ppARCSOMEntrant[uiBoucle];
+            ppARCSOMEntrant[uiBoucle] = NULL;
         }
-        if (uiSOMNbArcSortant == 0) {
-            ppARCSOMSortant = NULL;
-        }
-        for (uiBoucle = 0; uiBoucle < uiSOMNbArcSortant; uiBoucle++) {
+        for (uiBoucle = 0; uiBoucle < SOMLireNbArcSortant() ; uiBoucle++) {
             delete ppARCSOMSortant[uiBoucle];
+            ppARCSOMSortant[uiBoucle] = NULL;
+        }
+        free(ppARCSOMEntrant);
+        ppARCSOMEntrant = NULL;
+        free(ppARCSOMSortant);
+        ppARCSOMSortant = NULL;
+
+        // Recopie des attributs
+        SOMModifierNumero(SOMSommet.SOMLireNumero());
+        uiSOMNbArcEntrant = SOMSommet.SOMLireNbArcEntrant();
+        uiSOMNbArcSortant = SOMSommet.SOMLireNbArcSortant();
+
+        // Allocation de la mémoire
+        if (SOMLireNbArcEntrant() > 0) {
+            ppARCSOMEntrant = (CArc**) malloc(SOMLireNbArcEntrant() * sizeof (CArc*));
         }
 
-        // Reallocation de la mémoire
-        if (ppARCSOMEntrant != NULL) {
-            free(ppARCSOMEntrant);
+        if (SOMLireNbArcSortant() > 0) {
+            ppARCSOMSortant = (CArc**) malloc(SOMLireNbArcSortant() * sizeof (CArc*));
         }
-        if (ppARCSOMSortant != NULL) {
-            free(ppARCSOMSortant);
-        }
-        ppARCSOMEntrant = (CArc **) malloc(uiSOMNbArcEntrant * sizeof(CArc*));
-        ppARCSOMSortant = (CArc **) malloc(uiSOMNbArcSortant * sizeof(CArc*));
 
         // Recopie des arcs
-        // =-=-=-=-=-=-=-=-=-=-=-=-=-=-= A VERIFIER =-=-=-=-=-=-=-=-=-=-=-=-=-=-=
-        for (uiBoucle = 0; uiBoucle < uiSOMNbArcEntrant; uiBoucle++) {
-            ppARCSOMEntrant[uiBoucle] = new CArc(*SOMSommet.ppARCSOMEntrant[uiBoucle]);
+        for (uiBoucle = 0; uiBoucle < SOMLireNbArcEntrant() ; uiBoucle++) {
+            ppARCSOMEntrant[uiBoucle] = new CArc(SOMSommet.SOMLireArcEntrant(uiBoucle));
         }
-        for (uiBoucle = 0; uiBoucle < uiSOMNbArcSortant; uiBoucle++) {
-            ppARCSOMSortant[uiBoucle] = new CArc(*SOMSommet.ppARCSOMSortant[uiBoucle]);
+
+        for (uiBoucle = 0; uiBoucle < SOMLireNbArcSortant() ; uiBoucle++) {
+            ppARCSOMSortant[uiBoucle] = new CArc(SOMSommet.SOMLireArcSortant(uiBoucle));
         }
     }
     return *this;
