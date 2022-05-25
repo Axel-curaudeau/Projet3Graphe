@@ -81,7 +81,6 @@ CSommet::~CSommet() {
     unsigned int uiBoucle;
 
     // Libération de la mémoire
-    // =-=-=-=-=-=-=-=-=-=-=-=-=-=-= A VERIFIER =-=-=-=-=-=-=-=-=-=-=-=-=-=-=
     for (uiBoucle = 0; uiBoucle < SOMLireNbArcEntrant() ; uiBoucle++) {
         delete ppARCSOMEntrant[uiBoucle];
         ppARCSOMEntrant[uiBoucle] = NULL;

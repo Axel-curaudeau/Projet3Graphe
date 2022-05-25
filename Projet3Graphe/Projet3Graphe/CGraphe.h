@@ -17,7 +17,7 @@ class CGraphe
 {
     private :
         unsigned int uiGRPNbSommet;
-        CSommet* pSOMGRPTabSommet;
+        CSommet** ppSOMGRPTabSommet;
 
     public :
         /* *********************************************************
@@ -27,20 +27,9 @@ class CGraphe
          * Nécessite: -                                            *
          * Sortie: -                                               *
          * Entraine: L'objet en cours est initialisé,              *
-         *           pSOMGRPTabSommet est initialisé à NULL.       *
+         *           ppSOMGRPTabSommet est initialisé à NULL.       *
          * ******************************************************* */
         CGraphe();
-
-        /* *********************************************************
-         *               Constructeur par paramètre                *
-         ***********************************************************
-         * Entrée: unsigned int uiNbSommet                         *
-         * Nécessite: -                                            *
-         * Sortie: -                                               *
-         * Entraine: L'objet en cours est initialisé avec un       *
-         *           nombre de sommets égal à uiNbSommet.          *
-         ********************************************************* */
-        CGraphe(unsigned int uiNbSommet);
 
         /* *********************************************************
          *                 Constructeur de recopie                 *

@@ -11,13 +11,6 @@ using namespace std;
 
 int main(int argc, char* argv[])
 {
-    CSommet som(1);
-    som.SOMAjouterArcSortant(2);
-    som.SOMAjouterArcSortant(3);
-    som.SOMAjouterArcSortant(4);
-    som.SOMSupprimerArcSortant(3);
-    som.SOMAfficher();
-    /*
     CGraphe graphe;
     graphe.GRPAjouterSommet(1);
     graphe.GRPAjouterSommet(2);
@@ -42,6 +35,6 @@ int main(int argc, char* argv[])
     graphe.GRPAjouterSommet(11);
     graphe.GRPAjouterArc(10, 11);
 
-    graphe.GRPGenererGraphviz();*/
+    graphe.GRPGenererGraphviz();
     return 0;
 }
