@@ -1,4 +1,5 @@
 #include "CSommet.h"
+#include "CException.h"
 
 using namespace std;
 
@@ -41,12 +42,18 @@ CSommet::CSommet(CSommet & SOMSommet) {
     // Allocation de la mémoire
     if (SOMLireNbArcEntrant() > 0) {
         ppARCSOMEntrant = (CArc**) malloc(uiSOMNbArcEntrant * sizeof (CArc*));
+        if (ppARCSOMEntrant == NULL) {
+            throw CException(MALLOC_ECHOUE, "Allocation de la mémoire a échoué !");
+        }
     } else {
         ppARCSOMEntrant = NULL;
     }
 
     if (SOMLireNbArcSortant() > 0) {
         ppARCSOMSortant = (CArc**) malloc(uiSOMNbArcSortant * sizeof (CArc*));
+        if (ppARCSOMSortant == NULL) {
+            throw CException(MALLOC_ECHOUE, "Allocation de la mémoire a échoué !");
+        }
     } else {
         ppARCSOMSortant = NULL;
     }
@@ -152,6 +159,9 @@ unsigned int CSommet::SOMLireNbArcSortant() {
 void CSommet::SOMAjouterArcEntrant(CArc ARCArcEntrant) {
     uiSOMNbArcEntrant++;
     ppARCSOMEntrant = (CArc **) realloc(ppARCSOMEntrant, uiSOMNbArcEntrant * sizeof(CArc*));
+    if (ppARCSOMEntrant == NULL) {
+        throw CException(MALLOC_ECHOUE, "Allocation de la mémoire a échoué !");
+    }
     ppARCSOMEntrant[uiSOMNbArcEntrant - 1] = new CArc(ARCArcEntrant);
 }
 
@@ -166,6 +176,9 @@ void CSommet::SOMAjouterArcEntrant(CArc ARCArcEntrant) {
 void CSommet::SOMAjouterArcSortant(CArc ARCArcSortant) {
     uiSOMNbArcSortant++;
     ppARCSOMSortant = (CArc **) realloc(ppARCSOMSortant, uiSOMNbArcSortant * sizeof(CArc*));
+    if (ppARCSOMSortant == NULL) {
+        throw CException(MALLOC_ECHOUE, "Allocation de la mémoire a échoué !");
+    }
     ppARCSOMSortant[uiSOMNbArcSortant - 1] = new CArc(ARCArcSortant);
 }
 
@@ -263,10 +276,16 @@ CSommet& CSommet::operator=(CSommet SOMSommet) {
         // Allocation de la mémoire
         if (SOMLireNbArcEntrant() > 0) {
             ppARCSOMEntrant = (CArc**) malloc(SOMLireNbArcEntrant() * sizeof (CArc*));
+            if (ppARCSOMEntrant == NULL) {
+                throw CException(MALLOC_ECHOUE, "Allocation de la mémoire a échoué !");
+            }
         }
 
         if (SOMLireNbArcSortant() > 0) {
             ppARCSOMSortant = (CArc**) malloc(SOMLireNbArcSortant() * sizeof (CArc*));
+            if (ppARCSOMSortant == NULL) {
+                throw CException(MALLOC_ECHOUE, "Allocation de la mémoire a échoué !");
+            }
         }
 
         // Recopie des arcs

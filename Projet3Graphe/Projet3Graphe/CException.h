@@ -3,7 +3,7 @@
 
 /* ===== ERROR CODES ===== */
 #define EXCEPTION_INCONNUE 0
-#define MALLOC_FAILED 1
+#define MALLOC_ECHOUE 1
 
 /*
  * Classe CException

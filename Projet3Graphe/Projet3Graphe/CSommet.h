@@ -25,9 +25,7 @@ class CSommet
 
     public :
         /* *********************************************************
-         *                 Constructeur par defaut                 *
-         ***********************************************************
-         * DELETE                                                  *
+         *            Constructeur par defaut SUPPRIMÉ             *
          ********************************************************* */
         CSommet() = delete;
 
@@ -38,7 +36,7 @@ class CSommet
          * Nécessite: -                                            *
          * Sortie: -                                               *
          * Entraine: L'objet en cours est initialisé la valeur de  *
-         *           uiNumero.                                     *
+         *           uiNumero, les pointeurs sont à NULL.          *
          ********************************************************* */
         CSommet(unsigned int uiNumero);
 
