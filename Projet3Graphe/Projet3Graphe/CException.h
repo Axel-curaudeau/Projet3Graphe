@@ -71,7 +71,7 @@ class CException
          ***********************************************************
          * Entrée: -                                               *
          * Nécessite: -                                            *
-         * Sortie: unsigned int uiEXCCode                          *
+         * Sortie: unsigned int                                    *
          * Entraine: Retourne l'erreur de l'objet en cours.        *
          ********************************************************* */
         unsigned int EXCLireCode()
@@ -97,7 +97,7 @@ class CException
          ***********************************************************
          * Entrée: -                                               *
          * Nécessite: -                                            *
-         * Sortie: char* pcEXCMessage                              *
+         * Sortie: char*                                           *
          * Entraine: Retourne le message de l'objet en cours       *
          ********************************************************* */
         char* EXCLireMessage()

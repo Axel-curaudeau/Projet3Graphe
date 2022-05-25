@@ -18,7 +18,7 @@ CArc::CArc(unsigned int uiDestination) {
  ***********************************************************
  * Entrée: -                                               *
  * Nécessite: -                                            *
- * Sortie: unsigned int uiARCDestination                   *
+ * Sortie: unsigned int                                    *
  * Entraine: La valeur de uiARCDestination est initialisée *
  *           avec celle de uiDestination.                  *
  ********************************************************* */
