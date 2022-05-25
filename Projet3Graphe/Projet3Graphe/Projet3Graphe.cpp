@@ -5,19 +5,23 @@
 #include "CAnalyseur.h"
 #include "CSommet.h"
 #include "CGraphe.h"
+#include <cstring>
 
 using namespace std;
 
 int main(int argc, char* argv[])
 {
-    CGraphe graphe;
+    CGraphe* graphe = new CGraphe();
     try {
         CParseur* parseur = new CParseur((char*)"graphes/graphetest.txt");
         CAnalyseur analyse(parseur);
-        analyse.ANLLireSommets(graphe);
-        graphe.GRPObtenirSommet(1).SOMAfficher();
-        analyse.ANLLireArcs(graphe);
-        graphe.GRPGenererGraphviz();
+        analyse.ANLLireSommets(*graphe);
+        graphe->GRPObtenirSommet(1).SOMAfficher();
+        analyse.ANLLireArcs(*graphe);
+        graphe->GRPGenererGraphviz();
+
+        delete parseur;
+	    delete graphe;
     }
     catch (CException EXCE) {
         cout << EXCE.EXCLireMessage() << endl;

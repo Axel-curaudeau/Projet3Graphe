@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "CException.h"
+#include <cstring>
 
 using namespace std;
 
@@ -142,7 +143,7 @@ public:
 	 * Sortie: -                                               *
 	 * Entraine: retourne la ligne suivant dans pcLigne	       *
 	 ********************************************************* */
-	char* PRSLireLigne();
+	char* PRSLireLigne(char pcLigne[]);
 
 	//fonction utilitaires :
 	/* *********************************************************

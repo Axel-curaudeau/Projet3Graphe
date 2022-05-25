@@ -3,6 +3,7 @@
 
 #include "CParseur.h"
 #include "CGraphe.h"
+#include <cstring>
 
 #pragma warning(disable : 4996)
 
@@ -83,7 +84,7 @@ public:
 	 * Entraine: Lit les arcs indiqués dans le fichier du      *
 	 * 		     parseur, et les alloue.                       *
 	 ********************************************************* */
-	void ANLLireArcs(CGraphe GRPGraph);
+	void ANLLireArcs(CGraphe & GRPGraph);
 };
 
 #endif

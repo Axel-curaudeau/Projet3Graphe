@@ -92,7 +92,7 @@ void CAnalyseur::ANLLireSommets(CGraphe & GRPGraphe)
 	} while (!pPRSANLParseur->PRSestEgal(pcResult, "]"));
 }
 
-void CAnalyseur::ANLLireArcs(CGraphe GRPGraphe)
+void CAnalyseur::ANLLireArcs(CGraphe & GRPGraphe)
 {
 	char pcLigne[TAILLE_MAX_LIGNE];
 	char pcResult[TAILLE_MAX_LIGNE];
@@ -105,7 +105,7 @@ void CAnalyseur::ANLLireArcs(CGraphe GRPGraphe)
 		throw CException(ERREUR_SYNTAXE, (char*)"Crochet ouvrant manquant apres le mot cle \"sommets =\"");
 	}
 
-	strcpy(pcLigne, pPRSANLParseur->PRSLireLigne());
+	pPRSANLParseur->PRSLireLigne(pcLigne);
 	while (!pPRSANLParseur->PRSestEgal(pcLigne, "]") || pcLigne == nullptr) {
 		try {
 			pPRSANLParseur->PRSCoupeLigne(pcLigne, pcPartieGauche, pcPartieDroite, (char*)",");
@@ -126,7 +126,7 @@ void CAnalyseur::ANLLireArcs(CGraphe GRPGraphe)
 
 			GRPGraphe.GRPAjouterArc(origine, destination);
 
-			strcpy(pcLigne, pPRSANLParseur->PRSLireLigne());
+			pPRSANLParseur->PRSLireLigne(pcLigne);
 		}
 		catch (CException EXCE) {
 			cout << EXCE.EXCLireMessage();

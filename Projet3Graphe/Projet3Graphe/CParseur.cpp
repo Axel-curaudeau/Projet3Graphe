@@ -56,7 +56,7 @@ void CParseur::PRSModifierFichier(char* pcChemin) {
 }
 
 /* *********************************************************
-*               Lire une valeur                            *
+*               Chercher une valeur                        *
 ************************************************************
 * Entrée: char* pcCle                                      *
 *         char pcValeur[TAILLE_MAX_LIGNE]                  *
@@ -79,8 +79,11 @@ void CParseur::PRSChercherValeur(char* pcCle, char pcValeur[]) {
 
     while (!IFSPRSFichier.eof()) {
         PRSCoupeLigneSuivante(pcPrecedent, pcSuivant, (char*)"=");
-        if (PRSestEgal(pcPrecedent, pcCleCopie)) {
+	if (PRSestEgal(pcPrecedent, pcCleCopie)) {
             strcpy(pcValeur, pcSuivant);
+	        PRSsuppChar(pcValeur, '\r');
+            PRSsuppChar(pcValeur, ' ');
+            PRSsuppChar(pcValeur, '\t');
             return;
         }
     }
@@ -180,6 +183,7 @@ void CParseur::PRSLireValeur(char* pcLigne, char* pcCle, char pcValeur[])
 ************************************************************/
 void CParseur::PRSLireValeurSuivante(char* pcCle, char pcValeur[])
 {
+    char pcLigne[TAILLE_MAX_LIGNE];
     char pcPrecedent[TAILLE_MAX_LIGNE];
     char pcSuivant[TAILLE_MAX_LIGNE];
     char pcCleCopie[TAILLE_MAX_LIGNE];
@@ -189,7 +193,8 @@ void CParseur::PRSLireValeurSuivante(char* pcCle, char pcValeur[])
     PRSsuppChar(pcCleCopie, '\t');
     PRSenMinuscule(pcCleCopie);
 
-    PRSCoupeLigne(PRSLireLigne(), pcPrecedent, pcSuivant, (char*)"=");
+    PRSLireLigne(pcLigne);
+    PRSCoupeLigne(pcLigne, pcPrecedent, pcSuivant, (char*)"=");
     if (PRSestEgal(pcPrecedent, pcCleCopie)) {
         strcpy(pcValeur, pcSuivant);
     }
@@ -209,10 +214,10 @@ void CParseur::PRSLireValeurSuivante(char* pcCle, char pcValeur[])
 * Sortie: -                                                *
 * Entraine: retourne la ligne suivant dans pcLigne	       *
 ************************************************************/
-char* CParseur::PRSLireLigne()
+char* CParseur::PRSLireLigne(char pcLigne[])
 {
-    char pcLigne[TAILLE_MAX_LIGNE];
     IFSPRSFichier.getline(pcLigne, TAILLE_MAX_LIGNE);
+    PRSsuppChar(pcLigne, '\r');
     return pcLigne;
 }
 
@@ -266,8 +271,9 @@ bool CParseur::PRSestEgal(const char pcChaine1[], const char pcChaine2[]) {
             return false;
         uiBoucle++;
     }
-    if (pcChaine1[uiBoucle] != '\0' || pcChaine2[uiBoucle] != '\0')
+    if (pcChaine1[uiBoucle] != '\0' || pcChaine2[uiBoucle] != '\0') {
         return false;
+    }
     return true;
 }
 
