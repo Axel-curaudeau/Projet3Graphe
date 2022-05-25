@@ -1,6 +1,11 @@
 # Projet3Graphe
 
-|   Classe   | Plage codes d'erreurs |
+## A faire
+- Remplacer tous les NULL par nullptr
+
+## Codes Exception
+
+|   Classe   | Plage codes exception |
 |------------|-----------------------|
 | CException |         0 - 9         |
 |    CArc    |        10 - 19        |
