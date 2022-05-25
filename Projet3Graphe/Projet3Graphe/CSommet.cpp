@@ -157,6 +157,13 @@ unsigned int CSommet::SOMLireNbArcSortant() {
  * Entraine: Ajoute un arc entrant à l'objet en cours.     *
  ********************************************************* */
 void CSommet::SOMAjouterArcEntrant(CArc ARCArcEntrant) {
+
+    // Si l'arc existe déjà, on lève une exception
+    if (SOMArcEntrantExiste(ARCArcEntrant.ARCLireDest())) {
+        throw CException(ARC_DEJA_EXISTANT, "Cet arc existe déjà");
+    }
+
+    // Sinon, on l'ajoute
     uiSOMNbArcEntrant++;
     ppARCSOMEntrant = (CArc **) realloc(ppARCSOMEntrant, uiSOMNbArcEntrant * sizeof(CArc*));
     if (ppARCSOMEntrant == NULL) {
@@ -174,6 +181,13 @@ void CSommet::SOMAjouterArcEntrant(CArc ARCArcEntrant) {
  * Entraine: Ajoute un arc sortant à l'objet en cours.     *
  ********************************************************* */
 void CSommet::SOMAjouterArcSortant(CArc ARCArcSortant) {
+
+    // Si l'arc existe déjà, on lève une exception
+    if (SOMArcSortantExiste(ARCArcSortant.ARCLireDest())) {
+        throw CException(ARC_DEJA_EXISTANT, "Cet arc existe déjà");
+    }
+
+    //Sinon, on l'ajoute
     uiSOMNbArcSortant++;
     ppARCSOMSortant = (CArc **) realloc(ppARCSOMSortant, uiSOMNbArcSortant * sizeof(CArc*));
     if (ppARCSOMSortant == NULL) {

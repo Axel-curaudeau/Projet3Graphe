@@ -7,7 +7,6 @@
 /* ===== ERROR CODES ===== */
 #define NUMERO_SOMMMET_INDISPONIBLE 1
 #define NUMERO_SOMMMET_INEXISTANT 2
-#define ARC_DEJA_EXISTANT 3
 
 /*
  * Classe CGraphe

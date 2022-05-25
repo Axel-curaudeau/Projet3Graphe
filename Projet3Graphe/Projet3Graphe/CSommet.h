@@ -8,6 +8,7 @@
 using namespace std;
 
 /* ===== ERROR CODES ===== */
+#define ARC_DEJA_EXISTANT 10
 
 /* 
  * Classe CSommet
