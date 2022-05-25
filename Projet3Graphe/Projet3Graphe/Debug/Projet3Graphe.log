@@ -1,2 +1,4 @@
-﻿  CParseur.cpp
+﻿  CGraphe.cpp
+C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe\CGraphe.cpp(82,18): warning C4101: 'uiBoucle' : variable locale non référencée
+C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe\CGraphe.cpp(135,18): warning C4101: 'uiBoucle' : variable locale non référencée
   Projet3Graphe.vcxproj -> C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Debug\Projet3Graphe.exe

@@ -40,7 +40,7 @@ void CAnalyseur::ANLModifierParseur(CParseur* PRSParseur)
 unsigned int CAnalyseur::ANLLireNbSommet()
 {
 	char pcValeur[TAILLE_MAX_LIGNE];
-	pPRSANLParseur->PRSLireValeur((char*)"NbSommets", pcValeur);
+	pPRSANLParseur->PRSChercherValeur((char*)"NbSommets", pcValeur);
 	return atoi(pcValeur);
 }
 
@@ -56,7 +56,7 @@ unsigned int CAnalyseur::ANLLireNbSommet()
 unsigned int CAnalyseur::ANLLireNbArc()
 {
 	char pcValeur[TAILLE_MAX_LIGNE];
-	pPRSANLParseur->PRSLireValeur((char*)"NbArcs", pcValeur);
+	pPRSANLParseur->PRSChercherValeur((char*)"NbArcs", pcValeur);
 	return atoi(pcValeur);
 }
 
@@ -69,25 +69,68 @@ unsigned int CAnalyseur::ANLLireNbArc()
 * Entraine: Lit le nombre de sommets indiqué dans le       *
 * 		     fichier du parseur.                           *
 ************************************************************/
-void CAnalyseur::ANLLireSommets()
+void CAnalyseur::ANLLireSommets(CGraphe & GRPGraphe)
 {
 	char pcResult[TAILLE_MAX_LIGNE];
-	pPRSANLParseur->PRSLireValeur((char*)"Sommets", pcResult);
+	pPRSANLParseur->PRSChercherValeur((char*)"Sommets", pcResult);
 	if (!pPRSANLParseur->PRSestEgal(pcResult, "[")) {
 		throw CException(ERREUR_SYNTAXE, (char*)"Crochet ouvrant manquant apres le mot cle \"sommets =\"");
 	}
+
 	do {
 		try {
 			pPRSANLParseur->PRSLireValeurSuivante((char*)"Numero", pcResult);
-			cout << pcResult << endl;
+			GRPGraphe.GRPAjouterSommet(atoi(pcResult));
 		}
 		catch (CException EXCE) {
 			if (EXCE.EXCLireCode() == CLE_INTROUVABLE) {
-				cout << pcResult << endl;
 				if (!pPRSANLParseur->PRSestEgal(pcResult, "]")) {
 					throw CException(ERREUR_SYNTAXE, (char*)"Erreur : crochet fermant \"]\" manquant");
 				}
 			}
 		}
 	} while (!pPRSANLParseur->PRSestEgal(pcResult, "]"));
+}
+
+void CAnalyseur::ANLLireArcs(CGraphe & GRPGraphe)
+{
+	char pcLigne[TAILLE_MAX_LIGNE];
+	char pcResult[TAILLE_MAX_LIGNE];
+	char pcPartieDroite[TAILLE_MAX_LIGNE];
+	char pcPartieGauche[TAILLE_MAX_LIGNE];
+	unsigned int origine, destination;
+
+	pPRSANLParseur->PRSChercherValeur((char*)"Arcs", pcResult);
+	if (!pPRSANLParseur->PRSestEgal(pcResult, "[")) {
+		throw CException(ERREUR_SYNTAXE, (char*)"Crochet ouvrant manquant apres le mot cle \"sommets =\"");
+	}
+
+	pPRSANLParseur->PRSLireLigne(pcLigne);
+	while (!pPRSANLParseur->PRSestEgal(pcLigne, "]") || pcLigne == nullptr) {
+		try {
+			pPRSANLParseur->PRSCoupeLigne(pcLigne, pcPartieGauche, pcPartieDroite, (char*)",");
+
+			pPRSANLParseur->PRSLireValeur(pcPartieGauche, (char*)"Debut", pcResult);
+			if (!pPRSANLParseur->PRSestUnNombre(pcResult)) {
+				throw CException(ERREUR_SYNTAXE, (char*)"La valeur de Debut d'arc doit etre un nombre.");
+			}
+			cout << "Debut = " << atoi(pcResult) << endl;
+			origine = atoi(pcResult);
+
+			pPRSANLParseur->PRSLireValeur(pcPartieDroite, (char*)"Fin", pcResult);
+			if (!pPRSANLParseur->PRSestUnNombre(pcResult)) {
+				throw CException(ERREUR_SYNTAXE, (char*)"La valeur de Fin d'arc doit etre un nombre.");
+			}
+			cout << "Fin = " << atoi(pcResult) << endl;
+			destination = atoi(pcResult);
+
+			GRPGraphe.GRPAjouterArc(origine, destination);
+
+			pPRSANLParseur->PRSLireLigne(pcLigne);
+		}
+		catch (CException EXCE) {
+			cout << EXCE.EXCLireMessage();
+			break;
+		}
+	}
 }

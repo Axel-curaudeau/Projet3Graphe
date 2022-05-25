@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include "CException.h"
+#include <cstring>
 
 using namespace std;
 
@@ -64,7 +65,7 @@ public:
 	void PRSModifierFichier(char* pcChemin);
 
 	/* *********************************************************
-	 *               Lire une valeur                           *
+	 *               Cherche une valeur                        *
 	 ***********************************************************
 	 * Entrée: char* pcCle                                     *
 	 *         char pcValeur[TAILLE_MAX_LIGNE]                 *
@@ -75,7 +76,23 @@ public:
 	 *           Si la cle est introuvable, une exception      *
 	 *           (CLE_INTROUVABLE) est levée.                  *
 	 ********************************************************* */
-	void PRSLireValeur(char* pcCle, char pcValeur[]);
+	void PRSChercherValeur(char* pcCle, char pcValeur[]);
+
+	/* *********************************************************
+	 *            Lire et separe la ligne suivante             *
+	 ***********************************************************
+	 * Entrée: char pcPrecedent[]                              *
+	 *         char pcSuivant[]                                *
+	 *         char cSeparator  							   *
+	 * Nécessite: -                                            *
+	 * Sortie: -                                               *
+	 * Entraine: Lit la ligne suivant, et la sépare en deux.   *
+	 * 		 La première partie est copiée dans pcPrecedent    *
+	 * 		 La seconde partie est copiée dans pcSuivant       *
+	 * 		 Le caractère séparateur est spécifié dans         *
+	 * 		 cSeparator.                                       *
+	 ********************************************************* */
+	void PRSCoupeLigne(char pcLigne[], char pcPrecedent[], char pcSuivant[], char* cSeparator);
 
 	/* *********************************************************
 	 *            Lire et separe la ligne suivante             *
@@ -92,6 +109,18 @@ public:
 	 * 		 cSeparator.                                       *
 	 ********************************************************* */
 	void PRSCoupeLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator);
+
+	/* *********************************************************
+	 *               Lire la valeur de la ligne                *
+	 ***********************************************************
+	 * Entrée: char* pcCle									   *
+	 * 	       char pcValeur[]                                 *
+	 * Nécessite: -                                            *
+	 * Sortie: -                                               *
+	 * Entraine: Cherche la cle specifié dans la ligne 	       *
+	 * suivante, et copie la valeur associe dans pcValeur      *
+	 ********************************************************* */
+	void PRSLireValeur(char* pcLigne, char* pcCle, char pcValeur[]);
 
 	/* *********************************************************
 	 *               Lire la valeur suivante                   *
@@ -114,7 +143,7 @@ public:
 	 * Sortie: -                                               *
 	 * Entraine: retourne la ligne suivant dans pcLigne	       *
 	 ********************************************************* */
-	void PRSLireLigne(char pcLigne[]);
+	char* PRSLireLigne(char pcLigne[]);
 
 	//fonction utilitaires :
 	/* *********************************************************
@@ -131,6 +160,7 @@ public:
 
 	static void PRSenMinuscule(char pcChaine[]);
 	static bool PRSestEgal(const char pcChaine1[], const char pcChaine2[]);
+	static bool PRSestUnNombre(const char pcChaine[]);
 };
 
 #endif //CPARSEUR_H

@@ -59,6 +59,10 @@ CGraphe::CGraphe(CGraphe & GRPGraph) {
  * Entraine: L'objet en cours supprimé.                    *
  ********************************************************* */
 CGraphe::~CGraphe() {
+    unsigned int uiBoucle = 0;
+    for (uiBoucle = uiGRPNbSommet - 1; uiBoucle > -1; uiBoucle--) {
+        delete &pSOMGRPTabSommet[uiBoucle];
+    }
     free(pSOMGRPTabSommet);
     // Appel GRPSupprimerSommet ?
 }
