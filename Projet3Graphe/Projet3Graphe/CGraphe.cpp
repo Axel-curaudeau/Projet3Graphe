@@ -183,6 +183,7 @@ void CGraphe::GRPGenererGraphviz() {
     for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
         // Recopie du sommet
         CSommet SOMCourant = pSOMGRPTabSommet[uiBoucle];
+        cout << SOMCourant.SOMLireNumero() << ";";
         // Parcours des arcs sortants
         for (uiBoucle1 = 0; uiBoucle1 < SOMCourant.SOMLireNbArcSortant(); uiBoucle1++) {
             cout << SOMCourant.SOMLireNumero() << "->" << SOMCourant.SOMLireArcSortant(uiBoucle1).ARCLireDest() << ";";
