@@ -13,5 +13,5 @@
 |    CArc    |        10 - 19        |
 |  CSommet   |        20 - 29        |
 |   CGraph   |        30 - 39        |
-|  CParseur  |        40 - 49        |
-| CAnalyseur |        50 - 59        |
+|  CLexeur   |        40 - 49        |
+|  CParseur  |        50 - 59        |
