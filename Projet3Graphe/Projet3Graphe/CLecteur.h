@@ -21,8 +21,11 @@ using namespace std;
  */
 class CLecteur {
 private:
+
 	ifstream IFSLECFichier;
+
 public:
+
 	/* *********************************************************
 	 *            Constructeur par defaut SUPPRIMÉ             *
 	 ********************************************************* */
@@ -31,7 +34,7 @@ public:
 	/* *********************************************************
 	 *               Constructeur par paramètre                *
 	 ***********************************************************
-	 * Entrée: unsigned int uiNumero                           *
+	 * Entrée: char* pcChemin                                  *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: L'objet en cours est initialisé en ouvrant    *
@@ -41,6 +44,9 @@ public:
 	 ********************************************************* */
 	CLecteur(char* pcChemin);
 
+	/* *********************************************************
+	 *            Constructeur de recopie SUPPRIMÉ             *
+	 ********************************************************* */
 	CLecteur(CLecteur& LECLecteur) = delete;
 
 	/* *********************************************************
@@ -60,7 +66,7 @@ public:
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: Ferme le fichier ouvert par l'objet en cours  *
-	 *           et ouvre le nouveau fichier                   *
+	 *           et ouvre un nouveau fichier                   *
 	 *           Si le chemin est incorrect, une exception	   *
 	 * 			 (FICHIER_INTROUVABLE) est levée.              *
 	 ********************************************************* */
@@ -81,11 +87,12 @@ public:
 	void LECChercherValeur(char* pcCle, char pcValeur[]);
 
 	/* *********************************************************
-	 *            Lire et separe la ligne suivante             *
+	 *           separe la ligne donné en paramètre            *
 	 ***********************************************************
-	 * Entrée: char pcPrecedent[]                              *
+	 * Entrée: char pcLigne[]                                  *
+	 *         char pcPrecedent[]                              *
 	 *         char pcSuivant[]                                *
-	 *         char cSeparator  							   *
+	 *         char* pcSeparator  							   *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: Lit la ligne suivant, et la sépare en deux.   *
@@ -94,14 +101,14 @@ public:
 	 * 		 Le caractère séparateur est spécifié dans         *
 	 * 		 cSeparator.                                       *
 	 ********************************************************* */
-	void LECCoupeLigne(char pcLigne[], char pcPrecedent[], char pcSuivant[], char* cSeparator);
+	void LECCoupeLigne(char* pcLigne, char pcPrecedent[], char pcSuivant[], char* pcSeparator);
 
 	/* *********************************************************
-	 *            Lire et separe la ligne suivante             *
+	 *             Lit et separe la ligne suivante             *
 	 ***********************************************************
 	 * Entrée: char pcPrecedent[]                              *
 	 *         char pcSuivant[]                                *
-	 *         char cSeparator  							   *
+	 *         char pcSeparator  							   *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: Lit la ligne suivant, et la sépare en deux.   *
@@ -110,11 +117,12 @@ public:
 	 * 		 Le caractère séparateur est spécifié dans         *
 	 * 		 cSeparator.                                       *
 	 ********************************************************* */
-	void LECCoupeLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator);
+	void LECCoupeLigneSuivante(char pcPrecedent[], char pcSuivant[], char* pcSeparator);
 
 	/* *********************************************************
-	 *               Lire la valeur de la ligne                *
+	 *      Lit la valeur de la ligne donné en paramètre       *
 	 ***********************************************************
+	 * Entrée: char
 	 * Entrée: char* pcCle									   *
 	 * 	       char pcValeur[]                                 *
 	 * Nécessite: -                                            *
@@ -139,11 +147,10 @@ public:
 	/* *********************************************************
 	 *                Lire la ligne suivante                   *
 	 ***********************************************************
-	 * Entrée: char* pcCle									   *
-	 * 	       char pcValeur[]                                 *
+	 * Entrée: char pcLigne									   *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
-	 * Entraine: retourne la ligne suivant dans pcLigne	       *
+	 * Entraine: retourne la ligne suivante dans pcLigne       *
 	 ********************************************************* */
 	char* LECLireLigne(char pcLigne[]);
 
@@ -155,13 +162,42 @@ public:
 	*         const char cChar                                 *
 	* Nécessite: -                                             *
 	* Sortie: -                                                *
-	* Entraine: (Modifie pcChaine pour enlever toute les       *
-	*           occurences de cChar).                          *
+	* Entraine: Enlève toutes les occurence de cChar dans      *
+	*           pcChaine                                       *
 	************************************************************/
 	static void LECsuppChar(char pcChaine[], char cChar);
 
+	/* *********************************************************
+	 *          Transforme les majuscules en minuscule         *
+	 ***********************************************************
+	 * Entrée: char pcChaine[]                                 *
+	 * Nécessite: -                                            *
+	 * Sortie: -                                               *
+	 * Entraine: Passe toutes les majuscules de pcChaine en    *
+	 *           minuscule                                     *
+	 ********************************************************* */
 	static void LECenMinuscule(char pcChaine[]);
+
+	/* *********************************************************
+	 *         Verifie si les deux chaines sont égales         *
+	 ***********************************************************
+	 * Entrée: const char pcChaine1[]                          *
+	 *         const char pcChaine2[]                          *
+	 * Nécessite: -                                            *
+	 * Sortie: bool                                            *
+	 * Entraine: Retourne vrai si les 2 chaines sont           *
+	 *            identiques                                   *
+	 ********************************************************* */
 	static bool LECestEgal(const char pcChaine1[], const char pcChaine2[]);
+
+	/* *********************************************************
+	 *           Verifie si la chaine est un nombre            *
+	 ***********************************************************
+	 * Entrée: const char pcChaine[]                           *
+	 * Nécessite: -                                            *
+	 * Sortie: bool                                            *
+	 * Entraine: Retourne vrai si la chaines est un nombre     *
+	 ********************************************************* */
 	static bool LECestUnNombre(const char pcChaine[]);
 };
 

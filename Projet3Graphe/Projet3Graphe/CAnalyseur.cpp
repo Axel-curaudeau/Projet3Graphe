@@ -23,9 +23,9 @@ CAnalyseur::CAnalyseur(CLecteur* pLECLecteur)
 * Entraine: Modifie le Lecteur de fichier de l'objet en    *
 * 		     cours.                                        *
 ************************************************************/
-void CAnalyseur::ANLModifierLecteur(CLecteur* LECLecteur)
+void CAnalyseur::ANLModifierLecteur(CLecteur* pLECLecteur)
 {
-	pLECANLLecteur = LECLecteur;
+	pLECANLLecteur = pLECLecteur;
 }
 
 /* *********************************************************
@@ -60,15 +60,15 @@ unsigned int CAnalyseur::ANLLireNbArcs()
 	return atoi(pcValeur);
 }
 
-/* *********************************************************
-*                Lire le nombre de sommets                 *
-************************************************************
-* Entrée: CGraphe GRPGraphe                                *
-* Nécessite: -                                             *
-* Sortie: unsigned int uiNombreSommet                      *
-* Entraine: Lit le nombre de sommets indiqué dans le       *
-* 		     fichier du Lecteur.                           *
-************************************************************/
+/* ********************************************************
+*                  Lire les sommets                       *
+***********************************************************
+* Entrée: CGraphe GRPGraphe                               *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: Lit les sommets indiqués dans le fichier du   *
+* 		     Lecteur, et les alloue.                      *
+********************************************************* */
 void CAnalyseur::ANLLireSommets(CGraphe & GRPGraphe)
 {
 	unsigned int uiBoucle, uiNbSommets;
