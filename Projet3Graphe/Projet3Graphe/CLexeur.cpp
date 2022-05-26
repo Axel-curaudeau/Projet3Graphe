@@ -1,4 +1,4 @@
-#include "CLecteur.h"
+#include "CLexeur.h"
 
 #pragma warning(disable : 4996)
 
@@ -15,9 +15,9 @@ using namespace std;
 *           Si le chemin est incorrect, une exception	  *
 * 			 (FICHIER_INTROUVABLE) est levée.             *
 ***********************************************************/
-CLecteur::CLecteur(char* pcChemin) {
-    IFSLECFichier.open(pcChemin);
-    if (!IFSLECFichier.is_open()) {
+CLexeur::CLexeur(char* pcChemin) {
+    IFSLEXFichier.open(pcChemin);
+    if (!IFSLEXFichier.is_open()) {
         throw CException(FICHIER_INTROUVABLE, (char*)"l'Ouverture du fichier a echoue");
     }
 }
@@ -31,8 +31,8 @@ CLecteur::CLecteur(char* pcChemin) {
 * Sortie: -                                                *
 * Entraine: Ferme le fichier ouvert par l'objet en cours   *
 ************************************************************/
-CLecteur::~CLecteur() {
-    IFSLECFichier.close();
+CLexeur::~CLexeur() {
+    IFSLEXFichier.close();
 }
 
 /* *********************************************************
@@ -46,12 +46,12 @@ CLecteur::~CLecteur() {
 *           Si le chemin est incorrect, une exception	   *
 * 			 (FICHIER_INTROUVABLE) est levée.              *
 ************************************************************/
-void CLecteur::LECModifierFichier(char* pcChemin) {
-    if (IFSLECFichier.is_open()) {
-        IFSLECFichier.close();
+void CLexeur::LEXModifierFichier(char* pcChemin) {
+    if (IFSLEXFichier.is_open()) {
+        IFSLEXFichier.close();
     }
-    IFSLECFichier.open(pcChemin);
-    if (!IFSLECFichier.is_open()) {
+    IFSLEXFichier.open(pcChemin);
+    if (!IFSLEXFichier.is_open()) {
         throw new CException(FICHIER_INTROUVABLE, (char*)"l'Ouverture du fichier à échoué");
     }
 }
@@ -68,25 +68,25 @@ void CLecteur::LECModifierFichier(char* pcChemin) {
 *           Si la cle est introuvable, une exception       *
 *           (CLE_INTROUVABLE) est levée.                   *
 ************************************************************/
-void CLecteur::LECChercherValeur(char* pcCle, char pcValeur[]) {
+void CLexeur::LEXChercherValeur(char* pcCle, char pcValeur[]) {
     char pcPrecedent[TAILLE_MAX_LIGNE];
     char pcSuivant[TAILLE_MAX_LIGNE];
-    char pcCleCopie[TAILLE_MAX_LIGNE];
-    strcpy(pcCleCopie, pcCle);
+    char pcCLEXopie[TAILLE_MAX_LIGNE];
+    strcpy(pcCLEXopie, pcCle);
 
-    LECsuppChar(pcCleCopie, ' ');
-    LECsuppChar(pcCleCopie, '\t');
-    LECenMinuscule(pcCleCopie);
+    LEXsuppChar(pcCLEXopie, ' ');
+    LEXsuppChar(pcCLEXopie, '\t');
+    LEXenMinuscule(pcCLEXopie);
 
-    IFSLECFichier.seekg(0, IFSLECFichier.beg);
+    IFSLEXFichier.seekg(0, IFSLEXFichier.beg);
 
-    while (!IFSLECFichier.eof()) {
-        LECCoupeLigneSuivante(pcPrecedent, pcSuivant, (char*)"=");
-	if (LECestEgal(pcPrecedent, pcCleCopie)) {
+    while (!IFSLEXFichier.eof()) {
+        LEXCoupeLigneSuivante(pcPrecedent, pcSuivant, (char*)"=");
+	if (LEXestEgal(pcPrecedent, pcCLEXopie)) {
             strcpy(pcValeur, pcSuivant);
-	        LECsuppChar(pcValeur, '\r');
-            LECsuppChar(pcValeur, ' ');
-            LECsuppChar(pcValeur, '\t');
+	        LEXsuppChar(pcValeur, '\r');
+            LEXsuppChar(pcValeur, ' ');
+            LEXsuppChar(pcValeur, '\t');
             return;
         }
     }
@@ -108,10 +108,10 @@ void CLecteur::LECChercherValeur(char* pcCle, char pcValeur[]) {
 * 		 Le caractère séparateur est spécifié dans        *
 * 		 cSeparator.                                      *
 ********************************************************* */
-void CLecteur::LECCoupeLigne(char* pcLigne, char pcPrecedent[], char pcSuivant[], char* cSeparator) {
-    LECsuppChar(pcLigne, ' ');
-    LECsuppChar(pcLigne, '\t');
-    LECenMinuscule(pcLigne);
+void CLexeur::LEXCoupeLigne(char* pcLigne, char pcPrecedent[], char pcSuivant[], char* cSeparator) {
+    LEXsuppChar(pcLigne, ' ');
+    LEXsuppChar(pcLigne, '\t');
+    LEXenMinuscule(pcLigne);
 
     char* pcTemporaire = strtok(pcLigne, cSeparator);
     if (pcTemporaire != nullptr) {
@@ -138,13 +138,13 @@ void CLecteur::LECCoupeLigne(char* pcLigne, char pcPrecedent[], char pcSuivant[]
 * 		 Le caractère séparateur est spécifié dans         *
 * 		 cSeparator.                                       *
 ************************************************************/
-void CLecteur::LECCoupeLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator) {
+void CLexeur::LEXCoupeLigneSuivante(char pcPrecedent[], char pcSuivant[], char* cSeparator) {
     char pcLigne[TAILLE_MAX_LIGNE];
-    IFSLECFichier.getline(pcLigne, TAILLE_MAX_LIGNE);
+    IFSLEXFichier.getline(pcLigne, TAILLE_MAX_LIGNE);
 
-    LECsuppChar(pcLigne, ' ');
-    LECsuppChar(pcLigne, '\t');
-    LECenMinuscule(pcLigne);
+    LEXsuppChar(pcLigne, ' ');
+    LEXsuppChar(pcLigne, '\t');
+    LEXenMinuscule(pcLigne);
 
     char* pcTemporaire = strtok(pcLigne, cSeparator);
     if (pcTemporaire != nullptr) {
@@ -168,19 +168,19 @@ void CLecteur::LECCoupeLigneSuivante(char pcPrecedent[], char pcSuivant[], char*
 * Entraine: Cherche la cle specifié dans la ligne 	      *
 * suivante, et copie la valeur associe dans pcValeur      *
 ********************************************************* */
-void CLecteur::LECLireValeur(char* pcLigne, char* pcCle, char pcValeur[])
+void CLexeur::LEXLireValeur(char* pcLigne, char* pcCle, char pcValeur[])
 {
     char pcPrecedent[TAILLE_MAX_LIGNE];
     char pcSuivant[TAILLE_MAX_LIGNE];
-    char pcCleCopie[TAILLE_MAX_LIGNE];
-    strcpy(pcCleCopie, pcCle);
+    char pcCLEXopie[TAILLE_MAX_LIGNE];
+    strcpy(pcCLEXopie, pcCle);
 
-    LECsuppChar(pcCleCopie, ' ');
-    LECsuppChar(pcCleCopie, '\t');
-    LECenMinuscule(pcCleCopie);
+    LEXsuppChar(pcCLEXopie, ' ');
+    LEXsuppChar(pcCLEXopie, '\t');
+    LEXenMinuscule(pcCLEXopie);
 
-    LECCoupeLigne(pcLigne, pcPrecedent, pcSuivant, (char*)"=");
-    if (LECestEgal(pcPrecedent, pcCleCopie)) {
+    LEXCoupeLigne(pcLigne, pcPrecedent, pcSuivant, (char*)"=");
+    if (LEXestEgal(pcPrecedent, pcCLEXopie)) {
         strcpy(pcValeur, pcSuivant);
     }
     else {
@@ -200,21 +200,21 @@ void CLecteur::LECLireValeur(char* pcLigne, char* pcCle, char pcValeur[])
 * Entraine: Cherche la cle specifié dans la ligne 	       *
 * suivante, et copie la valeur associe dans pcValeur       *
 ************************************************************/
-void CLecteur::LECLireValeurSuivante(char* pcCle, char pcValeur[])
+void CLexeur::LEXLireValeurSuivante(char* pcCle, char pcValeur[])
 {
     char pcLigne[TAILLE_MAX_LIGNE];
     char pcPrecedent[TAILLE_MAX_LIGNE];
     char pcSuivant[TAILLE_MAX_LIGNE];
-    char pcCleCopie[TAILLE_MAX_LIGNE];
-    strcpy(pcCleCopie, pcCle);
+    char pcCLEXopie[TAILLE_MAX_LIGNE];
+    strcpy(pcCLEXopie, pcCle);
 
-    LECsuppChar(pcCleCopie, ' ');
-    LECsuppChar(pcCleCopie, '\t');
-    LECenMinuscule(pcCleCopie);
+    LEXsuppChar(pcCLEXopie, ' ');
+    LEXsuppChar(pcCLEXopie, '\t');
+    LEXenMinuscule(pcCLEXopie);
 
-    LECLireLigne(pcLigne);
-    LECCoupeLigne(pcLigne, pcPrecedent, pcSuivant, (char*)"=");
-    if (LECestEgal(pcPrecedent, pcCleCopie)) {
+    LEXLireLigne(pcLigne);
+    LEXCoupeLigne(pcLigne, pcPrecedent, pcSuivant, (char*)"=");
+    if (LEXestEgal(pcPrecedent, pcCLEXopie)) {
         strcpy(pcValeur, pcSuivant);
     }
     else {
@@ -233,10 +233,10 @@ void CLecteur::LECLireValeurSuivante(char* pcCle, char pcValeur[])
 * Sortie: -                                               *
 * Entraine: retourne la ligne suivante dans pcLigne       *
 ********************************************************* */
-char* CLecteur::LECLireLigne(char pcLigne[])
+char* CLexeur::LEXLireLigne(char pcLigne[])
 {
-    IFSLECFichier.getline(pcLigne, TAILLE_MAX_LIGNE);
-    LECsuppChar(pcLigne, '\r');
+    IFSLEXFichier.getline(pcLigne, TAILLE_MAX_LIGNE);
+    LEXsuppChar(pcLigne, '\r');
     return pcLigne;
 }
 
@@ -250,7 +250,7 @@ char* CLecteur::LECLireLigne(char pcLigne[])
 * Entraine: Enlève toutes les occurence de cChar dans      *
 *           pcChaine                                       *
 ************************************************************/
-void CLecteur::LECsuppChar(char pcChaine[], char cChar) {
+void CLexeur::LEXsuppChar(char pcChaine[], char cChar) {
     unsigned int uiBoucle = 0;
     unsigned int uiBoucle2 = 0;
     if (pcChaine == nullptr) {
@@ -275,7 +275,7 @@ void CLecteur::LECsuppChar(char pcChaine[], char cChar) {
 * Entraine: Passe toutes les majuscules de pcChaine en    *
 *           minuscule                                     *
 ********************************************************* */
-void CLecteur::LECenMinuscule(char pcChaine[]) {
+void CLexeur::LEXenMinuscule(char pcChaine[]) {
     unsigned int uiBoucle = 0;
     while (pcChaine[uiBoucle] != '\0') {
         pcChaine[uiBoucle] = tolower(pcChaine[uiBoucle]);
@@ -294,7 +294,7 @@ void CLecteur::LECenMinuscule(char pcChaine[]) {
 * Entraine: Retourne vrai si les 2 chaines sont           *
 *            identiques                                   *
 ********************************************************* */
-bool CLecteur::LECestEgal(const char pcChaine1[], const char pcChaine2[]) {
+bool CLexeur::LEXestEgal(const char pcChaine1[], const char pcChaine2[]) {
     unsigned int uiBoucle = 0;
 
     // Si les 2 pointeurs sont null, alors ils sont égaux
@@ -323,7 +323,7 @@ bool CLecteur::LECestEgal(const char pcChaine1[], const char pcChaine2[]) {
 * Sortie: bool                                            *
 * Entraine: Retourne vrai si la chaines est un nombre     *
 ********************************************************* */
-bool CLecteur::LECestUnNombre(const char pcChaine[])
+bool CLexeur::LEXestUnNombre(const char pcChaine[])
 {
     if (pcChaine[0] < 48 || pcChaine[0] > 57) {
         return false;

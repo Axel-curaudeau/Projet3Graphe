@@ -1,5 +1,5 @@
-#ifndef CLECTEUR_H
-#define CLECTEUR_H
+#ifndef CLEXEUR_H
+#define CLEXEUR_H
 
 #include <iostream>
 #include <fstream>
@@ -11,25 +11,23 @@ using namespace std;
 #define TAILLE_MAX_LIGNE 1000
 
 /* ===== ERROR CODES ===== */
-#define FICHIER_INTROUVABLE 1
-#define CLE_INTROUVABLE 2
+#define FICHIER_INTROUVABLE 40
+#define CLE_INTROUVABLE 41
 
 /*
- * Classe CLecteur
+ * Classe CLexeur
  *
- * Cette class est utilisée pour lire un fichier texte sur le modèle clé associe valeur (exemple : NombreSommet = 1).
+ * Cette class est utilisée pour l'analyse lexicale d'un fichier (exemple : NombreSommet = 1).
  */
-class CLecteur {
+class CLexeur {
 private:
-
-	ifstream IFSLECFichier;
+	ifstream IFSLEXFichier;
 
 public:
-
 	/* *********************************************************
 	 *            Constructeur par defaut SUPPRIMÉ             *
 	 ********************************************************* */
-	CLecteur() = delete;
+	CLexeur() = delete; // je comprend pas pourquoi
 
 	/* *********************************************************
 	 *               Constructeur par paramètre                *
@@ -42,12 +40,12 @@ public:
 	 *           Si le chemin est incorrect, une exception	   *
 	 * 			 (FICHIER_INTROUVABLE) est levée.              *
 	 ********************************************************* */
-	CLecteur(char* pcChemin);
+	CLexeur(char* pcChemin);
 
 	/* *********************************************************
 	 *            Constructeur de recopie SUPPRIMÉ             *
 	 ********************************************************* */
-	CLecteur(CLecteur& LECLecteur) = delete;
+	CLexeur(CLexeur & LEXLexeur) = delete;
 
 	/* *********************************************************
 	 *                       Destructeur                       *
@@ -57,7 +55,7 @@ public:
 	 * Sortie: -                                               *
 	 * Entraine: Ferme le fichier ouvert par l'objet en cours  *
 	 ********************************************************* */
-	~CLecteur();
+	~CLexeur();
 
 	/* *********************************************************
 	 *               Modifier le fichier                       *
@@ -70,7 +68,7 @@ public:
 	 *           Si le chemin est incorrect, une exception	   *
 	 * 			 (FICHIER_INTROUVABLE) est levée.              *
 	 ********************************************************* */
-	void LECModifierFichier(char* pcChemin);
+	void LEXModifierFichier(char* pcChemin);
 
 	/* *********************************************************
 	 *               Cherche une valeur                        *
@@ -84,7 +82,7 @@ public:
 	 *           Si la cle est introuvable, une exception      *
 	 *           (CLE_INTROUVABLE) est levée.                  *
 	 ********************************************************* */
-	void LECChercherValeur(char* pcCle, char pcValeur[]);
+	void LEXChercherValeur(char* pcCle, char pcValeur[]);
 
 	/* *********************************************************
 	 *           separe la ligne donné en paramètre            *
@@ -101,7 +99,7 @@ public:
 	 * 		 Le caractère séparateur est spécifié dans         *
 	 * 		 cSeparator.                                       *
 	 ********************************************************* */
-	void LECCoupeLigne(char* pcLigne, char pcPrecedent[], char pcSuivant[], char* pcSeparator);
+	void LEXCoupeLigne(char* pcLigne, char pcPrecedent[], char pcSuivant[], char* pcSeparator);
 
 	/* *********************************************************
 	 *             Lit et separe la ligne suivante             *
@@ -117,7 +115,7 @@ public:
 	 * 		 Le caractère séparateur est spécifié dans         *
 	 * 		 cSeparator.                                       *
 	 ********************************************************* */
-	void LECCoupeLigneSuivante(char pcPrecedent[], char pcSuivant[], char* pcSeparator);
+	void LEXCoupeLigneSuivante(char pcPrecedent[], char pcSuivant[], char* pcSeparator);
 
 	/* *********************************************************
 	 *      Lit la valeur de la ligne donné en paramètre       *
@@ -130,7 +128,7 @@ public:
 	 * Entraine: Cherche la cle specifié dans la ligne 	       *
 	 * suivante, et copie la valeur associe dans pcValeur      *
 	 ********************************************************* */
-	void LECLireValeur(char* pcLigne, char* pcCle, char pcValeur[]);
+	void LEXLireValeur(char* pcLigne, char* pcCle, char pcValeur[]);
 
 	/* *********************************************************
 	 *               Lire la valeur suivante                   *
@@ -142,7 +140,7 @@ public:
 	 * Entraine: Cherche la cle specifié dans la ligne 	       *
 	 * suivante, et copie la valeur associe dans pcValeur      *
 	 ********************************************************* */
-	void LECLireValeurSuivante(char* pcCle, char pcValeur[]);
+	void LEXLireValeurSuivante(char* pcCle, char pcValeur[]);
 
 	/* *********************************************************
 	 *                Lire la ligne suivante                   *
@@ -152,7 +150,7 @@ public:
 	 * Sortie: -                                               *
 	 * Entraine: retourne la ligne suivante dans pcLigne       *
 	 ********************************************************* */
-	char* LECLireLigne(char pcLigne[]);
+	char* LEXLireLigne(char pcLigne[]);
 
 	//fonction utilitaires :
 	/* *********************************************************
@@ -165,7 +163,7 @@ public:
 	* Entraine: Enlève toutes les occurence de cChar dans      *
 	*           pcChaine                                       *
 	************************************************************/
-	static void LECsuppChar(char pcChaine[], char cChar);
+	static void LEXsuppChar(char pcChaine[], char cChar);
 
 	/* *********************************************************
 	 *          Transforme les majuscules en minuscule         *
@@ -176,7 +174,7 @@ public:
 	 * Entraine: Passe toutes les majuscules de pcChaine en    *
 	 *           minuscule                                     *
 	 ********************************************************* */
-	static void LECenMinuscule(char pcChaine[]);
+	static void LEXenMinuscule(char pcChaine[]);
 
 	/* *********************************************************
 	 *         Verifie si les deux chaines sont égales         *
@@ -188,7 +186,7 @@ public:
 	 * Entraine: Retourne vrai si les 2 chaines sont           *
 	 *            identiques                                   *
 	 ********************************************************* */
-	static bool LECestEgal(const char pcChaine1[], const char pcChaine2[]);
+	static bool LEXestEgal(const char pcChaine1[], const char pcChaine2[]);
 
 	/* *********************************************************
 	 *           Verifie si la chaine est un nombre            *
@@ -198,7 +196,7 @@ public:
 	 * Sortie: bool                                            *
 	 * Entraine: Retourne vrai si la chaines est un nombre     *
 	 ********************************************************* */
-	static bool LECestUnNombre(const char pcChaine[]);
+	static bool LEXestUnNombre(const char pcChaine[]);
 };
 
-#endif //CPARSEUR_H
+#endif //CLEXEUR_H
