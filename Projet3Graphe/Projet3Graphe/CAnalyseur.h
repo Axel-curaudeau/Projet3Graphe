@@ -1,7 +1,7 @@
 #ifndef CANALYSEUR_H
 #define CANALYSEUR_H
 
-#include "CLecteur.h"
+#include "CLexeur.h"
 #include "CGraphe.h"
 #include <cstring>
 
@@ -12,7 +12,7 @@
 class CAnalyseur
 {
 private:
-	CLecteur* pLECANLLecteur;
+	CLexeur* pLEXANLLecteur;
 	//CGraph GRFANLGraphe; 
 public:
 	/* *********************************************************
@@ -23,24 +23,24 @@ public:
 	/* *********************************************************
 	 *               Constructeur par paramètre                *
 	 ***********************************************************
-	 * Entrée: CLecteur pLECLecteur                            *
+	 * Entrée: CLexeur pLECLexeur                            *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: L'objet en cours est initialisé avec un       *
 	 * 			 Lecteur de fichier.                           *
 	 ********************************************************* */
-	CAnalyseur(CLecteur* pLECLecteur);
+	CAnalyseur(CLexeur* pLECLexeur);
 
 	/* *********************************************************
 	 *                  Modifier le Lecteur                    *
 	 ***********************************************************
-	 * Entrée: CLecteur pLECLecteur                            *
+	 * Entrée: CLexeur pLECLexeur                            *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: Modifie le Lecteur de fichier de l'objet en   *
 	 * 		     cours.                                        *
 	 ********************************************************* */
-	void ANLModifierLecteur(CLecteur* pLECLecteur);
+	void ANLModifierLecteur(CLexeur* pLECLexeur);
 
 	/* *********************************************************
 	 *                Lire le nombre de sommets                *

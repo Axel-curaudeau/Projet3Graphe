@@ -1,6 +1,6 @@
 #include <iostream>
 #include "CArc.h"
-#include "CLecteur.h"
+#include "CLexeur.h"
 #include "CAnalyseur.h"
 #include "CSommet.h"
 #include "CGraphe.h"
@@ -45,7 +45,7 @@ int main(int argc, char* argv[])
         delete graphe;
 
         CGraphe graphe2;
-        CLecteur fichier((char*)"graphes/graphetest.txt");
+        CLexeur fichier((char*)"graphes/graphetest.txt");
         CAnalyseur analyse(&fichier);
         cout << analyse.ANLLireNbArcs() << "|" << analyse.ANLLireNbSommets() << endl;
         analyse.ANLLireSommets(graphe2);

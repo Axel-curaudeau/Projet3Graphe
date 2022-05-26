@@ -3,29 +3,29 @@
 /* *********************************************************
 *               Constructeur par paramètre                 *
 ************************************************************
-* Entrée: CLecteur pLECLecteur                             *
+* Entrée: CLexeur pLEXLexeur                             *
 * Nécessite: -                                             *
 * Sortie: -                                                *
 * Entraine: L'objet en cours est initialisé avec un        *
 * 			 Lecteur de fichier.                           *
 ************************************************************/
-CAnalyseur::CAnalyseur(CLecteur* pLECLecteur)
+CAnalyseur::CAnalyseur(CLexeur* pLEXLexeur)
 {
-	pLECANLLecteur = pLECLecteur;
+	pLEXANLLecteur = pLEXLexeur;
 }
 
 /* *********************************************************
 *                  Modifier le Lecteur                     *
 ************************************************************
-* Entrée: CLecteur pLECLecteur                             *
+* Entrée: CLexeur pLEXLexeur                             *
 * Nécessite: -                                             *
 * Sortie: -                                                *
 * Entraine: Modifie le Lecteur de fichier de l'objet en    *
 * 		     cours.                                        *
 ************************************************************/
-void CAnalyseur::ANLModifierLecteur(CLecteur* pLECLecteur)
+void CAnalyseur::ANLModifierLecteur(CLexeur* pLEXLexeur)
 {
-	pLECANLLecteur = pLECLecteur;
+	pLEXANLLecteur = pLEXLexeur;
 }
 
 /* *********************************************************
@@ -40,7 +40,7 @@ void CAnalyseur::ANLModifierLecteur(CLecteur* pLECLecteur)
 unsigned int CAnalyseur::ANLLireNbSommets()
 {
 	char pcValeur[TAILLE_MAX_LIGNE];
-	pLECANLLecteur->LECChercherValeur((char*)"NbSommets", pcValeur);
+	pLEXANLLecteur->LEXChercherValeur((char*)"NbSommets", pcValeur);
 	return atoi(pcValeur);
 }
 
@@ -56,7 +56,7 @@ unsigned int CAnalyseur::ANLLireNbSommets()
 unsigned int CAnalyseur::ANLLireNbArcs()
 {
 	char pcValeur[TAILLE_MAX_LIGNE];
-	pLECANLLecteur->LECChercherValeur((char*)"NbArcs", pcValeur);
+	pLEXANLLecteur->LEXChercherValeur((char*)"NbArcs", pcValeur);
 	return atoi(pcValeur);
 }
 
@@ -78,15 +78,15 @@ void CAnalyseur::ANLLireSommets(CGraphe & GRPGraphe)
 	uiNbSommets = ANLLireNbSommets();
 
 	//Recherche de la ligne du début de la définition des sommets.
-	pLECANLLecteur->LECChercherValeur((char*)"Sommets", pcResult);	
-	if (!pLECANLLecteur->LECestEgal(pcResult, "[")) {
+	pLEXANLLecteur->LEXChercherValeur((char*)"Sommets", pcResult);	
+	if (!pLEXANLLecteur->LEXestEgal(pcResult, "[")) {
 		throw CException(ERREUR_SYNTAXE, (char*)"Crochet ouvrant manquant apres le mot cle \"sommets =\"");
 	}
 	
 	//Lecture et allocation des sommets.
 	for (uiBoucle = 0; uiBoucle < uiNbSommets; uiBoucle++) {
 		try {
-			pLECANLLecteur->LECLireValeurSuivante((char*)"Numero", pcResult);
+			pLEXANLLecteur->LEXLireValeurSuivante((char*)"Numero", pcResult);
 			GRPGraphe.GRPAjouterSommet(atoi(pcResult));
 		}
 		catch (CException EXCE) {
@@ -97,8 +97,8 @@ void CAnalyseur::ANLLireSommets(CGraphe & GRPGraphe)
 	}
 
 	//Lecture du crochet fermant.
-	pLECANLLecteur->LECLireLigne(pcResult);
-	if (!pLECANLLecteur->LECestEgal(pcResult, "]")) {
+	pLEXANLLecteur->LEXLireLigne(pcResult);
+	if (!pLEXANLLecteur->LEXestEgal(pcResult, "]")) {
 		throw CException(ERREUR_SYNTAXE, (char*)"Erreur : crochet fermant \"]\" manquant ou nombre de sommets declare superieur a NbSommets.");
 	}
 }
@@ -122,22 +122,22 @@ void CAnalyseur::ANLLireArcs(CGraphe & GRPGraphe)
 
 	uiNbArcs = ANLLireNbArcs();
 
-	pLECANLLecteur->LECChercherValeur((char*)"Arcs", pcResult);
-	if (!pLECANLLecteur->LECestEgal(pcResult, "[")) {
+	pLEXANLLecteur->LEXChercherValeur((char*)"Arcs", pcResult);
+	if (!pLEXANLLecteur->LEXestEgal(pcResult, "[")) {
 		throw CException(ERREUR_SYNTAXE, (char*)"Crochet ouvrant manquant apres le mot cle \"sommets =\"");
 	}
 
 	for (uiBoucle = 0; uiBoucle < uiNbArcs; uiBoucle++) {
 		try {
-			pLECANLLecteur->LECCoupeLigneSuivante(pcPartieGauche, pcPartieDroite, (char*)",");
-			pLECANLLecteur->LECLireValeur(pcPartieGauche, (char*)"Debut", pcResult);
-			if (!pLECANLLecteur->LECestUnNombre(pcResult)) {
+			pLEXANLLecteur->LEXCoupeLigneSuivante(pcPartieGauche, pcPartieDroite, (char*)",");
+			pLEXANLLecteur->LEXLireValeur(pcPartieGauche, (char*)"Debut", pcResult);
+			if (!pLEXANLLecteur->LEXestUnNombre(pcResult)) {
 				throw CException(ERREUR_SYNTAXE, (char*)"La valeur de Debut d'arc doit etre un nombre.");
 			}
 			uiOrigine = atoi(pcResult);
 
-			pLECANLLecteur->LECLireValeur(pcPartieDroite, (char*)"Fin", pcResult);
-			if (!pLECANLLecteur->LECestUnNombre(pcResult)) {
+			pLEXANLLecteur->LEXLireValeur(pcPartieDroite, (char*)"Fin", pcResult);
+			if (!pLEXANLLecteur->LEXestUnNombre(pcResult)) {
 				throw CException(ERREUR_SYNTAXE, (char*)"La valeur de Fin d'arc doit etre un nombre.");
 			}
 			uiDestination = atoi(pcResult);
@@ -152,8 +152,8 @@ void CAnalyseur::ANLLireArcs(CGraphe & GRPGraphe)
 	}
 
 	//Lecture du crochet fermant.
-	pLECANLLecteur->LECLireLigne(pcResult);
-	if (!pLECANLLecteur->LECestEgal(pcResult, "]")) {
+	pLEXANLLecteur->LEXLireLigne(pcResult);
+	if (!pLEXANLLecteur->LEXestEgal(pcResult, "]")) {
 		throw CException(ERREUR_SYNTAXE, (char*)"Erreur : crochet fermant \"]\" manquant ou nombre d'arcs declare superieur a NbArcs.");
 	}
 }
