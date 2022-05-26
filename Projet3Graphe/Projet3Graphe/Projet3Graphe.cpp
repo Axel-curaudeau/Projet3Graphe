@@ -1,7 +1,6 @@
-
 #include <iostream>
 #include "CArc.h"
-#include "CParseur.h"
+#include "CLecteur.h"
 #include "CAnalyseur.h"
 #include "CSommet.h"
 #include "CGraphe.h"
@@ -36,5 +35,12 @@ int main(int argc, char* argv[])
     graphe.GRPAjouterArc(10, 11);
 
     graphe.GRPGenererGraphviz();
+
+    CGraphe graphe2;
+    CLecteur fichier((char*)"graphes/graphetest.txt");
+    CAnalyseur analyse(&fichier);
+    analyse.ANLLireSommets(graphe2);
+    analyse.ANLLireArcs(graphe2);
+    graphe2.GRPGenererGraphviz();
     return 0;
 }

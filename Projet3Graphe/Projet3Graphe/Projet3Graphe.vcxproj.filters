@@ -18,7 +18,7 @@
     <ClCompile Include="Projet3Graphe.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
-    <ClCompile Include="CParseur.cpp">
+    <ClCompile Include="CLecteur.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
     <ClCompile Include="CAnalyseur.cpp">
@@ -35,7 +35,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CParseur.h">
+    <ClInclude Include="CLecteur.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
     <ClInclude Include="CArc.h">
