@@ -415,3 +415,11 @@ CSommet& CSommet::operator=(CSommet SOMSommet) {
     }
     return *this;
 }
+
+void CSommet::Initialiser()
+{
+    uiSOMNbArcEntrant = 0;
+    uiSOMNbArcSortant = 0;
+    ppARCSOMEntrant = NULL;
+    ppARCSOMSortant = NULL;
+}

@@ -7,11 +7,11 @@
  * Nécessite: -                                            *
  * Sortie: -                                               *
  * Entraine: L'objet en cours est initialisé,              *
- *           ppSOMGRPTabSommet est initialisé à NULL.       *
+ *           pSOMGRPTabSommet est initialisé à NULL.       *
  * ******************************************************* */
 CGraphe::CGraphe() {
     uiGRPNbSommet = 0;
-    ppSOMGRPTabSommet = NULL;
+    pSOMGRPTabSommet = NULL;
 }
 
 /* *********************************************************
@@ -30,17 +30,19 @@ CGraphe::CGraphe(CGraphe & GRPGraph) {
 
     // Allocation de la mémoire
     if (uiGRPNbSommet > 0) { // -=- Changer pour accesseur -=-
-        ppSOMGRPTabSommet = (CSommet **) malloc(uiGRPNbSommet * sizeof (CSommet*));
-        if (ppSOMGRPTabSommet == NULL) {
+        pSOMGRPTabSommet = (CSommet *) malloc(uiGRPNbSommet * sizeof (CSommet));
+        if (pSOMGRPTabSommet == NULL) {
             throw CException(MALLOC_ECHOUE, (char *) "Allocation de la mémoire a échoué !");
         }
     } else {
-        ppSOMGRPTabSommet = NULL;
+        pSOMGRPTabSommet = NULL;
     }
 
     // Copie des sommets
     for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
-        ppSOMGRPTabSommet[uiBoucle] = new CSommet(*(GRPGraph.ppSOMGRPTabSommet[uiBoucle])); // -=- Changer pour accesseur -=-
+        CSommet* pSOMSommetTemporaire = new CSommet((GRPGraph.pSOMGRPTabSommet[uiBoucle])); // -=- Changer pour accesseur -=-
+        pSOMGRPTabSommet[uiBoucle] = *pSOMSommetTemporaire; 
+        delete pSOMSommetTemporaire;
     }
 }
 
@@ -58,11 +60,10 @@ CGraphe::~CGraphe() {
 
     // Libération de la mémoire
     for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
-        delete ppSOMGRPTabSommet[uiBoucle];
-        ppSOMGRPTabSommet[uiBoucle] = NULL;
+        pSOMGRPTabSommet[uiBoucle].~CSommet();
     }
-    free(ppSOMGRPTabSommet);
-    ppSOMGRPTabSommet = NULL;
+    free(pSOMGRPTabSommet);
+    pSOMGRPTabSommet = NULL;
     // Appel GRPSupprimerSommet ?
 }
 
@@ -86,11 +87,75 @@ void CGraphe::GRPAjouterSommet(unsigned int uiNumero) {
 
     // Sinon, on l'ajoute
     uiGRPNbSommet++;
-    ppSOMGRPTabSommet = (CSommet **) realloc(ppSOMGRPTabSommet, uiGRPNbSommet * sizeof (CSommet*));
-    if (ppSOMGRPTabSommet == NULL) {
+    pSOMGRPTabSommet = (CSommet *) realloc(pSOMGRPTabSommet, uiGRPNbSommet * sizeof (CSommet));
+    if (pSOMGRPTabSommet == NULL) {
         throw CException(MALLOC_ECHOUE, (char *) "Allocation de la mémoire a échoué !");
     }
-    ppSOMGRPTabSommet[uiGRPNbSommet - 1] = new CSommet(uiNumero);
+    pSOMGRPTabSommet[uiGRPNbSommet - 1].Initialiser();
+    CSommet* pSOMSommetTemporaire = new CSommet(uiNumero);
+    pSOMGRPTabSommet[uiGRPNbSommet - 1] = *pSOMSommetTemporaire;
+    delete pSOMSommetTemporaire;
+}
+
+/* ********************************************************
+*                     ModifierSommet                      *
+***********************************************************
+* Entrée: unsigned int uiAncienNumero                     *
+*         unsigned int uiNouveauNumero                    *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: Le sommet avec le numéro uiAncienNumero est   *
+*           modifié avec le numéro uiNouveauNumero.       *
+*           Si "l'ancien" sommet n'existe pas, une        *
+*           exception (NUMERO_SOMMMET_INEXISTANT) est     *
+*           levée.                                        *
+*           Si le "nouveau" sommet existe déjà, une       *
+*           exception (NUMERO_SOMMMET_INDISPONIBLE) est   *
+*           levée.                                        *
+* ******************************************************* */
+void CGraphe::GRPModifierSommet(unsigned int uiAncienNumero, unsigned int uiNouveauNumero)
+{
+    if (GRPSommetExiste(uiNouveauNumero)) {
+        throw CException(NUMERO_SOMMMET_INDISPONIBLE, (char*)"Le numero de sommet saisie est indisponible !");
+    }
+    GRPObtenirSommet(uiAncienNumero).SOMModifierNumero(uiNouveauNumero);
+}
+
+/* ********************************************************
+*                      SupprimerSommet                    *
+***********************************************************
+* Entrée: unsigned int uiNumero                           *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: Un sommet est supprimé de la liste de sommets.*
+*           Si le sommet n'existe pas, une exception      *
+*           (NUMERO_SOMMMET_INEXISTANT) est levée.        *
+********************************************************* */
+void CGraphe::GRPSupprimerSommet(unsigned int uiNumero)
+{
+    if (!GRPSommetExiste(uiNumero)) {   //Verification de l'existance du sommet à supprimer.
+        throw CException(NUMERO_SOMMMET_INEXISTANT, (char*)"Ce sommet n'existe pas");
+    }
+
+    unsigned int uiBoucle, uiBoucle2;
+    CSommet* pSOMNouveauTabSommet = (CSommet*)malloc((uiGRPNbSommet - 1) * sizeof(CSommet));    //Allocation du futur tableau de sommet.
+    if (pSOMNouveauTabSommet == NULL) {
+        throw CException(MALLOC_ECHOUE, (char*)"Allocation de la mémoire a échoué !");
+    }
+    
+    uiBoucle2 = 0;
+    for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
+        if (pSOMGRPTabSommet[uiBoucle].SOMLireNumero() != uiNumero) {   //Ajout de tout les sommet dans le nouveau tableau sauf celui à supprimer.
+            pSOMNouveauTabSommet[uiBoucle2].Initialiser();
+            pSOMNouveauTabSommet[uiBoucle2] = pSOMGRPTabSommet[uiBoucle];
+            uiBoucle2++;
+        }
+        pSOMGRPTabSommet[uiBoucle].~CSommet();  //Supprission des sommets dans l'ancien tableau.
+    }
+
+    uiGRPNbSommet--;
+    free(pSOMGRPTabSommet);
+    pSOMGRPTabSommet = pSOMNouveauTabSommet;
 }
 
 /* *********************************************************
@@ -109,13 +174,41 @@ CSommet & CGraphe::GRPObtenirSommet(unsigned int uiNumero) {
     // Parcours de la liste de sommets
     for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
         // Si le sommet est trouvé
-        if (ppSOMGRPTabSommet[uiBoucle]->SOMLireNumero() == uiNumero) {
-            return *ppSOMGRPTabSommet[uiBoucle];
+        if (pSOMGRPTabSommet[uiBoucle].SOMLireNumero() == uiNumero) {
+            return pSOMGRPTabSommet[uiBoucle];
         }
     }
 
     // Si le sommet n'existe pas
-    throw CException(NUMERO_SOMMMET_INDISPONIBLE,(char *) "Ce sommet n'existe pas");
+    throw CException(NUMERO_SOMMMET_INEXISTANT,(char *) "Ce sommet n'existe pas");
+}
+
+/* ********************************************************
+*                        ArcExiste                        *
+***********************************************************
+* Entrée: unsigned int uiOrigine                          *
+*         unsigned int uiDestination                      *
+* Nécessite: -                                            *
+* Sortie: bool                                            *
+* Entraine: Retourne true si l'arc existe, false sinon.   *
+* ******************************************************* */
+bool CGraphe::GRPArcExiste(unsigned int uiOrigine, unsigned int uiDestination)
+{
+    unsigned int uiBoucle;
+    try {
+        CSommet SOMOrigine = GRPObtenirSommet(uiOrigine);
+        for (uiBoucle = 0; uiBoucle < SOMOrigine.SOMLireNbArcSortant(); uiBoucle++) {
+            if (SOMOrigine.SOMLireArcSortant(uiBoucle).ARCLireDest() == uiDestination) {
+                return true;
+            }
+        }
+    }
+    catch (CException EXCE) {
+        if (EXCE.EXCLireCode() == NUMERO_SOMMMET_INEXISTANT) {
+            return false;
+        }
+    }
+    return false;
 }
 
 /* *********************************************************
@@ -153,6 +246,28 @@ void CGraphe::GRPAjouterArc(unsigned int uiOrigine, unsigned int uiDestination) 
     GRPObtenirSommet(uiDestination).SOMAjouterArcEntrant(uiOrigine);
 }
 
+/* ********************************************************
+*                      SupprimerArc                       *
+***********************************************************
+* Entrée: unsigned int uiOrigine                          *
+*         unsigned int uiDestination                      *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: Un arc est supprimé du sommet uiOrigine à     *
+*           uiDestination.                                *
+*           Si un des 2 sommets n'existe pas, une         *
+*           exception (NUMERO_SOMMMET_INEXISTANT) est     *
+*           levée.                                        *
+*           Si l'arc n'existe pas, une exception          *
+*           (ARC_INEXISTANT) est levée.                   *
+********************************************************* */
+void CGraphe::GRPSupprimerArc(unsigned int uiOrigine, unsigned int uiDestination)
+{
+    if (!GRPArcExiste(uiOrigine, uiDestination)) {
+
+    }
+}
+
 /***********************************************************/
 bool CGraphe::GRPSommetExiste(unsigned int uiNumero) {
     unsigned int uiBoucle;
@@ -160,7 +275,7 @@ bool CGraphe::GRPSommetExiste(unsigned int uiNumero) {
     // Parcours de la liste de sommets
     for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
         // Si le sommet est trouvé
-        if (ppSOMGRPTabSommet[uiBoucle]->SOMLireNumero() == uiNumero) {
+        if (pSOMGRPTabSommet[uiBoucle].SOMLireNumero() == uiNumero) {
             return true;
         }
     }
@@ -184,7 +299,7 @@ void CGraphe::GRPGenererGraphviz() {
     // Parcours de la liste de sommets
     for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
         // Recopie du sommet
-        CSommet SOMCourant = *ppSOMGRPTabSommet[uiBoucle];
+        CSommet SOMCourant = pSOMGRPTabSommet[uiBoucle];
         cout << SOMCourant.SOMLireNumero() << ";";
         // Parcours des arcs sortants
         for (uiBoucle1 = 0; uiBoucle1 < SOMCourant.SOMLireNbArcSortant(); uiBoucle1++) {

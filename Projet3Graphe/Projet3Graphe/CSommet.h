@@ -211,6 +211,8 @@ class CSommet
          *           copie de SOMSommet.                           *
          ********************************************************* */
         CSommet& operator=(CSommet SOMSommet);
+
+        void Initialiser();
 };
 
 #endif // CSOMMET_H

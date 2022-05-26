@@ -17,7 +17,7 @@ class CGraphe
 {
     private :
         unsigned int uiGRPNbSommet;
-        CSommet** ppSOMGRPTabSommet;
+        CSommet* pSOMGRPTabSommet;
 
     public :
         /* *********************************************************
@@ -130,7 +130,7 @@ class CGraphe
         void GRPSupprimerArc(unsigned int uiOrigine, unsigned int uiDestination);
 
         /* *********************************************************
-         *                      SommetExiste                       *
+         *                   Obtenir le sommet                     *
          ***********************************************************
          * Entrée: unsigned int uiNumero                           *
          * Nécessite: -                                            *
@@ -147,7 +147,7 @@ class CGraphe
          *         unsigned int uiDestination                      *
          * Nécessite: -                                            *
          * Sortie: bool                                            *
-         * Entraine: Retourne true si l'arc existe, false sinon.    *
+         * Entraine: Retourne true si l'arc existe, false sinon.   *
          * ******************************************************* */
         bool GRPArcExiste(unsigned int uiOrigine, unsigned int uiDestination);
 
