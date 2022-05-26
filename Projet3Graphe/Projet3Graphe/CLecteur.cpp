@@ -22,6 +22,7 @@ CLecteur::CLecteur(char* pcChemin) {
     }
 }
 
+
 /* *********************************************************
 *                       Destructeur                        *
 ************************************************************
@@ -76,6 +77,8 @@ void CLecteur::LECChercherValeur(char* pcCle, char pcValeur[]) {
     LECsuppChar(pcCleCopie, ' ');
     LECsuppChar(pcCleCopie, '\t');
     LECenMinuscule(pcCleCopie);
+
+    IFSLECFichier.seekg(0, IFSLECFichier.beg);
 
     while (!IFSLECFichier.eof()) {
         LECCoupeLigneSuivante(pcPrecedent, pcSuivant, (char*)"=");
@@ -200,7 +203,8 @@ void CLecteur::LECLireValeurSuivante(char* pcCle, char pcValeur[])
     }
     else {
         strcpy(pcValeur, pcPrecedent);
-        throw CException(CLE_INTROUVABLE, (char*)"La cle specifie n'a pas ete trouve dans le fichier");
+        char pcMessage[TAILLE_MAX_LIGNE] = "La cle specifie n'a pas ete trouve dans le fichier : ";
+        throw CException(CLE_INTROUVABLE, strcat(pcMessage, pcCle));
     }
 
 }

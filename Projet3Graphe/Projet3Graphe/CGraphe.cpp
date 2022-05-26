@@ -191,5 +191,5 @@ void CGraphe::GRPGenererGraphviz() {
             cout << SOMCourant.SOMLireNumero() << "->" << SOMCourant.SOMLireArcSortant(uiBoucle1).ARCLireDest() << ";";
         }
     }
-    cout << "}";
+    cout << "}" << endl;
 }

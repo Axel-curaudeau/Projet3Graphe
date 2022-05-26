@@ -12,7 +12,7 @@
 class CAnalyseur
 {
 private:
-	CLecteur* pLECANLParseur;
+	CLecteur* pLECANLLecteur;
 	//CGraph GRFANLGraphe; 
 public:
 	/* *********************************************************
@@ -23,24 +23,24 @@ public:
 	/* *********************************************************
 	 *               Constructeur par paramètre                *
 	 ***********************************************************
-	 * Entrée: CLecteur pLECParseur                            *
+	 * Entrée: CLecteur pLECLecteur                            *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: L'objet en cours est initialisé avec un       *
-	 * 			 parseur de fichier.                           *
+	 * 			 Lecteur de fichier.                           *
 	 ********************************************************* */
-	CAnalyseur(CLecteur* pLECParseur);
+	CAnalyseur(CLecteur* pLECLecteur);
 
 	/* *********************************************************
-	 *                  Modifier le Parseur                    *
+	 *                  Modifier le Lecteur                    *
 	 ***********************************************************
-	 * Entrée: CLecteur pLECParseur                            *
+	 * Entrée: CLecteur pLECLecteur                            *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
-	 * Entraine: Modifie le parseur de fichier de l'objet en   *
+	 * Entraine: Modifie le Lecteur de fichier de l'objet en   *
 	 * 		     cours.                                        *
 	 ********************************************************* */
-	void ANLModifierParseur(CLecteur* LECParseur);
+	void ANLModifierLecteur(CLecteur* pLECLecteur);
 
 	/* *********************************************************
 	 *                Lire le nombre de sommets                *
@@ -49,9 +49,9 @@ public:
 	 * Nécessite: -                                            *
 	 * Sortie: unsigned int uiNombreSommet                     *
 	 * Entraine: Lit le nombre de sommets indiqué dans le      *
-	 * 		     fichier du parseur.                           *
+	 * 		     fichier du Lecteur.                           *
 	 ********************************************************* */
-	unsigned int ANLLireNbSommet();
+	unsigned int ANLLireNbSommets();
 
 	/* *********************************************************
 	 *                Lire le nombre d'arcs                    *
@@ -60,29 +60,29 @@ public:
 	 * Nécessite: -                                            *
 	 * Sortie: unsigned int uiNombreArc                        *
 	 * Entraine: Lit le nombre d'arcs indiqué dans le fichier  *
-	 * 		     du parseur.                                   *
+	 * 		     du Lecteur.                                   *
 	 ********************************************************* */
-	unsigned int ANLLireNbArc();
+	unsigned int ANLLireNbArcs();
 
 	/* *********************************************************
 	 *                  Lire les sommets                       *
 	 ***********************************************************
-	 * Entrée: -                                               *
+	 * Entrée: CGraphe GRPGraphe                               *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: Lit les sommets indiqués dans le fichier du   *
-	 * 		     parseur, et les alloue.                       *
+	 * 		     Lecteur, et les alloue.                       *
 	 ********************************************************* */
 	void ANLLireSommets(CGraphe & GRPGraphe);
 
 	/* *********************************************************
 	 *                  Lire les arcs                         *
 	 ***********************************************************
-	 * Entrée: -                                               *
+	 * Entrée: CGraphe GRPGraphe                               *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: Lit les arcs indiqués dans le fichier du      *
-	 * 		     parseur, et les alloue.                       *
+	 * 		     Lecteur, et les alloue.                       *
 	 ********************************************************* */
 	void ANLLireArcs(CGraphe & GRPGraph);
 };

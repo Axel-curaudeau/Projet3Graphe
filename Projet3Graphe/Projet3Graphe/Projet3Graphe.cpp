@@ -36,11 +36,17 @@ int main(int argc, char* argv[])
 
     graphe.GRPGenererGraphviz();
 
-    CGraphe graphe2;
-    CLecteur fichier((char*)"graphes/graphetest.txt");
-    CAnalyseur analyse(&fichier);
-    analyse.ANLLireSommets(graphe2);
-    analyse.ANLLireArcs(graphe2);
-    graphe2.GRPGenererGraphviz();
+    try {
+        CGraphe graphe2;
+        CLecteur fichier((char*)"graphes/graphetest.txt");
+        CAnalyseur analyse(&fichier);
+        cout << analyse.ANLLireNbArcs() << "|" << analyse.ANLLireNbSommets() << endl;
+        analyse.ANLLireSommets(graphe2);
+        analyse.ANLLireArcs(graphe2);
+        graphe2.GRPGenererGraphviz();
+    }
+    catch (CException EXCE) {
+        cout << EXCE.EXCLireMessage() << endl;
+    }
     return 0;
 }
