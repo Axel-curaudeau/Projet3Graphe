@@ -142,6 +142,12 @@ void CGraphe::GRPSupprimerSommet(unsigned int uiNumero)
     if (pSOMNouveauTabSommet == NULL) {
         throw CException(MALLOC_ECHOUE, (char*)"Allocation de la mémoire a échoué !");
     }
+
+    CSommet SOMTemp = GRPObtenirSommet(uiNumero);
+    for (uiBoucle = 0; uiBoucle < SOMTemp.SOMLireNbArcSortant(); uiBoucle++) {  //supression des arcs entrant dans les sommmets de destination.
+        unsigned int uiDestination = SOMTemp.SOMLireArcSortant(uiBoucle).ARCLireDest();
+        GRPObtenirSommet(uiDestination).SOMSupprimerArcEntrant(uiNumero);
+    }
     
     uiBoucle2 = 0;
     for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
@@ -211,6 +217,14 @@ bool CGraphe::GRPArcExiste(unsigned int uiOrigine, unsigned int uiDestination)
     return false;
 }
 
+void CGraphe::GRPAfficher()
+{
+    unsigned int uiBoucle;
+    for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
+        pSOMGRPTabSommet[uiBoucle].SOMAfficher();
+    }
+}
+
 /* *********************************************************
  *                      AjouterArc                         *
  ***********************************************************
@@ -264,8 +278,10 @@ void CGraphe::GRPAjouterArc(unsigned int uiOrigine, unsigned int uiDestination) 
 void CGraphe::GRPSupprimerArc(unsigned int uiOrigine, unsigned int uiDestination)
 {
     if (!GRPArcExiste(uiOrigine, uiDestination)) {
-
+        throw CException(ARC_INEXISTANT, (char*)"L'arc précisé n'existe pas !");
     }
+    GRPObtenirSommet(uiOrigine).SOMSupprimerArcSortant(uiDestination);
+    GRPObtenirSommet(uiDestination).SOMSupprimerArcEntrant(uiOrigine);
 }
 
 /***********************************************************/

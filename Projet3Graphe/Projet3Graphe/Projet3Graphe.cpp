@@ -37,8 +37,9 @@ int main(int argc, char* argv[])
         graphe->GRPAjouterArc(10, 11);
 
         graphe->GRPSupprimerSommet(1);
+        graphe->GRPSupprimerArc(2, 5);
 
-        cout << graphe->GRPArcExiste(100, 5) << endl;
+        graphe->GRPAfficher();
 
         graphe->GRPGenererGraphviz();
 
