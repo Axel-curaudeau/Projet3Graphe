@@ -4,6 +4,7 @@
 #include "CAnalyseur.h"
 #include "CSommet.h"
 #include "CGraphe.h"
+#include "COperationGraphe.h"
 #include <cstring>
 
 using namespace std;
@@ -36,12 +37,13 @@ int main(int argc, char* argv[])
         graphe->GRPAjouterSommet(11);
         graphe->GRPAjouterArc(10, 11);
 
-        graphe->GRPSupprimerSommet(1);
-        graphe->GRPSupprimerArc(2, 5);
-
         graphe->GRPAfficher();
-
         graphe->GRPGenererGraphviz();
+
+        COperationGraphe OPE1;
+        CGraphe grapheinverse = OPE1.OPEInverserGraphe(*graphe);
+        grapheinverse.GRPGenererGraphviz();
+        
 
         delete graphe;
 

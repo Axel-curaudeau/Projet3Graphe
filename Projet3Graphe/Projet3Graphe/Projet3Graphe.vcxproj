@@ -143,6 +143,7 @@
     <ClCompile Include="CArc.cpp" />
     <ClCompile Include="CGraphe.cpp" />
     <ClCompile Include="CLexeur.cpp" />
+    <ClCompile Include="COperationGraphe.cpp" />
     <ClCompile Include="CSommet.cpp" />
     <ClCompile Include="Projet3Graphe.cpp" />
   </ItemGroup>
@@ -152,6 +153,7 @@
     <ClInclude Include="CException.h" />
     <ClInclude Include="CGraphe.h" />
     <ClInclude Include="CLexeur.h" />
+    <ClInclude Include="COperationGraphe.h" />
     <ClInclude Include="CSommet.h" />
   </ItemGroup>
   <ItemGroup>

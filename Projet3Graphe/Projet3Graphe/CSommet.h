@@ -212,7 +212,9 @@ class CSommet
          ********************************************************* */
         CSommet& operator=(CSommet SOMSommet);
 
-        void Initialiser();
+        void SOMInitialiser();
+
+        void SOMInverserArcs();
 };
 
 #endif // CSOMMET_H

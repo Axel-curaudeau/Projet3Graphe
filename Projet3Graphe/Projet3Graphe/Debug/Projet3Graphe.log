@@ -1,3 +1,8 @@
-﻿  CGraphe.cpp
-C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe\CGraphe.cpp(244,18): warning C4101: 'uiBoucle' : variable locale non référencée
-  Projet3Graphe.vcxproj -> C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Debug\Projet3Graphe.exe
+﻿  CAnalyseur.cpp
+C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe\CAnalyseur.cpp(117,7): warning C4101: 'pcLigne' : variable locale non référencée
+  CGraphe.cpp
+  COperationGraphe.cpp
+  Projet3Graphe.cpp
+C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe.cpp(44,64): error C2440: 'initialisation' : impossible de convertir de 'CGraphe' en 'CGraphe'
+C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe.cpp(44,64): message : Impossible de copier la construction class 'CGraphe', car les constructeurs de copie sont ambigus ou aucun constructeur de copie n'est disponible
+  Génération de code en cours...

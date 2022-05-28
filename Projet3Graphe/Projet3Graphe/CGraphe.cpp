@@ -41,6 +41,7 @@ CGraphe::CGraphe(CGraphe & GRPGraph) {
     // Copie des sommets
     for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
         CSommet* pSOMSommetTemporaire = new CSommet((GRPGraph.pSOMGRPTabSommet[uiBoucle])); // -=- Changer pour accesseur -=-
+        pSOMGRPTabSommet[uiBoucle].SOMInitialiser();
         pSOMGRPTabSommet[uiBoucle] = *pSOMSommetTemporaire; 
         delete pSOMSommetTemporaire;
     }
@@ -67,6 +68,37 @@ CGraphe::~CGraphe() {
     // Appel GRPSupprimerSommet ?
 }
 
+/* ********************************************************
+*                 Lire le nombre de sommets               *
+***********************************************************
+* Entrée: -                                               *
+* Nécessite: -                                            *
+* Sortie: unsigned int uiNbSommet                         *
+* Entraine: retourne le nombre de sommet contenus dans    *
+*           l'objet en cours.                             *
+********************************************************* */
+unsigned int CGraphe::GRPLireNbSommet()
+{
+    return uiGRPNbSommet;
+}
+
+/* *********************************************************
+*               Obtenir le sommet à l'index               *
+***********************************************************
+* Entrée: unsigned int uiIndex                            *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: retourne l'objet sommet à l'index uiIndex     *
+*           dans la liste des sommets                     *
+********************************************************* */
+CSommet & CGraphe::GRPIndexSommet(unsigned int uiIndex)
+{
+    if (uiIndex >= uiGRPNbSommet) {
+        throw CException(DEPASSEMEMENT_INDEX, (char*)"Index saisie hors de la zone memoire");
+    }
+    return pSOMGRPTabSommet[uiIndex];
+}
+
 /* *********************************************************
  *                      AjouterSommet                      *
  ***********************************************************
@@ -91,7 +123,7 @@ void CGraphe::GRPAjouterSommet(unsigned int uiNumero) {
     if (pSOMGRPTabSommet == NULL) {
         throw CException(MALLOC_ECHOUE, (char *) "Allocation de la mémoire a échoué !");
     }
-    pSOMGRPTabSommet[uiGRPNbSommet - 1].Initialiser();
+    pSOMGRPTabSommet[uiGRPNbSommet - 1].SOMInitialiser();
     CSommet* pSOMSommetTemporaire = new CSommet(uiNumero);
     pSOMGRPTabSommet[uiGRPNbSommet - 1] = *pSOMSommetTemporaire;
     delete pSOMSommetTemporaire;
@@ -152,7 +184,7 @@ void CGraphe::GRPSupprimerSommet(unsigned int uiNumero)
     uiBoucle2 = 0;
     for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
         if (pSOMGRPTabSommet[uiBoucle].SOMLireNumero() != uiNumero) {   //Ajout de tout les sommet dans le nouveau tableau sauf celui à supprimer.
-            pSOMNouveauTabSommet[uiBoucle2].Initialiser();
+            pSOMNouveauTabSommet[uiBoucle2].SOMInitialiser();
             pSOMNouveauTabSommet[uiBoucle2] = pSOMGRPTabSommet[uiBoucle];
             uiBoucle2++;
         }
@@ -241,7 +273,6 @@ void CGraphe::GRPAfficher()
  *           (ARC_DEJA_EXISTANT) est levée.                *
  ********************************************************* */
 void CGraphe::GRPAjouterArc(unsigned int uiOrigine, unsigned int uiDestination) {
-    unsigned int uiBoucle;
 
     // Si un des 2 sommets n'existe pas
     if (!GRPSommetExiste(uiOrigine)) {
@@ -323,4 +354,9 @@ void CGraphe::GRPGenererGraphviz() {
         }
     }
     cout << "}" << endl;
+}
+
+CGraphe & CGraphe::operator=(CGraphe GRPGraphe)
+{
+    return *new CGraphe();
 }

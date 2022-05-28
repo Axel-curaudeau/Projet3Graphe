@@ -416,10 +416,22 @@ CSommet& CSommet::operator=(CSommet SOMSommet) {
     return *this;
 }
 
-void CSommet::Initialiser()
+void CSommet::SOMInitialiser()
 {
     uiSOMNbArcEntrant = 0;
     uiSOMNbArcSortant = 0;
     ppARCSOMEntrant = NULL;
     ppARCSOMSortant = NULL;
+}
+
+void CSommet::SOMInverserArcs()
+{
+    unsigned int uiTemporaire;
+    CArc** ppARCTemporaire = ppARCSOMEntrant;
+    ppARCSOMEntrant = ppARCSOMSortant;
+    ppARCSOMSortant = ppARCTemporaire;
+
+    uiTemporaire = uiSOMNbArcEntrant;
+    uiSOMNbArcEntrant = uiSOMNbArcSortant;
+    uiSOMNbArcSortant = uiTemporaire;
 }

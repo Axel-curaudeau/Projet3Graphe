@@ -5,8 +5,9 @@
 #include "CSommet.h"
 
 /* ===== ERROR CODES ===== */
-#define NUMERO_SOMMMET_INDISPONIBLE 1
-#define NUMERO_SOMMMET_INEXISTANT 2
+#define NUMERO_SOMMMET_INDISPONIBLE 30
+#define NUMERO_SOMMMET_INEXISTANT 31
+#define DEPASSEMEMENT_INDEX 32
 
 /*
  * Classe CGraphe
@@ -51,6 +52,28 @@ class CGraphe
          * Entraine: L'objet en cours supprimé.                    *
          ********************************************************* */
         ~CGraphe();
+
+        /* *********************************************************
+         *                 Lire le nombre de sommets               *
+         ***********************************************************
+         * Entrée: -                                               *
+         * Nécessite: -                                            *
+         * Sortie: unsigned int uiNbSommet                         *
+         * Entraine: retourne le nombre de sommet contenus dans    *
+         *           l'objet en cours.                             *
+         ********************************************************* */
+        unsigned int GRPLireNbSommet();
+
+        /* *********************************************************
+         *               Obtenir le sommet à l'index               *
+         ***********************************************************
+         * Entrée: unsigned int uiIndex                            *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: retourne l'objet sommet à l'index uiIndex     *
+         *           dans la liste des sommets                     *
+         ********************************************************* */
+        CSommet & GRPIndexSommet(unsigned int uiIndex);
 
         /* *********************************************************
          *                      AjouterSommet                      *
@@ -171,17 +194,9 @@ class CGraphe
          * ******************************************************* */
         void GRPGenererGraphviz();
 
-        /* *********************************************************
-         *                      Inverser                           *
-         ***********************************************************
-         * Entrée: -                                               *
-         * Nécessite: -                                            *
-         * Sortie: -                                               *
-         * Entraine: Les arcs sont inversés.                       *
-         * ******************************************************* */
-        void GRPInverser();
-
         bool GRPSommetExiste(unsigned int uiNumero);
+
+        CGraphe & operator=(CGraphe GRPGraphe);
 };
 
 #endif // CGraphe_H
