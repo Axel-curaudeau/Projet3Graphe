@@ -23,24 +23,26 @@ public:
 	/* *********************************************************
 	 *               Constructeur par paramètre                *
 	 ***********************************************************
-	 * Entrée: CLexeur pLECLexeur                            *
+	 * Entrée: char* pcChemin                                  *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: L'objet en cours est initialisé avec un       *
 	 * 			 Lecteur de fichier.                           *
 	 ********************************************************* */
-	CAnalyseur(CLexeur* pLECLexeur);
+	CAnalyseur(char* pcChemin);
+
+	~CAnalyseur();
 
 	/* *********************************************************
 	 *                  Modifier le Lecteur                    *
 	 ***********************************************************
-	 * Entrée: CLexeur pLECLexeur                            *
+	 * Entrée: char* pcFichier                            *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: Modifie le Lecteur de fichier de l'objet en   *
 	 * 		     cours.                                        *
 	 ********************************************************* */
-	void ANLModifierLecteur(CLexeur* pLECLexeur);
+	void ANLModifierFichier(char* pcFichier);
 
 	/* *********************************************************
 	 *                Lire le nombre de sommets                *
@@ -85,6 +87,8 @@ public:
 	 * 		     Lecteur, et les alloue.                       *
 	 ********************************************************* */
 	void ANLLireArcs(CGraphe & GRPGraph);
+
+	void ANLInitialiserGraphe(CGraphe& GRPGraphe);
 };
 
 #endif

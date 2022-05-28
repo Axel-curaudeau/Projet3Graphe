@@ -13,18 +13,25 @@ int main(int argc, char* argv[])
 {
     if (argc == 2) {
         try {
-            CGraphe graphe;
-            CLexeur fichier(argv[1]);
-            CAnalyseur analyse(&fichier);
-            analyse.ANLLireSommets(graphe);
-            analyse.ANLLireArcs(graphe);
-            graphe.GRPAfficher();
+            CGraphe* graphe = new CGraphe();
+            CAnalyseur analyse(argv[1]);
+            analyse.ANLInitialiserGraphe(*graphe);
+            graphe->GRPAfficher();
 
-            graphe.GRPGenererGraphviz();
+            cout << endl << "Ouvre le lien suivant dans votre navigateur pour visualiser le graphe :" << endl;
+            graphe->GRPGenererGraphviz();
 
+            cout << endl << "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+            cout << "Inversion du graphe précédent :" << endl;
             COperationGraphe OPG;
-            CGraphe graphe2 = OPG.OPEInverserGraphe(graphe);
-            graphe2.GRPAfficher();
+            CGraphe* graphe2 =new CGraphe(OPG.OPEInverserGraphe(*graphe));
+            graphe2->GRPAfficher();
+
+            cout << endl << "Ouvre le lien suivant dans votre navigateur pour visualiser le graphe :" << endl;
+            graphe2->GRPGenererGraphviz();
+
+            delete graphe;
+            delete graphe2;
         }
         catch (CException EXCE) {
             cout << EXCE.EXCLireMessage() << endl;

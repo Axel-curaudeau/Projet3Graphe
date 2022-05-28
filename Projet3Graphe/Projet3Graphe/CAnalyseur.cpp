@@ -3,15 +3,20 @@
 /* *********************************************************
 *               Constructeur par paramètre                 *
 ************************************************************
-* Entrée: CLexeur pLEXLexeur                             *
+* Entrée: char* pcChemin                                   *
 * Nécessite: -                                             *
 * Sortie: -                                                *
 * Entraine: L'objet en cours est initialisé avec un        *
 * 			 Lecteur de fichier.                           *
 ************************************************************/
-CAnalyseur::CAnalyseur(CLexeur* pLEXLexeur)
+CAnalyseur::CAnalyseur(char* pcChemin)
 {
-	pLEXANLLecteur = pLEXLexeur;
+	pLEXANLLecteur = new CLexeur(pcChemin);
+}
+
+CAnalyseur::~CAnalyseur()
+{
+	delete pLEXANLLecteur;
 }
 
 /* *********************************************************
@@ -23,9 +28,10 @@ CAnalyseur::CAnalyseur(CLexeur* pLEXLexeur)
 * Entraine: Modifie le Lecteur de fichier de l'objet en    *
 * 		     cours.                                        *
 ************************************************************/
-void CAnalyseur::ANLModifierLecteur(CLexeur* pLEXLexeur)
+void CAnalyseur::ANLModifierFichier(char* pcFichier)
 {
-	pLEXANLLecteur = pLEXLexeur;
+	delete pLEXANLLecteur;
+	pLEXANLLecteur = new CLexeur(pcFichier);
 }
 
 /* *********************************************************
@@ -156,4 +162,10 @@ void CAnalyseur::ANLLireArcs(CGraphe & GRPGraphe)
 	if (!pLEXANLLecteur->LEXestEgal(pcResult, "]")) {
 		throw CException(ERREUR_SYNTAXE, (char*)"Erreur : crochet fermant \"]\" manquant ou nombre d'arcs declare superieur a NbArcs.");
 	}
+}
+
+void CAnalyseur::ANLInitialiserGraphe(CGraphe& GRPGraphe)
+{
+	ANLLireSommets(GRPGraphe);
+	ANLLireArcs(GRPGraphe);
 }
