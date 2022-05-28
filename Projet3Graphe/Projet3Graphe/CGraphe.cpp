@@ -23,7 +23,7 @@ CGraphe::CGraphe() {
  * Entraine: L'objet en cours est initialisé avec une      *
  *           recopie de GRPGraph.                          *
  ********************************************************* */
-CGraphe::CGraphe(CGraphe & GRPGraph) {
+CGraphe::CGraphe(const CGraphe & GRPGraph) {
     unsigned int uiBoucle;
     
     uiGRPNbSommet = GRPGraph.uiGRPNbSommet; // -=- Changer pour accesseur -=-

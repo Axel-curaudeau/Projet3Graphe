@@ -3,6 +3,6 @@ C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe
   CGraphe.cpp
   COperationGraphe.cpp
   Projet3Graphe.cpp
-C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe.cpp(44,64): error C2440: 'initialisation' : impossible de convertir de 'CGraphe' en 'CGraphe'
-C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe.cpp(44,64): message : Impossible de copier la construction class 'CGraphe', car les constructeurs de copie sont ambigus ou aucun constructeur de copie n'est disponible
   Génération de code en cours...
+  LINK : C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Debug\Projet3Graphe.exe introuvable ou non généré par la dernière édition de liens incrémentielle ; édition de liens complète en cours
+  Projet3Graphe.vcxproj -> C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Debug\Projet3Graphe.exe

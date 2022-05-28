@@ -41,7 +41,7 @@ class CGraphe
          * Entraine: L'objet en cours est initialisé avec une      *
          *           recopie de GRPGraph.                          *
          ********************************************************* */
-        CGraphe(CGraphe & GRPGraph);
+        CGraphe(const CGraphe & GRPGraph);
 
         /* *********************************************************
          *                       Destructeur                       *
