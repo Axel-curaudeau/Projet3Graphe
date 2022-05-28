@@ -47,14 +47,14 @@ CGraphe::CGraphe(const CGraphe & GRPGraph) {
     }
 }
 
-/* *********************************************************
- *                       Destructeur                       *
- ***********************************************************
- * Entrée: -                                               *
- * Nécessite: -                                            *
- * Sortie: -                                               *
- * Entraine: L'objet en cours supprimé.                    *
- ********************************************************* */
+/* ********************************************************
+*                       Destructeur                       *
+***********************************************************
+* Entrée: -                                               *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: L'objet en cours est supprimé.                *
+********************************************************* */
 CGraphe::~CGraphe() {
     // Déclaration des variables
     unsigned int uiBoucle;
@@ -203,7 +203,7 @@ void CGraphe::GRPSupprimerSommet(unsigned int uiNumero)
  * Nécessite: -                                            *
  * Sortie: CSommet                                         *
  * Entraine: Retourne le sommet dont le numéro est égal à  *
- *           uiNumero.
+ *           uiNumero.                                     *
  *           Si le sommet n'existe pas, null est retourné. *
  ********************************************************* */
 CSommet & CGraphe::GRPObtenirSommet(unsigned int uiNumero) {
@@ -219,42 +219,6 @@ CSommet & CGraphe::GRPObtenirSommet(unsigned int uiNumero) {
 
     // Si le sommet n'existe pas
     throw CException(NUMERO_SOMMMET_INEXISTANT,(char *) "Ce sommet n'existe pas");
-}
-
-/* ********************************************************
-*                        ArcExiste                        *
-***********************************************************
-* Entrée: unsigned int uiOrigine                          *
-*         unsigned int uiDestination                      *
-* Nécessite: -                                            *
-* Sortie: bool                                            *
-* Entraine: Retourne true si l'arc existe, false sinon.   *
-* ******************************************************* */
-bool CGraphe::GRPArcExiste(unsigned int uiOrigine, unsigned int uiDestination)
-{
-    unsigned int uiBoucle;
-    try {
-        CSommet SOMOrigine = GRPObtenirSommet(uiOrigine);
-        for (uiBoucle = 0; uiBoucle < SOMOrigine.SOMLireNbArcSortant(); uiBoucle++) {
-            if (SOMOrigine.SOMLireArcSortant(uiBoucle).ARCLireDest() == uiDestination) {
-                return true;
-            }
-        }
-    }
-    catch (CException EXCE) {
-        if (EXCE.EXCLireCode() == NUMERO_SOMMMET_INEXISTANT) {
-            return false;
-        }
-    }
-    return false;
-}
-
-void CGraphe::GRPAfficher()
-{
-    unsigned int uiBoucle;
-    for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
-        pSOMGRPTabSommet[uiBoucle].SOMAfficher();
-    }
 }
 
 /* *********************************************************
@@ -315,7 +279,43 @@ void CGraphe::GRPSupprimerArc(unsigned int uiOrigine, unsigned int uiDestination
     GRPObtenirSommet(uiDestination).SOMSupprimerArcEntrant(uiOrigine);
 }
 
-/***********************************************************/
+/* ********************************************************
+*                        ArcExiste                        *
+***********************************************************
+* Entrée: unsigned int uiOrigine                          *
+*         unsigned int uiDestination                      *
+* Nécessite: -                                            *
+* Sortie: bool                                            *
+* Entraine: Retourne true si l'arc existe, false sinon.   *
+* ******************************************************* */
+bool CGraphe::GRPArcExiste(unsigned int uiOrigine, unsigned int uiDestination)
+{
+    unsigned int uiBoucle;
+    try {
+        CSommet SOMOrigine = GRPObtenirSommet(uiOrigine);
+        for (uiBoucle = 0; uiBoucle < SOMOrigine.SOMLireNbArcSortant(); uiBoucle++) {
+            if (SOMOrigine.SOMLireArcSortant(uiBoucle).ARCLireDest() == uiDestination) {
+                return true;
+            }
+        }
+    }
+    catch (CException EXCE) {
+        if (EXCE.EXCLireCode() == NUMERO_SOMMMET_INEXISTANT) {
+            return false;
+        }
+    }
+    return false;
+}
+
+/* ********************************************************
+*                     SommetExiste                        *
+***********************************************************
+* Entrée: unsigned int uiNumero                           *
+* Nécessite: -                                            *
+* Sortie: bool                                            *
+* Entraine: Retourne true si le sommet existe,            *
+*            false sinon.                                 *
+* ******************************************************* */
 bool CGraphe::GRPSommetExiste(unsigned int uiNumero) {
     unsigned int uiBoucle;
 
@@ -330,13 +330,30 @@ bool CGraphe::GRPSommetExiste(unsigned int uiNumero) {
     return false;
 }
 
+/* ********************************************************
+*                      Affichage                          *
+***********************************************************
+* Entrée: -                                               *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: L'objet en cours est affiché.                 *
+* ******************************************************* */
+void CGraphe::GRPAfficher()
+{
+    unsigned int uiBoucle;
+    for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
+        pSOMGRPTabSommet[uiBoucle].SOMAfficher();
+    }
+}
+
 /* *********************************************************
  *                      Generer graphviz                   *
  ***********************************************************
  * Entrée: -                                               *
  * Nécessite: -                                            *
  * Sortie: -                                               *
- * Entraine: L'objet en cours est généré en .dot           *
+ * Entraine: affiche un lien permetant de visualiser le    *
+ *           graphe.                                       *
  * ******************************************************* */
 void CGraphe::GRPGenererGraphviz() {
     unsigned int uiBoucle;
@@ -354,9 +371,4 @@ void CGraphe::GRPGenererGraphviz() {
         }
     }
     cout << "}" << endl;
-}
-
-CGraphe & CGraphe::operator=(CGraphe GRPGraphe)
-{
-    return *new CGraphe();
 }

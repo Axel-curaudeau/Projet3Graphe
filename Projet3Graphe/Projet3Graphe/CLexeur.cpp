@@ -11,14 +11,14 @@ using namespace std;
 * Nécessite: -                                            *
 * Sortie: -                                               *
 * Entraine: L'objet en cours est initialisé en ouvrant    *
-*           le fichier avec le chemin specifié			  *
+*           le fichier avec le chemin specifié.			  *
 *           Si le chemin est incorrect, une exception	  *
 * 			 (FICHIER_INTROUVABLE) est levée.             *
 ***********************************************************/
 CLexeur::CLexeur(char* pcChemin) {
     IFSLEXFichier.open(pcChemin);
     if (!IFSLEXFichier.is_open()) {
-        throw CException(FICHIER_INTROUVABLE, (char*)"l'Ouverture du fichier a echoue");
+        throw CException(FICHIER_INTROUVABLE, (char*)"l'Ouverture du fichier a echoue, fichier introuvable !");
     }
 }
 
@@ -102,7 +102,7 @@ void CLexeur::LEXChercherValeur(char* pcCle, char pcValeur[]) {
 *         char* pcSeparator  							  *
 * Nécessite: -                                            *
 * Sortie: -                                               *
-* Entraine: Lit la ligne suivant, et la sépare en deux.   *
+* Entraine: sépare en deux la ligne donné dans pcLigne.   *
 * 		 La première partie est copiée dans pcPrecedent   *
 * 		 La seconde partie est copiée dans pcSuivant      *
 * 		 Le caractère séparateur est spécifié dans        *

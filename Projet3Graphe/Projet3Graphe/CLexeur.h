@@ -27,7 +27,7 @@ public:
 	/* *********************************************************
 	 *            Constructeur par defaut SUPPRIMÉ             *
 	 ********************************************************* */
-	CLexeur() = delete; // je comprend pas pourquoi
+	CLexeur() = delete;
 
 	/* *********************************************************
 	 *               Constructeur par paramètre                *
@@ -36,7 +36,7 @@ public:
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: L'objet en cours est initialisé en ouvrant    *
-	 *           le fichier avec le chemin specifié			   *
+	 *           le fichier avec le chemin specifié.		   *
 	 *           Si le chemin est incorrect, une exception	   *
 	 * 			 (FICHIER_INTROUVABLE) est levée.              *
 	 ********************************************************* */
@@ -93,7 +93,7 @@ public:
 	 *         char* pcSeparator  							   *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
-	 * Entraine: Lit la ligne suivant, et la sépare en deux.   *
+	 * Entraine: sépare en deux la ligne donné dans pcLigne.   *
 	 * 		 La première partie est copiée dans pcPrecedent    *
 	 * 		 La seconde partie est copiée dans pcSuivant       *
 	 * 		 Le caractère séparateur est spécifié dans         *

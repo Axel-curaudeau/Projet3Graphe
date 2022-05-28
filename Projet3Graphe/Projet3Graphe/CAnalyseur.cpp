@@ -1,33 +1,41 @@
 #include "CAnalyseur.h"
 
-/* *********************************************************
-*               Constructeur par paramètre                 *
-************************************************************
-* Entrée: char* pcChemin                                   *
-* Nécessite: -                                             *
-* Sortie: -                                                *
-* Entraine: L'objet en cours est initialisé avec un        *
-* 			 Lecteur de fichier.                           *
-************************************************************/
+/* ********************************************************
+*               Constructeur par paramètre                *
+***********************************************************
+* Entrée: char* pcChemin                                  *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: L'objet en cours est initialisé avec un       *
+* 			 Lecteur du fichier donné en paramètre.       *
+********************************************************* */
 CAnalyseur::CAnalyseur(char* pcChemin)
 {
 	pLEXANLLecteur = new CLexeur(pcChemin);
 }
 
+/* ********************************************************
+*                      Destructeur                        *
+***********************************************************
+* Entrée: -                                               *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: Detruit l'objet CLexeur.                      *
+********************************************************* */
 CAnalyseur::~CAnalyseur()
 {
 	delete pLEXANLLecteur;
 }
 
-/* *********************************************************
-*                  Modifier le Lecteur                     *
-************************************************************
-* Entrée: CLexeur pLEXLexeur                             *
-* Nécessite: -                                             *
-* Sortie: -                                                *
-* Entraine: Modifie le Lecteur de fichier de l'objet en    *
-* 		     cours.                                        *
-************************************************************/
+/* ********************************************************
+*                  Modifier le fichier                    *
+***********************************************************
+* Entrée: char* pcFichier                                 *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: Modifie le Lecteur de fichier de l'objet en   *
+* 		     cours.                                       *
+********************************************************* */
 void CAnalyseur::ANLModifierFichier(char* pcFichier)
 {
 	delete pLEXANLLecteur;
@@ -41,7 +49,7 @@ void CAnalyseur::ANLModifierFichier(char* pcFichier)
 * Nécessite: -                                             *
 * Sortie: unsigned int uiNombreSommet                      *
 * Entraine: Lit le nombre de sommets indiqué dans le       *
-* 		     fichier du Lecteur.                           *
+* 		    fichier.                                      *
 ************************************************************/
 unsigned int CAnalyseur::ANLLireNbSommets()
 {
@@ -56,8 +64,7 @@ unsigned int CAnalyseur::ANLLireNbSommets()
 * Entrée: -                                                *
 * Nécessite: -                                             *
 * Sortie: unsigned int uiNombreArc                         *
-* Entraine: Lit le nombre d'arcs indiqué dans le fichier   *
-* 		     du Lecteur.                                   *
+* Entraine: Lit le nombre d'arcs indiqué dans le fichier.  *
 ************************************************************/
 unsigned int CAnalyseur::ANLLireNbArcs()
 {
@@ -72,8 +79,9 @@ unsigned int CAnalyseur::ANLLireNbArcs()
 * Entrée: CGraphe GRPGraphe                               *
 * Nécessite: -                                            *
 * Sortie: -                                               *
-* Entraine: Lit les sommets indiqués dans le fichier du   *
-* 		     Lecteur, et les alloue.                      *
+* Entraine: Lit les sommets indiqués dans le fichier,     *
+*           et les alloue dans le Graphe donné en         *
+*           paramètre                                     *
 ********************************************************* */
 void CAnalyseur::ANLLireSommets(CGraphe & GRPGraphe)
 {
@@ -110,13 +118,14 @@ void CAnalyseur::ANLLireSommets(CGraphe & GRPGraphe)
 }
 
 /* ********************************************************
-*                  Lire les arcs                          *
+*                     Lire les arcs                       *
 ***********************************************************
 * Entrée: CGraphe GRPGraphe                               *
 * Nécessite: -                                            *
 * Sortie: -                                               *
-* Entraine: Lit les arcs indiqués dans le fichier du      *
-* 		     Lecteur, et les alloue.                      *
+* Entraine: Lit les arcs indiqués dans le fichier,        *
+*           et les alloue dans le Graphe donné en         *
+*           paramètre                                     *
 ********************************************************* */
 void CAnalyseur::ANLLireArcs(CGraphe & GRPGraphe)
 {
@@ -164,6 +173,16 @@ void CAnalyseur::ANLLireArcs(CGraphe & GRPGraphe)
 	}
 }
 
+/* ********************************************************
+*                  Initialise le Graphe                   *
+***********************************************************
+* Entrée: CGraphe GRPGraphe                               *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: Initialise le Graphe donné en paramètre à     *
+*           partir du fichier. Allocution des sommets et  *
+*           des arcs.                                     *
+********************************************************* */
 void CAnalyseur::ANLInitialiserGraphe(CGraphe& GRPGraphe)
 {
 	ANLLireSommets(GRPGraphe);

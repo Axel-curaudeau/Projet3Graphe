@@ -49,7 +49,7 @@ class CGraphe
          * Entrée: -                                               *
          * Nécessite: -                                            *
          * Sortie: -                                               *
-         * Entraine: L'objet en cours supprimé.                    *
+         * Entraine: L'objet en cours est supprimé.                *
          ********************************************************* */
         ~CGraphe();
 
@@ -119,6 +119,18 @@ class CGraphe
         void GRPSupprimerSommet(unsigned int uiNumero);
 
         /* *********************************************************
+         *                      ObtenirSommet                      *
+         ***********************************************************
+         * Entrée: unsigned int uiNumero                           *
+         * Nécessite: -                                            *
+         * Sortie: CSommet                                         *
+         * Entraine: Retourne le sommet dont le numéro est égal à  *
+         *           uiNumero.                                     *
+         *           Si le sommet n'existe pas, null est retourné. *
+         ********************************************************* */
+        CSommet& GRPObtenirSommet(unsigned int uiNumero);
+
+        /* *********************************************************
          *                      AjouterArc                         *
          ***********************************************************
          * Entrée: unsigned int uiOrigine                          *
@@ -152,16 +164,7 @@ class CGraphe
          ********************************************************* */
         void GRPSupprimerArc(unsigned int uiOrigine, unsigned int uiDestination);
 
-        /* *********************************************************
-         *                   Obtenir le sommet                     *
-         ***********************************************************
-         * Entrée: unsigned int uiNumero                           *
-         * Nécessite: -                                            *
-         * Sortie: bool                                            *
-         * Entraine: Retourne true si le sommet avec le numéro     *
-         *           uiNumero existe, false sinon.                 *
-         * ******************************************************* */
-        CSommet & GRPObtenirSommet(unsigned int uiNumero); // Mettre privé
+        
 
         /* *********************************************************
          *                        ArcExiste                        *
@@ -173,6 +176,17 @@ class CGraphe
          * Entraine: Retourne true si l'arc existe, false sinon.   *
          * ******************************************************* */
         bool GRPArcExiste(unsigned int uiOrigine, unsigned int uiDestination);
+
+        /* *********************************************************
+         *                     SommetExiste                        *
+         ***********************************************************
+         * Entrée: unsigned int uiNumero                           *
+         * Nécessite: -                                            *
+         * Sortie: bool                                            *
+         * Entraine: Retourne true si le sommet existe,            *
+         *            false sinon.                                 *
+         * ******************************************************* */
+        bool GRPSommetExiste(unsigned int uiNumero);
 
         /* *********************************************************
          *                      Affichage                          *
@@ -190,13 +204,10 @@ class CGraphe
          * Entrée: -                                               *
          * Nécessite: -                                            *
          * Sortie: -                                               *
-         * Entraine: L'objet en cours est généré en .dot           *
+         * Entraine: affiche un lien permetant de visualiser le    *
+         *           graphe.                                       *
          * ******************************************************* */
         void GRPGenererGraphviz();
-
-        bool GRPSommetExiste(unsigned int uiNumero);
-
-        CGraphe & operator=(CGraphe GRPGraphe);
 };
 
 #endif // CGraphe_H

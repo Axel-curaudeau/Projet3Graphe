@@ -7,13 +7,19 @@
 
 #pragma warning(disable : 4996)
 
-//Codes d'erreur
+/* ===== ERROR CODES ===== */
 #define ERREUR_SYNTAXE 10
+
+/*
+ * Classe CAnalyseur
+ *
+ * Cette class est utilisée pour analyser les lignes lu par le CLexeur.
+ */
+
 class CAnalyseur
 {
 private:
 	CLexeur* pLEXANLLecteur;
-	//CGraph GRFANLGraphe; 
 public:
 	/* *********************************************************
 	 *            Constructeur par defaut SUPPRIMÉ             *
@@ -27,16 +33,24 @@ public:
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: L'objet en cours est initialisé avec un       *
-	 * 			 Lecteur de fichier.                           *
+	 * 			 Lecteur du fichier donné en paramètre.        *
 	 ********************************************************* */
 	CAnalyseur(char* pcChemin);
 
+	/* *********************************************************
+	 *                      Destructeur                        *
+	 ***********************************************************
+	 * Entrée: -                                               *
+	 * Nécessite: -                                            *
+	 * Sortie: -                                               *
+	 * Entraine: Detruit l'objet CLexeur.                      *
+	 ********************************************************* */
 	~CAnalyseur();
 
 	/* *********************************************************
-	 *                  Modifier le Lecteur                    *
+	 *                  Modifier le fichier                    *
 	 ***********************************************************
-	 * Entrée: char* pcFichier                            *
+	 * Entrée: char* pcFichier                                 *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
 	 * Entraine: Modifie le Lecteur de fichier de l'objet en   *
@@ -51,7 +65,7 @@ public:
 	 * Nécessite: -                                            *
 	 * Sortie: unsigned int uiNombreSommet                     *
 	 * Entraine: Lit le nombre de sommets indiqué dans le      *
-	 * 		     fichier du Lecteur.                           *
+	 * 		     fichier.                                      *
 	 ********************************************************* */
 	unsigned int ANLLireNbSommets();
 
@@ -61,8 +75,7 @@ public:
 	 * Entrée: -                                               *
 	 * Nécessite: -                                            *
 	 * Sortie: unsigned int uiNombreArc                        *
-	 * Entraine: Lit le nombre d'arcs indiqué dans le fichier  *
-	 * 		     du Lecteur.                                   *
+	 * Entraine: Lit le nombre d'arcs indiqué dans le fichier. *
 	 ********************************************************* */
 	unsigned int ANLLireNbArcs();
 
@@ -72,23 +85,35 @@ public:
 	 * Entrée: CGraphe GRPGraphe                               *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
-	 * Entraine: Lit les sommets indiqués dans le fichier du   *
-	 * 		     Lecteur, et les alloue.                       *
+	 * Entraine: Lit les sommets indiqués dans le fichier,     *
+	 *           et les alloue dans le Graphe donné en         *
+	 *           paramètre                                     *
 	 ********************************************************* */
 	void ANLLireSommets(CGraphe & GRPGraphe);
 
 	/* *********************************************************
-	 *                  Lire les arcs                         *
+	 *                     Lire les arcs                       *
 	 ***********************************************************
 	 * Entrée: CGraphe GRPGraphe                               *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
-	 * Entraine: Lit les arcs indiqués dans le fichier du      *
-	 * 		     Lecteur, et les alloue.                       *
+	 * Entraine: Lit les arcs indiqués dans le fichier,        *
+	 *           et les alloue dans le Graphe donné en         *
+	 *           paramètre                                     *
 	 ********************************************************* */
 	void ANLLireArcs(CGraphe & GRPGraph);
 
+	/* ********************************************************
+	*                  Initialise le Graphe                   *
+	***********************************************************
+	* Entrée: CGraphe GRPGraphe                               *
+	* Nécessite: -                                            *
+	* Sortie: -                                               *
+	* Entraine: Initialise le Graphe donné en paramètre à     *
+	*           partir du fichier. Allocution des sommets et  *
+	*           des arcs.                                     *
+	********************************************************* */
 	void ANLInitialiserGraphe(CGraphe& GRPGraphe);
 };
 
-#endif
+#endif //CANALYSEUR_h

@@ -8,6 +8,7 @@
  *
  * Cette class est utilisée pour gérer les arcs.
  */
+
 class CArc
 {
     private :
@@ -26,19 +27,18 @@ class CArc
          * Entrée: unsigned int uiDestination                      *
          * Nécessite: -                                            *
          * Sortie: -                                               *
-         * Entraine: L'objet en cours est initialisé la valeur de  *
-         *           uiDestination.                                *
+         * Entraine: L'objet en cours est initialisé avec la       *
+         *           valeur de  uiDestination.                     *
          ********************************************************* */
         CArc(unsigned int uiDestination);
 
         /* *********************************************************
-         *                 Getter uiARCDestination                 *
+         *                   Lire la destination                   *
          ***********************************************************
          * Entrée: -                                               *
          * Nécessite: -                                            *
          * Sortie: unsigned int                                    *
-         * Entraine: La valeur de uiARCDestination est initialisée *
-         *           avec celle de uiDestination.                  *
+         * Entraine: Retourne la valeur de destination de l'arc    *
          ********************************************************* */
         unsigned int ARCLireDest();
 };
