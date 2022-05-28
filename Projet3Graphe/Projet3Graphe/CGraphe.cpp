@@ -40,7 +40,7 @@ CGraphe::CGraphe(const CGraphe & GRPGraph) {
 
     // Copie des sommets
     for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
-        CSommet* pSOMSommetTemporaire = new CSommet((GRPGraph.pSOMGRPTabSommet[uiBoucle])); // -=- Changer pour accesseur -=-
+        CSommet* pSOMSommetTemporaire = new CSommet((GRPGraph.pSOMGRPTabSommet[uiBoucle]));
         pSOMGRPTabSommet[uiBoucle].SOMInitialiser();
         pSOMGRPTabSommet[uiBoucle] = *pSOMSommetTemporaire; 
         delete pSOMSommetTemporaire;

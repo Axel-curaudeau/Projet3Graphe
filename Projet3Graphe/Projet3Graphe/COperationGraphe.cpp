@@ -1,7 +1,23 @@
 #include "COperationGraphe.h"
 
+/* ********************************************************
+*                 Constructeur par défaut                 *
+***********************************************************
+* Entrée: -                                               *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: construit l'objet                             *
+********************************************************* */
 COperationGraphe::COperationGraphe() {}
 
+/* ********************************************************
+*                      Inverser                           *
+***********************************************************
+* Entrée: CGraphe GRPGraphe                               *
+* Nécessite: -                                            *
+* Sortie: CGraphe                                         *
+* Entraine: retourne un nouveau graphe inversé            *
+* ******************************************************* */
 CGraphe COperationGraphe::OPEInverserGraphe(CGraphe & GRPGraphe)
 {
 	unsigned int uiBoucle, uiNbSommet;

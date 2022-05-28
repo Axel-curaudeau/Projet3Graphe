@@ -2,9 +2,26 @@
 #define COPERATIONGRAPHE_H
 
 #include "CGraphe.h"
+
+/* ===== ERROR CODES ===== */
+
+
+/*
+ * Classe COperationGraphes
+ *
+ * Cette class est utilisée pour faire des opération sur des graphes.
+ */
 class COperationGraphe
 {
 public:
+	/* *********************************************************
+	 *                 Constructeur par défaut                 *
+	 ***********************************************************
+	 * Entrée: -                                               *
+	 * Nécessite: -                                            *
+	 * Sortie: -                                               *
+	 * Entraine: construit l'objet                             *
+	 ********************************************************* */
     COperationGraphe();
 
     /* ********************************************************

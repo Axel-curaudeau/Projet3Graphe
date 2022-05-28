@@ -120,13 +120,14 @@ public:
 	/* *********************************************************
 	 *      Lit la valeur de la ligne donné en paramètre       *
 	 ***********************************************************
-	 * Entrée: char
+	 * Entrée: char* pcLigne                                   *
 	 * Entrée: char* pcCle									   *
 	 * 	       char pcValeur[]                                 *
 	 * Nécessite: -                                            *
 	 * Sortie: -                                               *
-	 * Entraine: Cherche la cle specifié dans la ligne 	       *
-	 * suivante, et copie la valeur associe dans pcValeur      *
+	 * Entraine: Cherche la cle specifié dans la chaine        *
+	 *           pcLigne, et copie la valeur associe dans      *
+	 *           pcValeur                                      *
 	 ********************************************************* */
 	void LEXLireValeur(char* pcLigne, char* pcCle, char pcValeur[]);
 

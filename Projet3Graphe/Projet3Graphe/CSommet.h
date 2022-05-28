@@ -59,7 +59,7 @@ class CSommet
          * Entrée: -                                               *
          * Nécessite: -                                            *
          * Sortie: -                                               *
-         * Entraine: L'objet en cours supprimé.                    *
+         * Entraine: L'objet en cours est supprimé.                *
          ********************************************************* */
         ~CSommet();
 

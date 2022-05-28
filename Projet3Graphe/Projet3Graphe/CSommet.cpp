@@ -3,15 +3,15 @@
 
 using namespace std;
 
-/* *********************************************************
- *               Constructeur par paramètre                *
- ***********************************************************
- * Entrée: unsigned int uiNumero                           *
- * Nécessite: -                                            *
- * Sortie: -                                               *
- * Entraine: L'objet en cours est initialisé la valeur de  *
- *           uiNumero.                                     *
- ********************************************************* */
+/* ********************************************************
+*               Constructeur par paramètre                *
+***********************************************************
+* Entrée: unsigned int uiNumero                           *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: L'objet en cours est initialisé la valeur de  *
+*           uiNumero, les pointeurs sont à NULL.          *
+********************************************************* */
 CSommet::CSommet(unsigned int uiNumero) {
     // Initialisation des attributs
     uiSOMNumero = uiNumero;
@@ -74,7 +74,7 @@ CSommet::CSommet(CSommet & SOMSommet) {
  * Entrée: -                                               *
  * Nécessite: -                                            *
  * Sortie: -                                               *
- * Entraine: L'objet en cours supprimé.                    *
+ * Entraine: L'objet en cours est supprimé.                *
  ********************************************************* */
 CSommet::~CSommet() {
     // Déclaration des variables
