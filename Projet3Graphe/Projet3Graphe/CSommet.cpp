@@ -416,6 +416,14 @@ CSommet& CSommet::operator=(CSommet SOMSommet) {
     return *this;
 }
 
+/* ********************************************************
+*                       Initialiser                       *
+***********************************************************
+* Entrée: -                                               *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: L'objet en cours est initialisé a 0 et null   *
+********************************************************* */
 void CSommet::SOMInitialiser()
 {
     uiSOMNbArcEntrant = 0;
@@ -424,6 +432,14 @@ void CSommet::SOMInitialiser()
     ppARCSOMSortant = NULL;
 }
 
+/* ********************************************************
+*                      Inverser Arcs                      *
+***********************************************************
+* Entrée: -                                               *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: Inverse les arcs entrant et sortant           *
+********************************************************* */
 void CSommet::SOMInverserArcs()
 {
     unsigned int uiTemporaire;

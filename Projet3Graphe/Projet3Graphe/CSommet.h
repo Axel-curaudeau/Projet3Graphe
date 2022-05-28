@@ -212,8 +212,24 @@ class CSommet
          ********************************************************* */
         CSommet& operator=(CSommet SOMSommet);
 
+        /* *********************************************************
+         *                       Initialiser                       *
+         ***********************************************************
+         * Entrée: -                                               *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: L'objet en cours est initialisé a 0 et null   *
+         ********************************************************* */
         void SOMInitialiser();
 
+        /* *********************************************************
+         *                      Inverser Arcs                      *
+         ***********************************************************
+         * Entrée: -                                               *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: Inverse les arcs entrant et sortant           *
+         ********************************************************* */
         void SOMInverserArcs();
 };
 
