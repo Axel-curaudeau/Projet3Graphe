@@ -372,3 +372,19 @@ void CGraphe::GRPGenererGraphviz() {
     }
     cout << "}" << endl;
 }
+
+bool CGraphe::GRPEstOriente()
+{
+    unsigned int uiBoucle;
+    unsigned int uiBoucleArc;
+    unsigned int uiDestination;
+    for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
+        for (uiBoucleArc = 0; uiBoucleArc < pSOMGRPTabSommet[uiBoucle].SOMLireNbArcEntrant(); uiBoucleArc++) {
+            uiDestination = pSOMGRPTabSommet[uiBoucle].SOMLireArcEntrant(uiBoucleArc).ARCLireDest();
+            if (!pSOMGRPTabSommet[uiBoucle].SOMArcSortantExiste(uiDestination)) {
+                return false;
+            }
+        }
+    }
+    return true;
+}

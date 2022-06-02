@@ -208,6 +208,8 @@ class CGraphe
          *           graphe.                                       *
          * ******************************************************* */
         void GRPGenererGraphviz();
+
+        bool GRPEstOriente();
 };
 
 #endif // CGraphe_H

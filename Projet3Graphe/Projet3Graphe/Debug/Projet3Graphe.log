@@ -1,2 +1,7 @@
-﻿  CGraphe.cpp
+﻿  CAnalyseur.cpp
+C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Projet3Graphe\CAnalyseur.cpp(132,7): warning C4101: 'pcLigne' : variable locale non référencée
+  CGraphe.cpp
+  COperationGraphe.cpp
+  Projet3Graphe.cpp
+  Génération de code en cours...
   Projet3Graphe.vcxproj -> C:\Users\axell\Desktop\Projet 3 Graphe\Projet3Graphe\Projet3Graphe\Debug\Projet3Graphe.exe

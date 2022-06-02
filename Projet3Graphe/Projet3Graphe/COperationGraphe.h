@@ -2,6 +2,7 @@
 #define COPERATIONGRAPHE_H
 
 #include "CGraphe.h"
+#include <stdarg.h>
 
 /* ===== ERROR CODES ===== */
 
@@ -33,6 +34,8 @@ public:
     * Entraine: retourne un nouveau graphe inversé            *
     * ******************************************************* */
     CGraphe OPEInverserGraphe(CGraphe & GRPGraphe);
+
+    bool OPEEstUneClique(CGraphe GRPGraphe, int Sommet , ...);
 };
 
 #endif
