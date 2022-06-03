@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
 
             cout << "Orienté : " << graphe->GRPEstOriente() << endl;
 
-            OPG.OPEEstUneClique(*graphe, 1, 2, 3, -1);
+            cout << "clique : " << OPG.OPEEstUneClique(*graphe, 1, 2, -1) << endl;
 
             delete graphe;
             delete graphe2;

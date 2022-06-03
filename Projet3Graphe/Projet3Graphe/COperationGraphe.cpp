@@ -46,7 +46,6 @@ bool COperationGraphe::OPEEstUneClique(CGraphe GRPGraphe, int iSommet, ...)
 	int iBoucleSommet = iSommet;
 	
 	while(iBoucleSommet != -1) {
-		cout << iBoucleSommet << endl;
 
 		//Verification existance du sommet.
 		if (!GRPGraphe.GRPSommetExiste(iBoucleSommet)) {
@@ -70,12 +69,15 @@ bool COperationGraphe::OPEEstUneClique(CGraphe GRPGraphe, int iSommet, ...)
 	va_end(vl); 
 
 	for (uiBoucle = 0; uiBoucle < uiNbSommet; uiBoucle++) {
-		ppSOMTabSommet[uiBoucle]->SOMAfficher();
 		for (uiBoucle2 = 0; uiBoucle2 < uiNbSommet; uiBoucle2++) {
-
+			if (ppSOMTabSommet[uiBoucle]->SOMLireNumero() != ppSOMTabSommet[uiBoucle2]->SOMLireNumero()) {
+				if (!ppSOMTabSommet[uiBoucle2]->SOMArcEntrantExiste(ppSOMTabSommet[uiBoucle]->SOMLireNumero())) {
+					return false;
+				}
+			}
 		}
 
 	}
-	return false;
+	return true;
 }
 
