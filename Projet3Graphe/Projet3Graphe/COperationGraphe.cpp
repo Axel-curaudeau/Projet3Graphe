@@ -32,14 +32,40 @@ CGraphe COperationGraphe::OPEInverserGraphe(CGraphe & GRPGraphe)
 	return GRPResultat;
 }
 
-bool COperationGraphe::OPEEstUneClique(CGraphe GRPGraphe, int iSommet, ...)
+bool COperationGraphe::OPEEstUneClique(CGraphe & GRPGraphe)
 {
-	CSommet** ppSOMTabSommet = (CSommet**)malloc(1);
-	CSommet** ppSOMTabSommetTemp = nullptr;
-	unsigned int uiNbSommet = 0;
+	if (GRPGraphe.GRPEstOriente()) {
+		throw CException(NON_ORIENTE, (char*)"Le graphe saisie ne doit pas etre oriente");
+	}
+	unsigned int uiNbSommet = GRPGraphe.GRPLireNbSommet();
 	unsigned int uiBoucle;
 	unsigned int uiBoucle2;
-	unsigned int uiBoucleArc;
+
+
+	for (uiBoucle = 0; uiBoucle < uiNbSommet; uiBoucle++) {
+		for (uiBoucle2 = 0; uiBoucle2 < uiNbSommet; uiBoucle2++) {
+			if (GRPGraphe.GRPIndexSommet(uiBoucle).SOMLireNumero() != GRPGraphe.GRPIndexSommet(uiBoucle2).SOMLireNumero()) {
+				if (!GRPGraphe.GRPIndexSommet(uiBoucle).SOMArcEntrantExiste(GRPGraphe.GRPIndexSommet(uiBoucle2).SOMLireNumero())) {
+					return false;
+				}
+			}
+		}
+
+	}
+	return true;
+}
+
+bool COperationGraphe::OPEEstUneClique(CGraphe & GRPGraphe, int iSommet, ...)
+{
+	//initialisation des variables locales
+	CGraphe* GRPSousGraphe = new CGraphe(GRPGraphe);
+	int* piTabNumSommet = (int*) malloc((GRPGraphe.GRPLireNbSommet() + 1) * sizeof(int));
+	if (piTabNumSommet == nullptr) {
+		throw CException(MALLOC_ECHOUE, (char*)"L'allocation à écoué !");
+	}
+	piTabNumSommet[0] = -1;
+	bool bResult;
+	unsigned int uiNbSommet = 0;
 
 	va_list vl;
 	va_start(vl, iSommet);
@@ -52,32 +78,48 @@ bool COperationGraphe::OPEEstUneClique(CGraphe GRPGraphe, int iSommet, ...)
 			throw CException(NUMERO_SOMMMET_INEXISTANT, (char*)"Le sommets saisie est inexistant !");
 		}
 
-		//allocation mémoire.
-		ppSOMTabSommetTemp = (CSommet**) realloc(ppSOMTabSommet, (uiNbSommet + 1) * sizeof(CSommet*));
-		if (ppSOMTabSommetTemp == nullptr) {
-			throw CException(MALLOC_ECHOUE, (char*)"L'allocation à écoué !");
-		}
-		ppSOMTabSommet = ppSOMTabSommetTemp;
-		ppSOMTabSommet[uiNbSommet] = (CSommet*) malloc(sizeof(CSommet));
-		ppSOMTabSommet[uiNbSommet]->SOMInitialiser();
-		*ppSOMTabSommet[uiNbSommet] = GRPGraphe.GRPObtenirSommet(iBoucleSommet);
+		piTabNumSommet[uiNbSommet] = iBoucleSommet;
+		piTabNumSommet[uiNbSommet + 1] = -1;
 		uiNbSommet++;
 
 		iBoucleSommet = va_arg(vl, int);
 	}
+	va_end(vl);
 
-	va_end(vl); 
+	OPESousGraphe(GRPGraphe, *GRPSousGraphe, uiNbSommet, piTabNumSommet);
+	bResult = OPEEstUneClique(*GRPSousGraphe);
 
-	for (uiBoucle = 0; uiBoucle < uiNbSommet; uiBoucle++) {
-		for (uiBoucle2 = 0; uiBoucle2 < uiNbSommet; uiBoucle2++) {
-			if (ppSOMTabSommet[uiBoucle]->SOMLireNumero() != ppSOMTabSommet[uiBoucle2]->SOMLireNumero()) {
-				if (!ppSOMTabSommet[uiBoucle2]->SOMArcEntrantExiste(ppSOMTabSommet[uiBoucle]->SOMLireNumero())) {
-					return false;
-				}
-			}
-		}
-
-	}
-	return true;
+	free(piTabNumSommet);
+	delete GRPSousGraphe;
+	return bResult;
 }
 
+void COperationGraphe::OPESousGraphe(CGraphe & GRPGraphe, CGraphe & GRPSousGraphe, unsigned int uiNbSommet, int* piTabNumSommet)
+{
+	unsigned int uiBoucle, uiBoucle2;
+	bool bSupprimer;
+	GRPSousGraphe = GRPGraphe;
+	for (uiBoucle = 0; uiBoucle < GRPGraphe.GRPLireNbSommet(); uiBoucle++) {
+		bSupprimer = true;
+		for (uiBoucle2 = 0; uiBoucle2 < uiNbSommet; uiBoucle2++) {
+			if (GRPGraphe.GRPIndexSommet(uiBoucle).SOMLireNumero() == piTabNumSommet[uiBoucle2]) {
+				bSupprimer = false;
+			}
+		}
+		if (bSupprimer) {
+			GRPSousGraphe.GRPSupprimerSommet(GRPGraphe.GRPIndexSommet(uiBoucle).SOMLireNumero());
+		}
+	}
+}
+
+bool COperationGraphe::OPEEstUneClique(CGraphe GRPGraphe, unsigned int uiNbSommet, int* piTabSommet)
+{
+	bool bResult;
+	CGraphe* GRPSousGraphe = new CGraphe();
+	
+	OPESousGraphe(GRPGraphe, *GRPSousGraphe, uiNbSommet, piTabSommet);
+	
+	bResult = OPEEstUneClique(*GRPSousGraphe);
+	delete GRPSousGraphe;
+	return bResult;
+}

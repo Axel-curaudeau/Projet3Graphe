@@ -382,9 +382,36 @@ bool CGraphe::GRPEstOriente()
         for (uiBoucleArc = 0; uiBoucleArc < pSOMGRPTabSommet[uiBoucle].SOMLireNbArcEntrant(); uiBoucleArc++) {
             uiDestination = pSOMGRPTabSommet[uiBoucle].SOMLireArcEntrant(uiBoucleArc).ARCLireDest();
             if (!pSOMGRPTabSommet[uiBoucle].SOMArcSortantExiste(uiDestination)) {
-                return false;
+                return true;
             }
         }
     }
-    return true;
+    return false;
 }
+
+void CGraphe::operator=(CGraphe GRPGraphe)
+{
+    unsigned int uiBoucle;
+
+    uiGRPNbSommet = GRPGraphe.uiGRPNbSommet; // -=- Changer pour accesseur -=-
+
+    // Allocation de la mémoire
+    if (uiGRPNbSommet > 0) { // -=- Changer pour accesseur -=-
+        pSOMGRPTabSommet = (CSommet*)malloc(uiGRPNbSommet * sizeof(CSommet));
+        if (pSOMGRPTabSommet == NULL) {
+            throw CException(MALLOC_ECHOUE, (char*)"Allocation de la mémoire a échoué !");
+        }
+    }
+    else {
+        pSOMGRPTabSommet = NULL;
+    }
+
+    // Copie des sommets
+    for (uiBoucle = 0; uiBoucle < uiGRPNbSommet; uiBoucle++) {
+        CSommet* pSOMSommetTemporaire = new CSommet((GRPGraphe.pSOMGRPTabSommet[uiBoucle]));
+        pSOMGRPTabSommet[uiBoucle].SOMInitialiser();
+        pSOMGRPTabSommet[uiBoucle] = *pSOMSommetTemporaire;
+        delete pSOMSommetTemporaire;
+    }
+}
+

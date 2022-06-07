@@ -210,6 +210,8 @@ class CGraphe
         void GRPGenererGraphviz();
 
         bool GRPEstOriente();
+
+        void operator=(CGraphe GRPGraphe);
 };
 
 #endif // CGraphe_H
