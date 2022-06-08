@@ -75,7 +75,7 @@ bool COperationGraphe::OPEEstUneClique(CGraphe & GRPGraphe, int iSommet, ...)
 
 		//Verification existance du sommet.
 		if (!GRPGraphe.GRPSommetExiste(iBoucleSommet)) {
-			throw CException(NUMERO_SOMMMET_INEXISTANT, (char*)"Le sommets saisie est inexistant !");
+			throw CException(NUMERO_SOMMMET_INEXISTANT, (char*)"Le sommets saisie est inexistant : ");
 		}
 
 		piTabNumSommet[uiNbSommet] = iBoucleSommet;

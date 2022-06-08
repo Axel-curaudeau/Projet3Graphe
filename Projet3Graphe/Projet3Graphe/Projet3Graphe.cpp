@@ -31,7 +31,23 @@ int main(int argc, char* argv[])
                 cout << "Le graphe saisie n'est pas une clique" << endl;
             }
 
-            cout << "Sous graphe est une clique : " << OPG.OPEEstUneClique(*graphe, 1, 2, 3, -1);
+            cout << "indiquez quels sommet vous souhaitez garder pour le sous-graphe separe par un espace (exemple : \"1 2 3 4\") :" << endl;
+
+            char pcInput[TAILLE_MAX_LIGNE];
+            char* pcSommet = nullptr;
+            int piTabSommet[TAILLE_MAX_LIGNE];
+            unsigned int uiNbSommet = 0;
+            
+            cin.getline(pcInput, TAILLE_MAX_LIGNE);
+            pcSommet = strtok(pcInput, " ");
+            while (pcSommet != nullptr) {
+                piTabSommet[uiNbSommet] = atoi(pcSommet);
+                uiNbSommet++;
+                pcSommet = strtok(nullptr, " ");
+            }
+
+            cout << "Le sous graphe saisie est une clique : " << OPG.OPEEstUneClique(*graphe, uiNbSommet, piTabSommet) << endl;
+
             delete graphe;
         }
         catch (CException EXCE) {
