@@ -209,8 +209,26 @@ class CGraphe
          * ******************************************************* */
         void GRPGenererGraphviz();
 
+        /* *********************************************************
+         *                       Est Orienté ?                     *
+         ***********************************************************
+         * Entrée: -                                               *
+         * Nécessite: -                                            *
+         * Sortie: bool                                            *
+         * Entraine: retourne vrai si le graphe est orienté, faux  *
+         *           sinon.                                        *
+         * ******************************************************* */
         bool GRPEstOriente();
 
+        /* *********************************************************
+         *                       Opérateur =                       *
+         ***********************************************************
+         * Entrée: CGraphe GRPGraphe                               *
+         * Nécessite: -                                            *
+         * Sortie: -                                               *
+         * Entraine: Recopie l'objet CGraphe dans l'objet en       *
+         *           cours.                                        *
+         * ******************************************************* */
         void operator=(CGraphe GRPGraphe);
 };
 

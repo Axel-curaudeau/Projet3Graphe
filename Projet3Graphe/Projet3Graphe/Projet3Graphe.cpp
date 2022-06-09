@@ -31,6 +31,8 @@ int main(int argc, char* argv[])
                 cout << "Le graphe saisie n'est pas une clique" << endl;
             }
 
+            cout << "-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=" << endl;
+
             cout << "indiquez quels sommet vous souhaitez garder pour le sous-graphe separe par un espace (exemple : \"1 2 3 4\") :" << endl;
 
             char pcInput[TAILLE_MAX_LIGNE];
@@ -46,7 +48,16 @@ int main(int argc, char* argv[])
                 pcSommet = strtok(nullptr, " ");
             }
 
-            cout << "Le sous graphe saisie est une clique : " << OPG.OPEEstUneClique(*graphe, uiNbSommet, piTabSommet) << endl;
+            if (OPG.OPEEstUneClique(*graphe, uiNbSommet, piTabSommet)) {
+                cout << "Le sous graphe saisie est une clique." << endl;
+            }
+            else {
+                cout << "Le sous graphe saisie n'est pas une clique. " << endl;
+            }
+
+            
+            //exemple d'utilisation de la version avec sommet en paramètre :
+            //cout << OPG.OPEEstUneClique(*graphe, 1, 2, -1) << endl;
 
             delete graphe;
         }

@@ -26,7 +26,7 @@ CGraphe::CGraphe() {
 CGraphe::CGraphe(const CGraphe & GRPGraph) {
     unsigned int uiBoucle;
     
-    uiGRPNbSommet = GRPGraph.uiGRPNbSommet; // -=- Changer pour accesseur -=-
+    uiGRPNbSommet = GRPGraph.uiGRPNbSommet;
 
     // Allocation de la mémoire
     if (uiGRPNbSommet > 0) { // -=- Changer pour accesseur -=-
@@ -373,6 +373,15 @@ void CGraphe::GRPGenererGraphviz() {
     cout << "}" << endl;
 }
 
+/* ********************************************************
+*                       Est Orienté ?                     *
+***********************************************************
+* Entrée: -                                               *
+* Nécessite: -                                            *
+* Sortie: bool                                            *
+* Entraine: retourne vrai si le graphe est orienté, faux  *
+*           sinon.                                        *
+* ******************************************************* */
 bool CGraphe::GRPEstOriente()
 {
     unsigned int uiBoucle;
@@ -389,11 +398,20 @@ bool CGraphe::GRPEstOriente()
     return false;
 }
 
+/* ********************************************************
+*                       Opérateur =                       *
+***********************************************************
+* Entrée: CGraphe GRPGraphe                               *
+* Nécessite: -                                            *
+* Sortie: -                                               *
+* Entraine: Recopie l'objet CGraphe dans l'objet en       *
+*           cours.                                        *
+* ******************************************************* */
 void CGraphe::operator=(CGraphe GRPGraphe)
 {
     unsigned int uiBoucle;
 
-    uiGRPNbSommet = GRPGraphe.uiGRPNbSommet; // -=- Changer pour accesseur -=-
+    uiGRPNbSommet = GRPGraphe.uiGRPNbSommet;
 
     // Allocation de la mémoire
     if (uiGRPNbSommet > 0) { // -=- Changer pour accesseur -=-
