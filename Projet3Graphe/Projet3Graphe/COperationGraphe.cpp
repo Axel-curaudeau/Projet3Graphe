@@ -1,5 +1,7 @@
 #include "COperationGraphe.h"
 
+#pragma warning(disable : 4996)
+
 /* ********************************************************
 *                 Constructeur par défaut                 *
 ***********************************************************
@@ -51,6 +53,14 @@ void COperationGraphe::OPESousGraphe(CGraphe& GRPGraphe, CGraphe& GRPSousGraphe,
 	unsigned int uiBoucle, uiBoucle2;
 	bool bSupprimer;
 	GRPSousGraphe = GRPGraphe;
+
+	//Verification de l'appartenance des sommet du tableau au graphe
+	for (uiBoucle = 0; uiBoucle < uiNbSommet; uiBoucle++) {
+		if (!GRPGraphe.GRPSommetExiste(piTabNumSommet[uiBoucle])) {
+			throw CException(NUMERO_SOMMMET_INEXISTANT, (char*)"Le numero de sommet saisie n'existe pas dans le graphe !");
+		}
+	}
+
 	for (uiBoucle = 0; uiBoucle < GRPGraphe.GRPLireNbSommet(); uiBoucle++) {
 		bSupprimer = true;
 		for (uiBoucle2 = 0; uiBoucle2 < uiNbSommet; uiBoucle2++) {
@@ -60,6 +70,7 @@ void COperationGraphe::OPESousGraphe(CGraphe& GRPGraphe, CGraphe& GRPSousGraphe,
 		}
 		if (bSupprimer) {
 			GRPSousGraphe.GRPSupprimerSommet(GRPGraphe.GRPIndexSommet(uiBoucle).SOMLireNumero());
+			
 		}
 	}
 }
@@ -134,10 +145,7 @@ bool COperationGraphe::OPEEstUneClique(CGraphe & GRPGraphe, int iSommet, ...)
 	while(iBoucleSommet != -1) {
 
 		//Verification existance du sommet.
-		if (!GRPGraphe.GRPSommetExiste(iBoucleSommet)) {
-			throw CException(NUMERO_SOMMMET_INEXISTANT, (char*)"Le sommets saisie est inexistant : ");
-		}
-		if (uiNbSommet > GRPGraphe.GRPLireNbSommet()) {
+		if (uiNbSommet > GRPGraphe.GRPLireNbSommet() || !GRPGraphe.GRPSommetExiste(iBoucleSommet)) {
 			throw CException(NUMERO_SOMMMET_INEXISTANT, (char*)"Un sommet saisie n'esxiste pas dans le graphe !");
 		}
 		else {

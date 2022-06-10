@@ -166,7 +166,7 @@ void CGraphe::GRPModifierSommet(unsigned int uiAncienNumero, unsigned int uiNouv
 void CGraphe::GRPSupprimerSommet(unsigned int uiNumero)
 {
     if (!GRPSommetExiste(uiNumero)) {   //Verification de l'existance du sommet à supprimer.
-        throw CException(NUMERO_SOMMMET_INEXISTANT, (char*)"Ce sommet n'existe pas");
+        throw CException(NUMERO_SOMMMET_INEXISTANT, (char*)"Ce sommet n'existe pas !");
     }
 
     unsigned int uiBoucle, uiBoucle2;
@@ -179,6 +179,11 @@ void CGraphe::GRPSupprimerSommet(unsigned int uiNumero)
     for (uiBoucle = 0; uiBoucle < SOMTemp.SOMLireNbArcSortant(); uiBoucle++) {  //supression des arcs entrant dans les sommmets de destination.
         unsigned int uiDestination = SOMTemp.SOMLireArcSortant(uiBoucle).ARCLireDest();
         GRPObtenirSommet(uiDestination).SOMSupprimerArcEntrant(uiNumero);
+    }
+
+    for (uiBoucle = 0; uiBoucle < SOMTemp.SOMLireNbArcEntrant(); uiBoucle++) {
+        unsigned int uiDestination = SOMTemp.SOMLireArcEntrant(uiBoucle).ARCLireDest();
+        GRPObtenirSommet(uiDestination).SOMSupprimerArcSortant(uiNumero);
     }
     
     uiBoucle2 = 0;
@@ -218,7 +223,7 @@ CSommet & CGraphe::GRPObtenirSommet(unsigned int uiNumero) {
     }
 
     // Si le sommet n'existe pas
-    throw CException(NUMERO_SOMMMET_INEXISTANT,(char *) "Ce sommet n'existe pas");
+    throw CException(NUMERO_SOMMMET_INEXISTANT,(char *) "Ce sommet n'existe pas ! (GRPObtenirSommet)");
 }
 
 /* *********************************************************
